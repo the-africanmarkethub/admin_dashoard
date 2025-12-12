@@ -7,7 +7,7 @@ import Avatar from "@/utils/Avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import { debounce } from "lodash";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { getRecentBookings } from "@/app/api_/bookings";
+import { getRecentBookings } from "@/lib/api_/bookings";
 import StatusBadge from "@/utils/StatusBadge";
 import { BookingResponse } from "@/types/BookingType";
 
@@ -36,7 +36,10 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                     const value = getValue() as BookingResponse["customer"];
                     return (
                         <div className="flex items-center space-x-2">
-                            <Avatar src={value?.photo || ""} alt={value?.name || "Customer"} />
+                            <Avatar
+                                src={value?.photo || ""}
+                                alt={value?.name || "Customer"}
+                            />
                             <span>{value?.name ?? "N/A"}</span>
                         </div>
                     );
@@ -49,7 +52,10 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                     const value = getValue() as BookingResponse["vendor"];
                     return (
                         <div className="flex items-center space-x-2">
-                            <Avatar src={value?.photo || ""} alt={value?.name || "Vendor"} />
+                            <Avatar
+                                src={value?.photo || ""}
+                                alt={value?.name || "Vendor"}
+                            />
                             <span>{value?.name ?? "N/A"}</span>
                         </div>
                     );
@@ -130,26 +136,28 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
         []
     );
 
-
-    const fetchBookings = useCallback(async (pageIndex: number, search: string) => {
-        try {
-            setLoading(true);
-            const offset = pageIndex * pagination.pageSize;
-            const response = await getRecentBookings(
-                pagination.pageSize,
-                offset,
-                search,
-                status
-            );
-            setBookings(response.bookings);
-            setTotalBookings(response.total || 0);
-        } catch (err) {
-            console.error(err);
-            setError("An error occurred while fetching bookings.");
-        } finally {
-            setLoading(false);
-        }
-    }, [pagination.pageSize, status]);
+    const fetchBookings = useCallback(
+        async (pageIndex: number, search: string) => {
+            try {
+                setLoading(true);
+                const offset = pageIndex * pagination.pageSize;
+                const response = await getRecentBookings(
+                    pagination.pageSize,
+                    offset,
+                    search,
+                    status
+                );
+                setBookings(response.bookings);
+                setTotalBookings(response.total || 0);
+            } catch (err) {
+                console.error(err);
+                setError("An error occurred while fetching bookings.");
+            } finally {
+                setLoading(false);
+            }
+        },
+        [pagination.pageSize, status]
+    );
 
     const debouncedFetchBookings = useMemo(
         () =>

@@ -1,5 +1,5 @@
 import { SubscriptionType } from "@/types/SubscriptionType";
-import axios from "../lib/axios";
+import axios from "../../app/lib/axios";
 
 export async function listSubscriptions() {
     const response = await axios.get("/subscriptions");

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { resetPassword } from "../../api_/login";
+import { resetPassword } from "../../../lib/api_/login";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { SubmitButton } from "../../components/commons/SubmitButton";
@@ -61,7 +61,7 @@ export default function ResetPassword() {
         <div className="flex h-screen bg-white text-gray-500">
             <div
                 className="w-1/2 bg-cover bg-center"
-                style={{ backgroundImage: "url('/login.png')" }}
+                style={{ backgroundImage: "url('/login.jpg')" }}
             ></div>
 
             <div className="w-1/2 flex flex-col justify-center items-center px-8">
@@ -75,10 +75,15 @@ export default function ResetPassword() {
 
                 <h1 className="text-2xl font-bold mb-6">Reset Password</h1>
 
-                <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-8">
+                <form
+                    onSubmit={handleSubmit}
+                    className="w-full max-w-sm space-y-8"
+                >
                     {/* Email (readonly) */}
                     <div>
-                        <label className="block text-sm font-medium mb-1">Email</label>
+                        <label className="block text-sm font-medium mb-1">
+                            Email
+                        </label>
                         <input
                             type="email"
                             value={email}

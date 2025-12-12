@@ -7,11 +7,15 @@ import { ColumnDef } from "@tanstack/react-table";
 import { debounce } from "lodash";
 import { Product, Stats } from "@/types/ProductType";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { getRecentProducts, updateItemStatus } from "@/app/api_/products";
+import { getRecentProducts, updateItemStatus } from "@/lib/api_/products";
 import StatusBadge from "@/utils/StatusBadge";
 import ItemSummary from "./ItemSummary";
 import { getStockBadgeClass } from "@/utils/StockBadge";
-import { BuildingStorefrontIcon, EyeIcon, StarIcon } from "@heroicons/react/24/outline";
+import {
+    BuildingStorefrontIcon,
+    EyeIcon,
+    StarIcon,
+} from "@heroicons/react/24/outline";
 import ProductAreaChart from "./ProductAreaChart";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 import toast from "react-hot-toast";
@@ -24,8 +28,8 @@ interface ProductTableProps {
 type Option = { label: string; value: string };
 
 const statusOptions: Option[] = [
-    { label: 'Active', value: 'active' },
-    { label: 'Inactive', value: 'inactive' },
+    { label: "Active", value: "active" },
+    { label: "Inactive", value: "inactive" },
 ];
 
 function ProductActionCell({
@@ -38,7 +42,8 @@ function ProductActionCell({
     onStatusUpdate: (newStatus: string) => void;
 }) {
     const [status, setStatus] = useState<Option>(
-        statusOptions.find((opt) => opt.value === initialStatus) || statusOptions[0]
+        statusOptions.find((opt) => opt.value === initialStatus) ||
+            statusOptions[0]
     );
 
     const handleStatusChange = async (selected: Option) => {
@@ -47,7 +52,7 @@ function ProductActionCell({
         try {
             await updateItemStatus(productId, selected.value);
             toast.success("Status updated");
-            onStatusUpdate(selected.value);  
+            onStatusUpdate(selected.value);
         } catch {
             setStatus(previous);
             toast.error("Failed to update status");
@@ -56,17 +61,22 @@ function ProductActionCell({
 
     return (
         <div className="flex flex-col gap-2">
-            <SelectDropdown value={status} options={statusOptions} onChange={handleStatusChange} />
+            <SelectDropdown
+                value={status}
+                options={statusOptions}
+                onChange={handleStatusChange}
+            />
             <button
                 className="text-sm bg-yellow-500 text-white px-2 py-1 rounded-xl hover:bg-yellow-600"
-                onClick={() => (window.location.href = `/products/${productId}`)}
+                onClick={() =>
+                    (window.location.href = `/products/${productId}`)
+                }
             >
                 View product
             </button>
         </div>
     );
 }
-
 
 const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
     const [products, setProducts] = useState<Product[]>([]);
@@ -86,12 +96,14 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
         total_product: 0,
     });
 
-    const updateProductStatusInState = (id: number, newStatus: "active" | "inactive") => {
+    const updateProductStatusInState = (
+        id: number,
+        newStatus: "active" | "inactive"
+    ) => {
         setProducts((prev) =>
             prev.map((p) => (p.id === id ? { ...p, status: newStatus } : p))
         );
     };
-
 
     const columns: ColumnDef<Product>[] = useMemo(
         () => [
@@ -113,9 +125,13 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                                 className="w-10 h-10 object-cover rounded"
                             />
                             <div className="flex flex-col">
-                                <span className="font-medium text-gray-800">{title}</span>
+                                <span className="font-medium text-gray-800">
+                                    {title}
+                                </span>
                                 {category && (
-                                    <span className="text-xs text-gray-500">{category}</span>
+                                    <span className="text-xs text-gray-500">
+                                        {category}
+                                    </span>
                                 )}
                             </div>
                         </div>
@@ -134,11 +150,16 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                             {[...Array(5)].map((_, index) => (
                                 <StarIcon
                                     key={index}
-                                    className={`w-4 h-4 ${index < stars ? "text-yellow-500" : "text-gray-300"
-                                        }`}
+                                    className={`w-4 h-4 ${
+                                        index < stars
+                                            ? "text-yellow-500"
+                                            : "text-gray-300"
+                                    }`}
                                 />
                             ))}
-                            <span className="ml-2 text-sm text-gray-600">{rating.toFixed(1)}</span>
+                            <span className="ml-2 text-sm text-gray-600">
+                                {rating.toFixed(1)}
+                            </span>
                         </div>
                     );
                 },
@@ -146,18 +167,28 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
             {
                 header: "Price",
                 cell: ({ row }) => {
-                    const salesPrice = parseFloat(row.original.sales_price || "0");
-                    const regularPrice = parseFloat(row.original.regular_price || "0");
+                    const salesPrice = parseFloat(
+                        row.original.sales_price || "0"
+                    );
+                    const regularPrice = parseFloat(
+                        row.original.regular_price || "0"
+                    );
 
                     const formattedSales = `$${salesPrice.toFixed(2)}`;
                     const formattedRegular = `$${regularPrice.toFixed(2)}`;
 
                     return (
                         <div className="flex flex-col text-xs">
-                            <span className="text-gray-800 font-semibold">{formattedSales}</span>
-                            {salesPrice > 0 && regularPrice > 0 && salesPrice < regularPrice && (
-                                <span className="text-gray-500 line-through text-xs">{formattedRegular}</span>
-                            )}
+                            <span className="text-gray-800 font-semibold">
+                                {formattedSales}
+                            </span>
+                            {salesPrice > 0 &&
+                                regularPrice > 0 &&
+                                salesPrice < regularPrice && (
+                                    <span className="text-gray-500 line-through text-xs">
+                                        {formattedRegular}
+                                    </span>
+                                )}
                         </div>
                     );
                 },
@@ -172,7 +203,9 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                     const badgeClass = getStockBadgeClass(quantity, max);
 
                     return (
-                        <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${badgeClass}`}>
+                        <span
+                            className={`px-2 py-0.5 text-xs font-medium rounded-full ${badgeClass}`}
+                        >
                             {quantity}
                         </span>
                     );
@@ -193,7 +226,9 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                                 <span>{vendor.name}</span>
                             </div>
                             <span className="text-xs text-gray-500 mt-0.5 ml-6">
-                                {type === "services" ? "Service Provider" : "Product Seller"}
+                                {type === "services"
+                                    ? "Service Provider"
+                                    : "Product Seller"}
                             </span>
                         </div>
                     ) : (
@@ -215,7 +250,6 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                     );
                 },
             },
-
 
             {
                 header: "Status",
@@ -241,7 +275,10 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                         productId={row.original.id}
                         initialStatus={row.original.status}
                         onStatusUpdate={(newStatus) =>
-                            updateProductStatusInState(row.original.id, newStatus as "active" | "inactive")
+                            updateProductStatusInState(
+                                row.original.id,
+                                newStatus as "active" | "inactive"
+                            )
                         }
                     />
                 ),
