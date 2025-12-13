@@ -22,6 +22,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "utils/Avatar.tsx", "app/categories/sub/page.tsx.bk"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "utils/Avatar.tsx",
+    "app/categories/sub/page.tsx.bk"
+  ],
   "exclude": ["node_modules"]
 }

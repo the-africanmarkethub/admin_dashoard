@@ -26,9 +26,19 @@ const AreaChart = () => {
     const [hasData, setHasData] = useState<boolean>(false);
 
     const monthOptions = MONTHS.map((m) => ({ label: m, value: m }));
-    const [selected, setSelected] = useState<{ label: string; value: string }>(
-        monthOptions[0]
-    );
+  
+     const currentMonthIndex = new Date().getMonth(); // 0-based index
+     const currentMonth = MONTHS[currentMonthIndex];
+  
+     const defaultMonth =
+         monthOptions.find(
+             (m) => m.value.toLowerCase() === currentMonth.toLowerCase()
+         ) || monthOptions[0];
+  
+     const [selected, setSelected] = useState<{ label: string; value: string }>(
+         defaultMonth
+     ); 
+  
 
     interface ChartItem {
         day: string;
