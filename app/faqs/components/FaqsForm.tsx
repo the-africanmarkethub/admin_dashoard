@@ -28,35 +28,38 @@ export default function FaqForm({ onClose, faq }: Props) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (!type?.value) {
             toast.error("Type is required");
             return;
         }
-        if (!String(question).trim()) {
+        if (!question.trim()) {
             toast.error("Question is required");
             return;
         }
-        if (!String(answer).trim()) {
+        if (!answer.trim()) {
             toast.error("Answer is required");
             return;
         }
+
         setLoading(true);
 
-        const formData = new FormData();
-        formData.append("question", String(question));
-        formData.append("answer", String(answer));
-        formData.append("type", String(type?.value || ""));
+        const payload = {
+            question: question,
+            answer: answer,
+            type: type.value,
+            status: "active",
+        };
 
         try {
             if (faq?.id) {
-                await updateFaq(String(faq.id), formData);
+                await updateFaq(String(faq.id), payload);
                 toast.success("FAQ updated successfully");
             } else {
-                await create(formData);
+                await create(payload);
                 toast.success("FAQ added successfully");
             }
             onClose();
-            window.location.reload();
         } catch (error) {
             console.error(error);
             toast.error(`Failed to ${faq?.id ? "update" : "add"} FAQ`);
@@ -74,7 +77,6 @@ export default function FaqForm({ onClose, faq }: Props) {
                 </label>
                 <input
                     type="text"
-                    placeholder="Enter question"
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
@@ -88,7 +90,6 @@ export default function FaqForm({ onClose, faq }: Props) {
                 </label>
                 <textarea
                     rows={4}
-                    placeholder="Enter answer"
                     value={answer}
                     onChange={(e) => setAnswer(e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-500 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
