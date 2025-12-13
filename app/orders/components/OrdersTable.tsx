@@ -38,7 +38,7 @@ const OrderTable: React.FC<OrderTableProps> = ({ limit, status }) => {
                         photo: string;
                     } | null;
                     return (
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 truncate">
                             <Avatar
                                 src={value?.photo}
                                 alt={value?.name || "User"}

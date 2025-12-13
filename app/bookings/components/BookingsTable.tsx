@@ -35,7 +35,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                 cell: ({ getValue }) => {
                     const value = getValue() as BookingResponse["customer"];
                     return (
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 truncate">
                             <Avatar
                                 src={value?.photo || ""}
                                 alt={value?.name || "Customer"}
@@ -51,7 +51,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                 cell: ({ getValue }) => {
                     const value = getValue() as BookingResponse["vendor"];
                     return (
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 truncate">
                             <Avatar
                                 src={value?.photo || ""}
                                 alt={value?.name || "Vendor"}
@@ -73,16 +73,18 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                                 alt={value?.title || "Service"}
                                 width={40}
                                 height={40}
-                                className="w-10 h-10 object-cover rounded"
+                                className="w-10 h-10 object-cover rounded "
                             />
-                            <span>{value?.title ?? "N/A"}</span>
+                            <span className="truncate">
+                                {value?.title ?? "N/A"}
+                            </span>
                         </div>
                     );
                 },
             },
             {
                 header: "Total",
-                accessorKey: "total",
+                accessorKey: "amount",
                 cell: ({ getValue }) => {
                     const value = getValue() as string | number;
                     const numericValue = parseFloat(value as string);

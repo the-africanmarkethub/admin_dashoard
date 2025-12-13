@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 import { changeOrderPaymentStatus, changeOrderStatus } from "@/lib/api_/orders";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
-import { OrderItem, OrderResponse } from "@/types/OrderType";
+import { OrderResponse } from "@/types/OrderType";
 import { User } from "@/types/UserType";
 import dayjs from "dayjs";
 import Address from "@/types/AddressType";
@@ -36,11 +36,11 @@ function CustomerSummary({
     stats,
 }: {
     customer: User;
-    address: Address;
+    address: Address | null;
     stats?: OrderResponse["data"]["stats"];
 }) {
     return (
-        <div className="bg-white rounded-xl p-6 flex items-center justify-between shadow-sm  border border-gray-200 text-sm text-gray-700">
+        <div className="bg-white rounded-xl p-6 flex items-center justify-between shadow-sm border border-gray-200 text-sm text-gray-700">
             <div className="flex items-center gap-4 min-w-[200px]">
                 <div className="relative w-14 h-14 rounded-full border-4 border-orange-500 overflow-hidden">
                     <Image
@@ -51,7 +51,7 @@ function CustomerSummary({
                     />
                 </div>
                 <div>
-                    <p className="font-medium text-gray-800">
+                    <p className="font-medium text-gray-800 truncate">
                         {customer.name} {customer.last_name}
                     </p>
                     <p className="text-gray-500 text-sm">{customer.email}</p>
@@ -73,7 +73,6 @@ function CustomerSummary({
                         Member Since
                     </span>
                     <span className="text-gray-600">
-                        {" "}
                         {dayjs(customer.created_at).format("DD MMM. YYYY")}
                     </span>
                 </div>
@@ -84,7 +83,7 @@ function CustomerSummary({
             <div className="flex flex-col gap-2 min-w-[300px]">
                 <div>
                     <p className="text-xs text-gray-500 font-medium uppercase mb-1">
-                        Shipping Address
+                        Delivery Address
                     </p>
                     {address ? (
                         <p className="text-gray-700">
@@ -102,19 +101,22 @@ function CustomerSummary({
                         <p className="text-gray-500 italic">Not provided</p>
                     )}
                 </div>
+
                 <div className="flex gap-12 mt-1 text-center text-xl text-gray-900">
                     <div>
-                        <p className="font-bold ">
+                        <p className="font-bold">
                             {formatAmount(stats?.total_revenue || 0)}
                         </p>
                         <p className="text-xs text-gray-500">Overall spent</p>
                     </div>
                     <div>
-                        <p className="font-bold ">{stats?.total_orders || 0}</p>
-                        <p className="text-xs text-gray-500">Overall orders</p>
+                        <p className="font-bold">
+                            {stats?.total_bookings || 0}
+                        </p>
+                        <p className="text-xs text-gray-500">Overall bookings</p>
                     </div>
                     <div>
-                        <p className="font-bold ">
+                        <p className="font-bold">
                             {stats?.total_completed || 0}
                         </p>
                         <p className="text-xs text-gray-500">
@@ -122,7 +124,7 @@ function CustomerSummary({
                         </p>
                     </div>
                     <div>
-                        <p className="font-bold ">
+                        <p className="font-bold">
                             {stats?.total_cancelled || 0}
                         </p>
                         <p className="text-xs text-gray-500">
@@ -138,7 +140,8 @@ function CustomerSummary({
 export default function OrderDetail() {
     const params = useParams();
     const orderId = params?.id as string | undefined;
-    const [order, setOrder] = useState<OrderItem | null>(null);
+
+    const [booking, setBooking] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
     const [stats, setStats] = useState<OrderResponse["data"]["stats"] | null>(
         null
@@ -147,7 +150,7 @@ export default function OrderDetail() {
     const [updating, setUpdating] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState(statusOptions[0]);
     const [selectedPaymentStatus, setSelectedPaymentStatus] = useState(
-        statusOptions[0]
+        paymentStatusOptions[0]
     );
 
     useEffect(() => {
@@ -157,7 +160,7 @@ export default function OrderDetail() {
             try {
                 const response = await getBookingDetail(orderId);
                 setStats(response.data.stats);
-                setOrder(response.data.order_item);
+                setBooking(response.data.booking);
             } catch (err) {
                 console.error("Failed to load order detail", err);
             } finally {
@@ -168,83 +171,57 @@ export default function OrderDetail() {
         fetchOrder();
     }, [orderId]);
 
-    if (loading || !order) return <Skeleton count={10} />;
+    if (loading || !booking) {
+        return <Skeleton height={50} count={3} />;
+    }
 
-    const { product, quantity, price, subtotal, order: orderMeta } = order;
-    const { shop } = product;
-    const customer = orderMeta.customer;
-    const address = orderMeta.address;
+    const orderMeta = booking;
+    const customer = booking.customer;
+    const address = booking.customer?.address ?? null;
+
+    const product = booking.service;
+    const quantity = 1;
+    const price = Number(booking.amount);
+    const subtotal = Number(booking.amount);
+    const shop = booking.shop;
 
     const handleStatusChange = async (status: {
         label: string;
         value: string;
     }) => {
-        if (!order) return;
-
         setSelectedStatus(status);
         setUpdating(true);
 
         try {
-            const response = await changeOrderStatus(
-                order?.order?.id,
-                status.value
-            );
-
-            if (response?.success || response?.status === "success") {
-                setOrder((prev) =>
-                    prev
-                        ? {
-                              ...prev,
-                              order: {
-                                  ...prev.order,
-                                  shipping_status: status.value,
-                              },
-                          }
-                        : prev
-                );
-                toast.success("Shipping status updated successfully");
-            } else {
-                console.error("Unexpected response:", response);
-            }
-        } catch (error) {
-            console.error("Failed to update status", error);
+            await changeOrderStatus(orderMeta.id, status.value);
+            setBooking((prev: any) => ({
+                ...prev,
+                delivery_status: status.value,
+            }));
+            toast.success("Shipping status updated successfully");
+        } catch {
+            toast.error("Failed to update shipping status");
         } finally {
             setUpdating(false);
         }
     };
+
     const handlePaymentStatusChange = async (status: {
         label: string;
         value: string;
     }) => {
-        if (!order) return;
-
         setSelectedPaymentStatus(status);
         setUpdating(true);
 
         try {
-            const response = await changeOrderPaymentStatus(
-                order?.order?.id,
-                status.value
-            );
-
-            if (response?.success || response?.status === "success") {
-                setOrder((prev) =>
-                    prev
-                        ? {
-                              ...prev,
-                              order: {
-                                  ...prev.order,
-                                  payment_status: status.value,
-                              },
-                          }
-                        : prev
-                );
-                toast.success("Payment status updated successfully");
-            } else {
-                console.error("Unexpected response:", response);
-            }
-        } catch (error) {
-            console.error("Failed to update payment status", error);
+            await changeOrderPaymentStatus(orderMeta.id, status.value);
+            setBooking((prev: any) => ({
+                ...prev,
+                payment_status: status.value,
+            }));
+            toast.success("Payment status updated successfully");
+        } catch {
+            toast.error("Failed to update payment status");
         } finally {
             setUpdating(false);
         }
@@ -252,13 +229,13 @@ export default function OrderDetail() {
 
     return (
         <div className="p-6 text-gray-600 space-y-4">
-            {/* Header */}
             <div className="flex justify-between items-center">
                 <h1 className="text-xl font-semibold text-gray-800">
                     Order Details - #{orderMeta.id}
                 </h1>
+
                 <div className="flex items-center gap-2">
-                    {orderMeta.shipping_status === "pending" &&
+                    {orderMeta.delivery_status === "pending" &&
                         orderMeta.payment_status === "pending" && (
                             <button className="bg-red-100 text-red-600 px-4 py-1 rounded-md text-sm font-medium">
                                 Cancel Order
@@ -274,6 +251,7 @@ export default function OrderDetail() {
                             disabled={updating}
                         />
                     </div>
+
                     <div className="flex items-center gap-2">
                         <p className="text-gray-500 text-sm">Payment status</p>
                         <SelectDropdown
