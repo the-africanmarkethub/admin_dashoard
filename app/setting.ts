@@ -142,7 +142,7 @@ export const NAVIGATION = [
         ],
     },
     {
-        name: "Subscription Management",
+        name: "Subscriptions",
         href: "/subscriptions",
         icon: BanknotesIcon,
         children: [
@@ -233,14 +233,7 @@ export const bottomNavigation = [
         isLogout: true,
     },
 ];
-
-// interface FAQItem {
-//     id?: number;
-//     question: string;
-//     answer: string;
-//     status: string;
-//     type: string;
-// }
+ 
 // export const FAQ_DATA: FAQItem[] = [
 //     {
 //         question: "What products can I find at African Market HubSUPERMARKET?",
