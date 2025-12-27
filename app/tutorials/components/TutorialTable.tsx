@@ -138,7 +138,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
                 header: "Title",
                 accessorKey: "title",
                 cell: ({ getValue }) => (
-                    <span className="font-medium text-gray-800">
+                    <span className="font-medium text-gray-800 max-w-0 truncate">
                         {getValue() as string}
                     </span>
                 ),
@@ -163,16 +163,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
                         />
                     );
                 },
-            },
-            {
-                header: "Type",
-                accessorKey: "type",
-                cell: ({ getValue }) => (
-                    <span className="capitalize text-sm text-gray-800">
-                        {getValue() as string}
-                    </span>
-                ),
-            },
+            }, 
             {
                 header: "Status",
                 accessorKey: "status",

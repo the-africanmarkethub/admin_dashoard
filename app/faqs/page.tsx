@@ -9,8 +9,8 @@ import FaqsForm from "./components/FaqsForm";
 
 const typeOptions = [
     { label: "All Faqs", value: "" },
-    { label: "Customer Faqs", value: "customer" },
-    { label: "Vendor Faqs", value: "vendor" },
+    // { label: "Customer Faqs", value: "customer" },
+    // { label: "Vendor Faqs", value: "vendor" },
     { label: "App Faqs", value: "system" },
 ];
 

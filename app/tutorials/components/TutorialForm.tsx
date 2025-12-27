@@ -52,18 +52,13 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
         if (tutorial?.video_url) setVideoPreview(tutorial.video_url);
         if (tutorial?.image_url) setImagePreview(tutorial.image_url);
     }, [tutorial]);
-
-    const typeOptions = [
-        { label: "Vendor", value: "vendor" },
-        { label: "Customer", value: "customer" },
-        { label: "System", value: "system" },
-    ];
+ 
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!title.trim()) return toast.error("Title is required");
         if (!description.trim()) return toast.error("Description is required");
-        if (!type?.value) return toast.error("Type is required");
+        // if (!type?.value) return toast.error("Type is required");
         if (!videoPreview.trim() && !imagePreview?.trim()) {
             return toast.error("Either video URL or image is required");
         }
@@ -72,7 +67,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
-        formData.append("type", type.value);
+        formData.append("type", 'system');
         formData.append("video_url", videoPreview);
         formData.append("image", imageFile || "");
 
@@ -336,18 +331,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
                 </label>
             </div>
 
-            {/* Type */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Type <span className="text-red-500">*</span>
-                </label>
-                <SelectDropdown
-                    options={typeOptions}
-                    value={type || { label: "Select type", value: "" }}
-                    onChange={(opt) => setType(opt)}
-                    className="w-full"
-                />
-            </div>
+           
 
             <SubmitButton loading={loading} label="Save changes" />
         </form>

@@ -21,8 +21,8 @@ export default function FaqForm({ onClose, faq }: Props) {
     const [loading, setLoading] = useState(false);
 
     const typeOptions = [
-        { label: "Vendor", value: "vendor" },
-        { label: "Customer", value: "customer" },
+        // { label: "Vendor", value: "vendor" },
+        // { label: "Customer", value: "customer" },
         { label: "General", value: "system" },
     ];
 
