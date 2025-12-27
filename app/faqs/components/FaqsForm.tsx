@@ -60,6 +60,7 @@ export default function FaqForm({ onClose, faq }: Props) {
                 toast.success("FAQ added successfully");
             }
             onClose();
+            window.location.reload();
         } catch (error) {
             console.error(error);
             toast.error(`Failed to ${faq?.id ? "update" : "add"} FAQ`);
