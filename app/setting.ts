@@ -193,17 +193,7 @@ export const NAVIGATION = [
         children: [
             { name: "Privacy & Compliance", href: "/settings/policies" },
         ],
-    },
-    {
-        name: "Location Management",
-        href: "/locations",
-        icon: MapPinIcon,
-        children: [
-            { name: "Countries", href: "/locations/countries" },
-            { name: "Provinces", href: "/locations/states" },
-            { name: "Cities", href: "/locations/cities" },
-        ],
-    },
+    }, 
     {
         name: "Platform Settings",
         href: "/settings/app",
@@ -218,9 +208,9 @@ export const NAVIGATION = [
 export const PrivacyPages = [
     { name: "Privacy Policy", type: "privacy" },
     { name: "Terms and Conditions", type: "terms" },
-    { name: "Delivery Policy", type: "delivery" },
-    { name: "Refund Policy", type: "refund" },
-    { name: "Return Policy", type: "return" },
+    // { name: "Delivery Policy", type: "delivery" },
+    // { name: "Refund Policy", type: "refund" },
+    // { name: "Return Policy", type: "return" },
 ];
 
 export const receiverOptions = [

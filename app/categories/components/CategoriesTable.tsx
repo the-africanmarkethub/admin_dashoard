@@ -19,7 +19,7 @@ import toast from "react-hot-toast";
 import { deleteCategory, getCategories } from "@/lib/api_/categories";
 import CategorySummary from "./CategorySummary";
 import { CategoryType } from "@/types/CategoryType";
-import { useCategoryStore } from "@/app/store/CategoryStore";
+import { useCategoryStore } from "@/store/CategoryStore";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 import Drawer from "@/app/components/commons/Drawer";
 import CategoryForm from "./CategoryForm";
