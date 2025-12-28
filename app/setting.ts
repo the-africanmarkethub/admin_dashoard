@@ -207,10 +207,8 @@ export const NAVIGATION = [
 
 export const PrivacyPages = [
     { name: "Privacy Policy", type: "privacy" },
-    { name: "Terms and Conditions", type: "terms" },
-    // { name: "Delivery Policy", type: "delivery" },
-    // { name: "Refund Policy", type: "refund" },
-    // { name: "Return Policy", type: "return" },
+    { name: "Terms and Conditions", type: "terms" }, 
+    { name: "Return and Refund Policy", type: "return" },
 ];
 
 export const receiverOptions = [
