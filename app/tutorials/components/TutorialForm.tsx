@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import { Tutorial } from "@/types/TutorialType";
@@ -16,11 +15,7 @@ interface Props {
 
 export default function TutorialForm({ onClose, tutorial }: Props) {
     const [title, setTitle] = useState(tutorial?.title || "");
-    const [description, setDescription] = useState(tutorial?.description || "");
-    const [type, setType] = useState<{ label: string; value: string } | null>(
-        tutorial?.type ? { label: tutorial.type, value: tutorial.type } : null
-    );
-
+    const [description, setDescription] = useState(tutorial?.description || ""); 
     const [videoPreview, setVideoPreview] = useState(tutorial?.video_url || "");
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [vimeoThumbnail, setVimeoThumbnail] = useState<string | null>(null);
