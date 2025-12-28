@@ -30,7 +30,6 @@ import {
     CubeIcon,
     AdjustmentsHorizontalIcon,
     FlagIcon,
-    MapPinIcon,
     BanknotesIcon,
 } from "@heroicons/react/24/outline";
 
@@ -199,7 +198,6 @@ export const NAVIGATION = [
         href: "/settings/app",
         icon: AdjustmentsHorizontalIcon,
         children: [
-            { name: "Settings", href: "/settings/app" },
             { name: "Team members", href: "/teams" },
         ],
     },

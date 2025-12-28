@@ -8,9 +8,7 @@ import {
 } from "@/types/CategoryType";
 import { CubeIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid";
 import { ColumnDef } from "@tanstack/react-table";
-import TanStackTable from "@/app/components/commons/TanStackTable";
-import { EyeIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import TanStackTable from "@/app/components/commons/TanStackTable"; 
 import { formatAmount } from "@/utils/formatCurrency";
 
 export default function Analytics() {

@@ -5,9 +5,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { listSubscribers } from "@/lib/api_/subscriptions";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import { formatAmount } from "@/utils/formatCurrency";
-import { formatRelative, parseISO } from "date-fns";
+import Image from "next/image";
 
-// 1. Updated Interface to match API structure
 interface SubscriberType {
     id: number;
     start_date: string;
@@ -51,7 +50,9 @@ export default function SubscribersTable({ limit }: Props) {
                 cell: ({ row }) => (
                     <div className="flex items-center gap-3">
                         {row.original.shop?.logo ? (
-                            <img
+                            <Image
+                                width={32}
+                                height={32}
                                 src={row.original.shop.logo}
                                 alt="logo"
                                 className="size-8 rounded-full object-cover border"
