@@ -15,7 +15,7 @@ interface Props {
 
 export default function TutorialForm({ onClose, tutorial }: Props) {
     const [title, setTitle] = useState(tutorial?.title || "");
-    const [description, setDescription] = useState(tutorial?.description || ""); 
+    const [description, setDescription] = useState(tutorial?.description || "");
     const [videoPreview, setVideoPreview] = useState(tutorial?.video_url || "");
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const [vimeoThumbnail, setVimeoThumbnail] = useState<string | null>(null);
@@ -47,7 +47,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
         if (tutorial?.video_url) setVideoPreview(tutorial.video_url);
         if (tutorial?.image_url) setImagePreview(tutorial.image_url);
     }, [tutorial]);
- 
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -296,7 +296,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
                             className="object-cover"
                         />
                     ) : (
-                        <div className="flex flex-col items-center text-orange-600">
+                        <div className="flex flex-col items-center text-green-600">
                             <svg
                                 className="w-12 h-12 text-gray-400"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -326,7 +326,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
                 </label>
             </div>
 
-           
+
 
             <SubmitButton loading={loading} label="Save changes" />
         </form>

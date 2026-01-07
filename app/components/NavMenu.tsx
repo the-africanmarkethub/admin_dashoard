@@ -54,8 +54,8 @@ const NavMenu = ({ user }: { user: User | null }) => {
                             className={clsx(
                                 "w-full flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-semibold overflow-y-auto scrollbar-thin scrollbar-thumb-gray-50 hover:scrollbar-thumb-gray-100 scrollbar-track-transparent",
                                 isActiveParent
-                                    ? "text-orange-500"
-                                    : "text-gray-700 hover:text-orange-500"
+                                    ? "text-green-500"
+                                    : "text-gray-700 hover:text-green-500"
                             )}
                         >
                             <span className="flex items-center gap-x-3">
@@ -81,8 +81,8 @@ const NavMenu = ({ user }: { user: User | null }) => {
                                                 className={clsx(
                                                     "block px-3 py-1.5 text-xs rounded-md",
                                                     isActiveSub
-                                                        ? "bg-orange-50 text-orange-600"
-                                                        : "text-gray-500 hover:text-orange-500 hover:bg-orange-50"
+                                                        ? "bg-orange-50 text-green-600"
+                                                        : "text-gray-500 hover:text-green-500 hover:bg-orange-50"
                                                 )}
                                             >
                                                 {subItem.name}

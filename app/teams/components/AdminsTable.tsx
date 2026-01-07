@@ -94,7 +94,7 @@ export default function AdminsTable() {
                 cell: ({ row }) => (
                     <button
                         onClick={() => setConfirmDeleteId(row.original.id)}
-                        className=" flex items-center bg-yellow-500 text-white p-1.5 rounded hover:bg-yellow-600"
+                        className=" flex items-center bg-hub-primary0 text-white p-1.5 rounded hover:bg-hub-secondary"
                     >
                         <TrashIcon className="w-4 h-4 mr-1" /> Revoke
                     </button>

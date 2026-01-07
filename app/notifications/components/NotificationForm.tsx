@@ -159,15 +159,15 @@ export default function NotificationForm({ onClose, notification }: Props) {
                             </span>
                             {type.value === "sms"
                                 ? selectedUser.phone || (
-                                      <span className="italic text-red-500">
-                                          No phone available
-                                      </span>
-                                  )
+                                    <span className="italic text-red-500">
+                                        No phone available
+                                    </span>
+                                )
                                 : selectedUser.email || (
-                                      <span className="italic text-red-500">
-                                          No email available
-                                      </span>
-                                  )}
+                                    <span className="italic text-red-500">
+                                        No email available
+                                    </span>
+                                )}
                         </div>
                     )}
                 </div>
@@ -187,8 +187,8 @@ export default function NotificationForm({ onClose, notification }: Props) {
                         isSMS
                             ? "Max 160 characters for SMS"
                             : isEmail
-                            ? "Max 1000 characters for Email"
-                            : "Type your notification message here"
+                                ? "Max 1000 characters for Email"
+                                : "Type your notification message here"
                     }
                 />
                 {(isSMS || isEmail) && (
@@ -229,7 +229,7 @@ export default function NotificationForm({ onClose, notification }: Props) {
                                     className="object-cover"
                                 />
                             ) : (
-                                <div className="flex flex-col items-center justify-center text-center text-orange-600">
+                                <div className="flex flex-col items-center justify-center text-center text-green-600">
                                     <svg
                                         className="w-12 h-12 text-gray-400"
                                         xmlns="http://www.w3.org/2000/svg"

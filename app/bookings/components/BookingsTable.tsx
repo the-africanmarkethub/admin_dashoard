@@ -116,7 +116,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                     const bookingId = getValue();
                     return (
                         <button
-                            className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700 cursor-pointer"
+                            className="px-3 py-1 bg-hub-secondary text-white rounded hover:bg-hub-secondary cursor-pointer"
                             onClick={() => {
                                 window.location.href = `/bookings/${bookingId}`;
                             }}

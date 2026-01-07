@@ -43,7 +43,7 @@ function ProductActionCell({
 }) {
     const [status, setStatus] = useState<Option>(
         statusOptions.find((opt) => opt.value === initialStatus) ||
-            statusOptions[0]
+        statusOptions[0]
     );
 
     const handleStatusChange = async (selected: Option) => {
@@ -67,7 +67,7 @@ function ProductActionCell({
                 onChange={handleStatusChange}
             />
             <button
-                className="text-sm bg-yellow-500 text-white px-2 py-1 rounded-xl hover:bg-yellow-600"
+                className="text-sm bg-hub-primary0 text-white px-2 py-1 rounded-xl hover:bg-hub-secondary"
                 onClick={() =>
                     (window.location.href = `/products/${productId}`)
                 }
@@ -150,11 +150,10 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                             {[...Array(5)].map((_, index) => (
                                 <StarIcon
                                     key={index}
-                                    className={`w-4 h-4 ${
-                                        index < stars
-                                            ? "text-yellow-500"
-                                            : "text-gray-300"
-                                    }`}
+                                    className={`w-4 h-4 ${index < stars
+                                        ? "text-hub-primary"
+                                        : "text-gray-300"
+                                        }`}
                                 />
                             ))}
                             <span className="ml-2 text-sm text-gray-600">

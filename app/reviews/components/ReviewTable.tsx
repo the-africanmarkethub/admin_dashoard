@@ -102,7 +102,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                 cell: ({ getValue }) => {
                     const rating = Number(getValue());
                     return (
-                        <span className="text-yellow-600 font-semibold">
+                        <span className="text-hub-secondary font-semibold">
                             {rating} / 5
                         </span>
                     );

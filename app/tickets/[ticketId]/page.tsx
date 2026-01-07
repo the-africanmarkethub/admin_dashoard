@@ -180,11 +180,10 @@ export default function TicketDetailPage() {
                     return (
                         <div
                             key={`${entry.timestamp}-${index}`}
-                            className={`flex items-start gap-3 max-w-[80%] ${
-                                isAgent
+                            className={`flex items-start gap-3 max-w-[80%] ${isAgent
                                     ? "ml-auto flex-row-reverse text-right"
                                     : "mr-auto"
-                            }`}
+                                }`}
                         >
                             <Image
                                 src={sender?.profile_photo || "/default.jpg"}
@@ -194,11 +193,10 @@ export default function TicketDetailPage() {
                                 className="w-10 h-10 rounded-full object-cover border border-gray-300"
                             />
                             <div
-                                className={`p-4 rounded-b-2xl text-sm ${
-                                    isAgent
+                                className={`p-4 rounded-b-2xl text-sm ${isAgent
                                         ? "bg-gray-100 border border-orange-300 rounded-l-xl"
                                         : "bg-orange-50 border border-orange-200 rounded-r-xl"
-                                }`}
+                                    }`}
                             >
                                 <div className="font-semibold mb-1">
                                     {sender?.name}
@@ -316,7 +314,7 @@ function TicketReply({
                 <button
                     onClick={handleSend}
                     disabled={sending}
-                    className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm hover:bg-orange-600 disabled:opacity-50"
+                    className="bg-orange-500 text-white px-4 py-2 rounded-full text-sm hover:bg-hub-secondary disabled:opacity-50"
                 >
                     {sending ? "Sending..." : "Send"}
                 </button>

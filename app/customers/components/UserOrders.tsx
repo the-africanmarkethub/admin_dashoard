@@ -217,7 +217,7 @@ export default function UserOrders({ userId, type }: UserOrdersProps) {
                             />
                         </>
                     ) : (
-                        <p className="flex items-center justify-center w-full text-yellow-900 p-4 border border-amber-500 bg-amber-50 rounded-xl text-sm text-center">
+                        <p className="flex items-center justify-center w-full text-hub-secondary p-4 border border-amber-500 bg-amber-50 rounded-xl text-sm text-center">
                             {searchInput
                                 ? `No orders found for “${searchInput}”.`
                                 : `This ${type} does not have any orders yet.`}

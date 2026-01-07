@@ -76,11 +76,10 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                             {[...Array(5)].map((_, index) => (
                                 <StarIcon
                                     key={index}
-                                    className={`w-4 h-4 ${
-                                        index < stars
-                                            ? "text-yellow-500"
-                                            : "text-gray-300"
-                                    }`}
+                                    className={`w-4 h-4 ${index < stars
+                                        ? "text-hub-primary"
+                                        : "text-gray-300"
+                                        }`}
                                 />
                             ))}
                             <span className="ml-2 text-sm text-gray-600">
@@ -190,7 +189,7 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                     const productId = getValue();
                     return (
                         <button
-                            className="px-3 py-1 bg-yellow-600 text-white rounded hover:bg-yellow-700 cursor-pointer"
+                            className="px-3 py-1 bg-hub-secondary text-white rounded hover:bg-hub-secondary cursor-pointer"
                             onClick={() =>
                                 (window.location.href = `/products/${productId}`)
                             }

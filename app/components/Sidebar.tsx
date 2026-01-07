@@ -102,7 +102,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                 <button
                     type="button"
                     onClick={() => setSidebarOpen(true)}
-                    className="-m-2.5 p-2.5 text-orange-500 hover:text-orange-900"
+                    className="-m-2.5 p-2.5 text-green-500 hover:text-green-900"
                 >
                     <Bars3Icon className="size-6 mr-2" />
                 </button>
@@ -189,9 +189,8 @@ function BottomMenu({
                 >
                     {({ open }) => (
                         <ChevronUpIcon
-                            className={`h-4 w-4 transition-transform duration-200 ${
-                                open ? "rotate-180" : ""
-                            }`}
+                            className={`h-4 w-4 transition-transform duration-200 ${open ? "rotate-180" : ""
+                                }`}
                         />
                     )}
                 </PopoverButton>
@@ -204,18 +203,16 @@ function BottomMenu({
                         <button
                             key={item.name}
                             onClick={item.isLogout ? onLogout : undefined}
-                            className={`w-full text-left flex items-center cursor-pointer gap-x-3 rounded-md px-4 py-2 text-xs font-medium  ${
-                                item.isLogout
-                                    ? "text-orange-500 font-bold bg-white border "
+                            className={`w-full text-left flex items-center cursor-pointer gap-x-3 rounded-md px-4 py-2 text-xs font-medium  ${item.isLogout
+                                    ? "text-green-500 font-bold bg-white border "
                                     : ""
-                            } ${collapsed ? "justify-center" : ""}`}
+                                } ${collapsed ? "justify-center" : ""}`}
                         >
                             <item.icon
-                                className={`size-4 ${
-                                    item.isLogout
+                                className={`size-4 ${item.isLogout
                                         ? "text-red-500  font-bold"
                                         : "text-white"
-                                }`}
+                                    }`}
                             />
                             {!collapsed && <span>{item.name}</span>}
                         </button>

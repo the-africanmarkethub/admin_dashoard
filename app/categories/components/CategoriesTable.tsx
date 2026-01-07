@@ -49,7 +49,7 @@ function CategoryActionCell({
 }) {
     const [status, setStatus] = useState<Option>(
         statusOptions.find((opt) => opt.value === category.status) ||
-            statusOptions[0]
+        statusOptions[0]
     );
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -98,7 +98,7 @@ function CategoryActionCell({
 
                 <button
                     title="Update"
-                    className="bg-yellow-500 text-white p-1.5 rounded-md hover:bg-yellow-600"
+                    className="bg-hub-primary0 text-white p-1.5 rounded-md hover:bg-hub-secondary"
                     onClick={() => {
                         onEdit(category);
                     }}

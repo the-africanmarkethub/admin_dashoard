@@ -10,7 +10,7 @@ import {
 } from "@/lib/api_/categories";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
-import { CategoryType, CategoryResponse } from "@/types/CategoryType"; 
+import { CategoryType, CategoryResponse } from "@/types/CategoryType";
 
 interface Props {
     onClose: () => void;
@@ -29,9 +29,9 @@ export default function CategoryForm({ onClose, category }: Props) {
     const [selectedParent, setSelectedParent] = useState<DropdownOption | null>(
         category?.parent_id
             ? {
-                  label: category.parent_name || "",
-                  value: String(category.parent_id),
-              }
+                label: category.parent_name || "",
+                value: String(category.parent_id),
+            }
             : null
     );
     const [description, setDescription] = useState(category?.description || "");
@@ -196,7 +196,7 @@ export default function CategoryForm({ onClose, category }: Props) {
             <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                     Parent Category{" "}
-                    <span className="text-yellow-500">(optional)</span>
+                    <span className="text-hub-primary">(optional)</span>
                 </label>
                 <SelectDropdown
                     options={categoryOptions}
@@ -205,8 +205,8 @@ export default function CategoryForm({ onClose, category }: Props) {
                             label: isFetching
                                 ? "Loading..."
                                 : type
-                                ? "Select category"
-                                : "Select Type first", // Guidance added
+                                    ? "Select category"
+                                    : "Select Type first", // Guidance added
                             value: "",
                         }
                     }
@@ -271,7 +271,7 @@ export default function CategoryForm({ onClose, category }: Props) {
                             className="object-cover"
                         />
                     ) : (
-                        <div className="flex flex-col items-center justify-center text-center text-orange-600">
+                        <div className="flex flex-col items-center justify-center text-center text-green-600">
                             <svg
                                 className="w-12 h-12 text-gray-400"
                                 xmlns="http://www.w3.org/2000/svg"

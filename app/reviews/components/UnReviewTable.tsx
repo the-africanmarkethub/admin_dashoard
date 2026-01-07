@@ -57,7 +57,7 @@ const UnReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                             href={`/orders/${orderId}`}
                             className="text-amber-600 font-medium hover:underline"
                         >
-                           Order #{orderId}
+                            Order #{orderId}
                         </Link>
                     );
                 },
@@ -96,11 +96,10 @@ const UnReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                     const status = getValue() as string;
                     return (
                         <span
-                            className={`px-2 py-1 text-xs rounded ${
-                                status === "delivered"
-                                    ? "bg-green-100 text-green-700"
-                                    : "bg-yellow-100 text-yellow-700"
-                            }`}
+                            className={`px-2 py-1 text-xs rounded ${status === "delivered"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-hub-primary text-hub-secondary"
+                                }`}
                         >
                             {status}
                         </span>
