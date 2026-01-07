@@ -204,7 +204,7 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                 accessorKey: "quantity",
                 cell: ({ getValue }) => {
                     const quantity = getValue() as number;
-                    const max = 100; // Use actual max stock if available
+                    const max = 100;
                     const badgeClass = getStockBadgeClass(quantity, max);
 
                     return (
@@ -219,16 +219,26 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
 
             {
                 header: "Vendor",
-                accessorKey: "vendor.name",
+                accessorKey: "shop.name",
                 cell: ({ row }) => {
-                    const vendor = row.original.vendor;
+                    const shop = row.original.shop;
                     const type = row.original.type;
+                    const shopUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/shops/${shop?.slug}`;
 
-                    return vendor ? (
+                    return shop ? (
                         <div className="flex flex-col text-gray-700">
                             <div className="flex items-center gap-2">
-                                <BuildingStorefrontIcon className="w-4 h-4 text-hub-secondary" />
-                                <span>{vendor.name}</span>
+                                <BuildingStorefrontIcon className="w-4 h-4 text-hub-secondary shrink-0" />
+                                {/* Link for the Shop Name */}
+                                <a
+                                    href={shopUrl}
+                                    target="_blank"
+                                    title="View Shop"
+                                    rel="noopener noreferrer"
+                                    className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors"
+                                >
+                                    {shop.name}
+                                </a>
                             </div>
                             <span className="text-xs text-gray-500 mt-0.5 ml-6">
                                 {type === "services"
