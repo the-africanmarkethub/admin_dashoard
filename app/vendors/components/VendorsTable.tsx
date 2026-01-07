@@ -140,7 +140,7 @@ const VendorsTable: React.FC<VendorsTableProps> = ({ limit }) => {
                     placeholder="Search by name, or phone..."
                     value={search}
                     onChange={handleSearchChange}
-                    className="w-full px-3 py-2 border rounded-md border-amber-600 text-gray-900"
+                    className="w-full px-3 py-2 border rounded-md border-hub-secondary text-gray-900"
                 />
             </div>
             <TanStackTable
