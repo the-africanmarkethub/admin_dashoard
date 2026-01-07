@@ -19,6 +19,8 @@ import {
 import ProductAreaChart from "./ProductAreaChart";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 import toast from "react-hot-toast";
+import Link from "next/link";
+import { formatAmount } from "@/utils/formatCurrency";
 
 interface ProductTableProps {
     limit: number;
@@ -66,14 +68,7 @@ function ProductActionCell({
                 options={statusOptions}
                 onChange={handleStatusChange}
             />
-            <button
-                className="text-sm bg-hub-primary0 text-white px-2 py-1 rounded-xl hover:bg-hub-secondary"
-                onClick={() =>
-                    (window.location.href = `/products/${productId}`)
-                }
-            >
-                View product
-            </button>
+             
         </div>
     );
 }
@@ -113,21 +108,35 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                 cell: ({ row }) => {
                     const image = row.original.images?.[0];
                     const title = row.original.title;
+                    const slug = row.original.slug;
                     const category = row.original.category?.name;
+
+                    // Construct the external URL
+                    const productUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/items/${slug}`;
 
                     return (
                         <div className="flex items-center space-x-2">
-                            <Image
-                                src={image || "/placeholder.png"}
-                                alt={title}
-                                width={40}
-                                height={40}
-                                className="w-10 h-10 object-cover rounded"
-                            />
+                            {/* Wrap image in link */}
+                            <Link href={productUrl} target="_blank" rel="noopener noreferrer" className="shrink-0">
+                                <Image
+                                    src={image || "/placeholder.png"}
+                                    alt={title}
+                                    width={40}
+                                    height={40}
+                                    className="w-10 h-10 object-cover rounded border hover:opacity-80 transition-opacity"
+                                />
+                            </Link>
+
                             <div className="flex flex-col">
-                                <span className="font-medium text-gray-800">
+                                <Link
+                                    href={productUrl}
+                                    target="_blank"
+                                    title="View Item"
+                                    rel="noopener noreferrer"
+                                    className="text-sm truncate max-w-40 text-gray-800 font-medium hover:text-hub-primary hover:underline transition-colors"
+                                >
                                     {title}
-                                </span>
+                                </Link>
                                 {category && (
                                     <span className="text-xs text-gray-500">
                                         {category}
@@ -166,33 +175,30 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
             {
                 header: "Price",
                 cell: ({ row }) => {
-                    const salesPrice = parseFloat(
-                        row.original.sales_price || "0"
-                    );
-                    const regularPrice = parseFloat(
-                        row.original.regular_price || "0"
-                    );
+                    const salesPrice = row.original.sales_price;
+                    const regularPrice = row.original.regular_price;
 
-                    const formattedSales = `$${salesPrice.toFixed(2)}`;
-                    const formattedRegular = `$${regularPrice.toFixed(2)}`;
+                    const hasDiscount =
+                        parseFloat(salesPrice) > 0 &&
+                        parseFloat(regularPrice) > 0 &&
+                        parseFloat(salesPrice) < parseFloat(regularPrice);
 
                     return (
                         <div className="flex flex-col text-xs">
+                            {/* Main Selling Price */}
                             <span className="text-gray-800 font-semibold">
-                                {formattedSales}
+                                {formatAmount(salesPrice)}
                             </span>
-                            {salesPrice > 0 &&
-                                regularPrice > 0 &&
-                                salesPrice < regularPrice && (
-                                    <span className="text-gray-500 line-through text-xs">
-                                        {formattedRegular}
-                                    </span>
-                                )}
+
+                            {hasDiscount && (
+                                <span className="text-gray-500 line-through text-[10px]">
+                                    {formatAmount(regularPrice)}
+                                </span>
+                            )}
                         </div>
                     );
                 },
             },
-
             {
                 header: "Stock",
                 accessorKey: "quantity",

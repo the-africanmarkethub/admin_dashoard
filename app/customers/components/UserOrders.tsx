@@ -99,7 +99,8 @@ export default function UserOrders({ userId, type }: UserOrdersProps) {
                             <Link
                                 href={productUrl}
                                 target="_blank"
-                                className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors"
+                                title="View Item"
+                                className="font-medium text-sm text-gray-800 hover:text-hub-secondary hover:underline transition-colors"
                             >
                                 {product?.title ?? "Unnamed Product"}
                             </Link>

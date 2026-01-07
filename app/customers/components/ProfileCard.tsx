@@ -84,7 +84,7 @@ export default function ProfileCard({
                         <div className="w-20 h-20 relative border-4 border-white rounded-full overflow-hidden shadow-md">
                             <Image
                                 fill
-                                src={user?.profile_photo ?? "/placeholder.jpg"}
+                                src={user?.profile_photo ?? "/placeholder.png"}
                                 alt={user?.name ?? "User"}
                                 className="object-cover"
                             />
@@ -272,11 +272,10 @@ export default function ProfileCard({
                                                 );
                                             }
                                         }}
-                                        className={`px-4 py-2 rounded-md text-white transition ${
-                                            confirmText === "DELETE"
+                                        className={`px-4 py-2 rounded-md text-white transition ${confirmText === "DELETE"
                                                 ? "bg-red-600 hover:bg-red-700 cursor-pointer"
                                                 : "bg-red-300 cursor-not-allowed"
-                                        }`}
+                                            }`}
                                     >
                                         {loading ? "Deleting..." : "Delete"}
                                     </button>

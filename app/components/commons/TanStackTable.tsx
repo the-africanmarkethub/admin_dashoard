@@ -111,7 +111,7 @@ function TanStackTable<T>({
                         </tr>
                     ) : (
                         table.getRowModel().rows.map((row) => (
-                            <tr key={row.id} className="hover:bg-hub-primary/50 cursor-pointer transition">
+                            <tr key={row.id} className="hover:bg-hub-primary/10 cursor-pointer transition">
                                 {row.getVisibleCells().map((cell) => (
                                     <td key={cell.id} className="px-4 py-3 whitespace-nowrap">
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
