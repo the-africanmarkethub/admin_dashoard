@@ -92,7 +92,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
                     value={form.name}
                     onChange={handleChange}
                     placeholder="Enter plan name"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-hub-primary/200"
                 />
             </div>
 
@@ -107,7 +107,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
                     value={form.monthly_price}
                     onChange={handleChange}
                     placeholder="Enter monthly price"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-hub-primary/200"
                 />
             </div>
 
@@ -122,7 +122,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
                     value={form.yearly_price}
                     onChange={handleChange}
                     placeholder="Enter yearly price"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-hub-primary/200"
                 />
             </div>
 
@@ -160,7 +160,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
                     value={form.payment_link}
                     onChange={handleChange}
                     placeholder="https://payment.example.com"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-hub-primary/200"
                 />
             </div>
 

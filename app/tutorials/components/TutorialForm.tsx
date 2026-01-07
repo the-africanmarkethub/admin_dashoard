@@ -235,7 +235,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
                     placeholder="Enter title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-hub-primary/200"
                 />
             </div>
 
@@ -273,7 +273,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
                         setIsVideoPlaying(false);
                     }}
                     placeholder="Paste YouTube, Vimeo, or direct video URL"
-                    className="w-full border border-gray-300 rounded-lg p-2 focus:ring-amber-500 focus:border-amber-500"
+                    className="w-full border border-gray-300 rounded-lg p-2 focus:ring-hub-primary/200 focus:border-hub-primary"
                 />
                 {renderVideoPreview()}
             </div>
@@ -285,7 +285,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
                 </label>
                 <label
                     htmlFor="imageFile"
-                    className="relative w-full aspect-[3/2] border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-amber-500 hover:bg-amber-50 transition overflow-hidden flex items-center justify-center"
+                    className="relative w-full aspect-[3/2] border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-hub-primary hover:bg-amber-50 transition overflow-hidden flex items-center justify-center"
                 >
                     {imagePreview ? (
                         <Image

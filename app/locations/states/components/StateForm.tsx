@@ -84,7 +84,7 @@ export default function StateForm({
                     type="text"
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-hub-primary/200"
                     placeholder="e.g. London"
                 />
             </div>
@@ -102,13 +102,13 @@ export default function StateForm({
                     value={
                         form.country_id
                             ? {
-                                  label:
-                                      countries.find(
-                                          (c) =>
-                                              c.id === Number(form.country_id)
-                                      )?.name || "Select Country",
-                                  value: String(form.country_id),
-                              }
+                                label:
+                                    countries.find(
+                                        (c) =>
+                                            c.id === Number(form.country_id)
+                                    )?.name || "Select Country",
+                                value: String(form.country_id),
+                            }
                             : { label: "Select Country", value: "" }
                     }
                     onChange={(selected) =>

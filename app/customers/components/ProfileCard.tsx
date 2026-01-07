@@ -238,7 +238,7 @@ export default function ProfileCard({
                                     onChange={(e) =>
                                         setConfirmText(e.target.value)
                                     }
-                                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 mt-2"
+                                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-hub-primary/200 focus:border-hub-primary mt-2"
                                 />
 
                                 <div className="mt-6 flex justify-end gap-3">
@@ -273,8 +273,8 @@ export default function ProfileCard({
                                             }
                                         }}
                                         className={`px-4 py-2 rounded-md text-white transition ${confirmText === "DELETE"
-                                                ? "bg-red-600 hover:bg-red-700 cursor-pointer"
-                                                : "bg-red-300 cursor-not-allowed"
+                                            ? "bg-red-600 hover:bg-red-700 cursor-pointer"
+                                            : "bg-red-300 cursor-not-allowed"
                                             }`}
                                     >
                                         {loading ? "Deleting..." : "Delete"}
