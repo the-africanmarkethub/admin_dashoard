@@ -141,7 +141,7 @@ export default function CommissionForm({
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-4 py-2 text-sm rounded-md bg-amber-600 text-white hover:bg-amber-700 disabled:opacity-60"
+                    className="px-4 py-2 text-sm rounded-md bg-hub-secondary text-white hover:bg-hub-secondary disabled:opacity-60"
                 >
                     {initialData ? "Update" : "Create"}
                 </button>

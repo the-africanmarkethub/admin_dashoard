@@ -89,7 +89,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                     return (
                         <Link
                             href={`/orders/${orderId}`}
-                            className="text-amber-600 font-medium hover:underline"
+                            className="text-hub-secondary font-medium hover:underline"
                         >
                             #{orderId}
                         </Link>

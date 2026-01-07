@@ -70,7 +70,7 @@ export default function SubscriptionTable({
                             href={link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-amber-600 underline hover:text-amber-700 break-words"
+                            className="text-hub-secondary underline hover:text-hub-secondary break-words"
                         >
                             {link.length > 50
                                 ? link.substring(0, 50) + "..."

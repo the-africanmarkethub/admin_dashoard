@@ -166,7 +166,7 @@ export default function UserOrders({ userId, type }: UserOrdersProps) {
                             onClick={() =>
                                 router.push(`/orders/${row.original.id}`)
                             }
-                            className="px-3 py-1 bg-amber-600 text-white rounded hover:bg-amber-700 cursor-pointer"
+                            className="px-3 py-1 bg-hub-secondary text-white rounded hover:bg-hub-secondary cursor-pointer"
                         >
                             View
                         </button>

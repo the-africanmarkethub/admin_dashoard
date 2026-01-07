@@ -218,7 +218,7 @@ export default function CategoryForm({ onClose, category }: Props) {
                     }
                 />
                 {isFetching && (
-                    <p className="text-xs text-amber-600 mt-1">
+                    <p className="text-xs text-hub-secondary mt-1">
                         Fetching parent categories for {type?.label || "type"}
                         ...
                     </p>

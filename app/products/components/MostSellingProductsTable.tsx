@@ -139,7 +139,7 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                     return vendor ? (
                         <div className="flex flex-col text-gray-700">
                             <div className="flex items-center gap-2">
-                                <BuildingStorefrontIcon className="w-4 h-4 text-amber-600" />
+                                <BuildingStorefrontIcon className="w-4 h-4 text-hub-secondary" />
                                 <span>{vendor.name}</span>
                             </div>
                             <span className="text-xs text-gray-500 mt-0.5 ml-6">
@@ -160,7 +160,7 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                     const views = getValue() as number;
                     return (
                         <div className="flex items-center gap-1 text-gray-700">
-                            <EyeIcon className="w-4 h-4 text-amber-600" />
+                            <EyeIcon className="w-4 h-4 text-hub-secondary" />
                             <span>{views}</span>
                         </div>
                     );

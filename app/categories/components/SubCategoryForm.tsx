@@ -32,16 +32,16 @@ export default function SubCategoryForm({
     const [selectedParent, setSelectedParent] = useState<DropdownOption | null>(
         category?.parent_id
             ? {
-                  label: category.parent_name ?? "",
-                  value: String(category.parent_id),
-              }
+                label: category.parent_name ?? "",
+                value: String(category.parent_id),
+            }
             : null
     );
 
     const [type, setType] = useState<DropdownOption | null>(
         category?.parent_name && category.parent_type
             ? typeOptions.find((opt) => opt.value === category.parent_type) ||
-                  null
+            null
             : null
     );
     // Local state for categories, initialized as empty
@@ -174,8 +174,8 @@ export default function SubCategoryForm({
                             label: isFetching
                                 ? "Loading..."
                                 : type
-                                ? "Select category"
-                                : "Select Type first", // Guidance added
+                                    ? "Select category"
+                                    : "Select Type first", // Guidance added
                             value: "",
                         }
                     }
@@ -187,7 +187,7 @@ export default function SubCategoryForm({
                     }
                 />
                 {isFetching && (
-                    <p className="text-xs text-amber-600 mt-1">
+                    <p className="text-xs text-hub-secondary mt-1">
                         Fetching parent categories for{" "}
                         {type?.label || "selected type"}...
                     </p>

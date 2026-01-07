@@ -8,7 +8,7 @@ import {
 } from "@/types/CategoryType";
 import { CubeIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/solid";
 import { ColumnDef } from "@tanstack/react-table";
-import TanStackTable from "@/app/components/commons/TanStackTable"; 
+import TanStackTable from "@/app/components/commons/TanStackTable";
 import { formatAmount } from "@/utils/formatCurrency";
 
 export default function Analytics() {
@@ -64,7 +64,7 @@ export default function Analytics() {
 
                     return (
                         <div className="flex items-center gap-2 text-gray-800 font-medium">
-                            <Icon className="w-4 h-4 text-amber-600" />
+                            <Icon className="w-4 h-4 text-hub-secondary" />
                             {type.charAt(0).toUpperCase() + type.slice(1)}
                         </div>
                     );

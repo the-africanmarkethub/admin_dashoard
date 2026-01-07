@@ -39,7 +39,7 @@ const BannersTable: React.FC<BannerProps> = ({ limit, onDelete }) => {
 
                     return (
                         <div className="flex items-center gap-2 text-gray-800 font-medium">
-                            <Icon className="w-4 h-4 text-amber-600" />
+                            <Icon className="w-4 h-4 text-hub-secondary" />
                             {type.charAt(0).toUpperCase() + type.slice(1)}
                         </div>
                     );

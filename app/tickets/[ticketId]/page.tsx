@@ -119,7 +119,7 @@ export default function TicketDetailPage() {
         <div className="p-6 bg-white h-screen rounded-xl w-full shadow">
             <div className="flex items-center justify-between mb-6">
                 <button
-                    className="text-white  hover:text-black bg-amber-500 rounded-full p-2 cursor-pointer"
+                    className="text-white  hover:text-black bg-hub-primary rounded-full p-2 cursor-pointer"
                     onClick={() => history.back()}
                 >
                     <ArrowLeftIcon className="h-5 w-5 font-bold" />
@@ -181,8 +181,8 @@ export default function TicketDetailPage() {
                         <div
                             key={`${entry.timestamp}-${index}`}
                             className={`flex items-start gap-3 max-w-[80%] ${isAgent
-                                    ? "ml-auto flex-row-reverse text-right"
-                                    : "mr-auto"
+                                ? "ml-auto flex-row-reverse text-right"
+                                : "mr-auto"
                                 }`}
                         >
                             <Image
@@ -194,8 +194,8 @@ export default function TicketDetailPage() {
                             />
                             <div
                                 className={`p-4 rounded-b-2xl text-sm ${isAgent
-                                        ? "bg-gray-100 border border-orange-300 rounded-l-xl"
-                                        : "bg-orange-50 border border-orange-200 rounded-r-xl"
+                                    ? "bg-gray-100 border border-orange-300 rounded-l-xl"
+                                    : "bg-orange-50 border border-orange-200 rounded-r-xl"
                                     }`}
                             >
                                 <div className="font-semibold mb-1">

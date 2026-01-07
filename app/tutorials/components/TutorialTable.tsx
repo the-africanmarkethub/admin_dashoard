@@ -77,9 +77,8 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
           relative inline-flex h-6 w-11 items-center rounded-full`}
             >
                 <span
-                    className={`${
-                        enabled ? "translate-x-6" : "translate-x-1"
-                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                    className={`${enabled ? "translate-x-6" : "translate-x-1"
+                        } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                 />
             </Switch>
         );
@@ -163,7 +162,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
                         />
                     );
                 },
-            }, 
+            },
             {
                 header: "Status",
                 accessorKey: "status",
@@ -185,7 +184,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
                                 setEditingTutorial(row.original);
                                 setDrawerOpen(true);
                             }}
-                            className="p-2 text-white hover:text-blue-800 bg-amber-500 rounded-xl cursor-pointer"
+                            className="p-2 text-white hover:text-blue-800 bg-hub-primary rounded-xl cursor-pointer"
                         >
                             <PencilIcon className="w-5 h-5" />
                         </button>

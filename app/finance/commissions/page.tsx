@@ -130,7 +130,7 @@ export default function Commission() {
                         setSelectedCommission(null);
                         setDrawerOpen(true);
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-amber-500 text-white hover:bg-amber-600"
+                    className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-hub-primary text-white hover:bg-hub-secondary"
                 >
                     <PlusIcon className="w-4 h-4" />
                     Add Commission

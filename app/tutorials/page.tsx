@@ -5,7 +5,7 @@ import { PlusIcon } from "@heroicons/react/20/solid";
 import Drawer from "../components/commons/Drawer";
 import TutorialForm from "./components/TutorialForm";
 import TutorialTable from "./components/TutorialTable";
- 
+
 
 export default function Tutorials() {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function Tutorials() {
                 <div className="flex gap-3 items-center">
                     <button
                         onClick={() => setDrawerOpen(true)}
-                        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-amber-500 text-white hover:bg-amber-600"
+                        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-hub-primary text-white hover:bg-hub-secondary"
                     >
                         <PlusIcon className="w-4 h-4" />
                         Create Tutorial

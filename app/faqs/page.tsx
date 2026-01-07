@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import SelectDropdown from "../components/commons/Fields/SelectDropdown";
- import { PlusIcon } from "@heroicons/react/20/solid";
-import Drawer from "../components/commons/Drawer"; 
+import { PlusIcon } from "@heroicons/react/20/solid";
+import Drawer from "../components/commons/Drawer";
 import FaqsTable from "./components/FaqsTable";
 import FaqsForm from "./components/FaqsForm";
 
@@ -38,7 +38,7 @@ export default function Faqs() {
 
                     <button
                         onClick={() => setDrawerOpen(true)}
-                        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-amber-500 text-white hover:bg-amber-600 cursor-pointer"
+                        className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-xl bg-hub-primary text-white hover:bg-hub-secondary cursor-pointer"
                     >
                         <PlusIcon className="w-4 h-4" />
                         Create Faqs
