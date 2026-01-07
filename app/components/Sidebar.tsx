@@ -136,9 +136,9 @@ const SidebarContent = ({
             <Image
                 src="/logo.svg"
                 alt="African Market Hub"
-                width={150}
-                height={40}
-                className="h-10 w-30"
+                width={120}
+                height={60}
+                className="h-15 w-50"
                 priority
             />
         </div>
@@ -164,7 +164,7 @@ function BottomMenu({
 }) {
     return (
         <Popover className="relative w-1/2">
-            <div className="fixed bottom-0 z-50 bg-hub-primary-400 text-white rounded-xl shadow-inner px-1.5 py-1.5 flex items-center justify-between">
+            <div className="fixed bottom-0 z-50 bg-hub-primary text-white rounded-xl shadow-inner px-1.5 py-1.5 flex items-center justify-between">
                 <div className="flex items-center gap-x-1">
                     <Image
                         className="size-5 rounded-full object-cover"

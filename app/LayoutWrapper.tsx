@@ -19,10 +19,7 @@ export default function LayoutWrapper({
                 sidebarCollapsed={sidebarCollapsed}
                 setSidebarCollapsed={setSidebarCollapsed}
             />
-
-            {/* FIX: Added lg:ml-72 to push the content away from the fixed sidebar.
-               Added min-w-0 to ensure children don't push the layout wider than the screen.
-            */}
+ 
             <div className="flex flex-col flex-1 min-w-0 h-full lg:ml-72 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-50 hover:scrollbar-thumb-gray-100 scrollbar-track-transparent">
                 <main className="py-8 px-4 sm:px-6 lg:px-8">{children}</main>
             </div>

@@ -87,7 +87,7 @@ export default function Commission() {
                 cell: ({ row }) => (
                     <div className="flex items-center gap-3">
                         <button
-                            className="bg-hub-primary0 text-white p-1.5 rounded hover:bg-hub-secondary"
+                            className="bg-hub-primary text-white p-1.5 rounded hover:bg-hub-secondary"
                             onClick={() => handleEdit(row.original)}
                             title="Edit"
                         >
