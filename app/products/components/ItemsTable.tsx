@@ -152,7 +152,7 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                 accessorKey: "average_rating",
                 cell: ({ getValue }) => {
                     const rating = parseFloat(getValue() as string) || 0;
-                    const stars = Math.round(rating); // Round to nearest whole number
+                    const stars = Math.round(rating);
 
                     return (
                         <div className="flex items-center gap-0.5">
@@ -235,7 +235,7 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                                     target="_blank"
                                     title="View Shop"
                                     rel="noopener noreferrer"
-                                    className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors"
+                                    className="font-medium truncate max-w-40 text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors"
                                 >
                                     {shop.name}
                                 </a>
