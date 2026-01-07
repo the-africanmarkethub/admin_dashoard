@@ -63,6 +63,14 @@ export default function ProfileCard({
         { label: "Active", value: "true" },
         { label: "Inactive", value: "false" },
     ];
+    useEffect(() => {
+        if (user) {
+            setSelectedStatus({
+                label: user.is_active ? "Active" : "Inactive",
+                value: user.is_active ? "true" : "false",
+            });
+        }
+    }, [user]);
 
     return (
         <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-white">
@@ -168,13 +176,13 @@ export default function ProfileCard({
                         </p>
                         {loading ? (
                             <Skeleton width={180} />
-                        ) : user?.address ? (
+                        ) : user?.address_book ? (
                             <p className="text-gray-700">
                                 {[
-                                    user.address.street_address,
-                                    user.address.city,
-                                    user.address.state,
-                                    user.address.country,
+                                    user?.address_book?.street_address,
+                                    user?.address_book?.city,
+                                    user?.address_book?.state,
+                                    user?.address_book?.country,
                                 ]
                                     .filter(Boolean)
                                     .join(", ")}

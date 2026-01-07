@@ -70,7 +70,7 @@ export interface UserDetailResponse {
     deleted_at: string | null;
     created_at: string;
     updated_at: string;
-    address: Address;
+    address_book: Address;
     wallet: Wallet;
 }
 

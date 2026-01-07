@@ -11,6 +11,7 @@ import Image from "next/image";
 import StatusBadge from "@/utils/StatusBadge";
 import { debounce } from "lodash";
 import TableSkeleton from "@/app/components/Skeletons/TableSkeleton";
+import Link from "next/link";
 
 interface UserOrdersProps {
     userId: string;
@@ -83,20 +84,25 @@ export default function UserOrders({ userId, type }: UserOrdersProps) {
             accessorKey: "product.title",
             cell: ({ row }) => {
                 const product = row.original?.product;
-
+                const frontendUrl = process.env.NEXT_PUBLIC_FRONTEND_URL;
+                const productUrl = `${frontendUrl}/items/${product?.slug}`;
                 return (
                     <div className="flex items-center gap-3">
                         <Image
                             width={40}
                             height={40}
                             src={product?.images?.[0] || "/no-image.png"}
-                            alt={product?.title}
+                            alt={product?.title || "Product image"}
                             className="w-10 h-10 object-cover rounded-md border"
                         />
                         <div>
-                            <div className="font-medium text-sm text-gray-800">
+                            <Link
+                                href={productUrl}
+                                target="_blank"
+                                className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors"
+                            >
                                 {product?.title ?? "Unnamed Product"}
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 );
