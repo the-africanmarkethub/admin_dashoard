@@ -10,6 +10,7 @@ import TanStackTable from "@/app/components/commons/TanStackTable";
 import { getRecentBookings } from "@/lib/api_/bookings";
 import StatusBadge from "@/utils/StatusBadge";
 import { BookingResponse } from "@/types/BookingType";
+import { formatAmount } from "@/utils/formatCurrency";
 
 interface BookingTableProps {
     limit: number;
@@ -35,49 +36,79 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                 cell: ({ getValue }) => {
                     const value = getValue() as BookingResponse["customer"];
                     return (
-                        <div className="flex items-center space-x-2 truncate">
+                        <div className="flex items-center space-x-2 ">
                             <Avatar
-                                src={value?.photo || ""}
+                                src={value?.profile_photo || ""}
                                 alt={value?.name || "Customer"}
                             />
-                            <span>{value?.name ?? "N/A"}</span>
+                            <span className="truncate max-w-40" title={value?.name}>{value?.name ?? "N/A"}</span>
                         </div>
                     );
                 },
             },
-            {
-                header: "Vendor",
-                accessorKey: "vendor",
-                cell: ({ getValue }) => {
-                    const value = getValue() as BookingResponse["vendor"];
-                    return (
-                        <div className="flex items-center space-x-2 truncate">
-                            <Avatar
-                                src={value?.photo || ""}
-                                alt={value?.name || "Vendor"}
-                            />
-                            <span>{value?.name ?? "N/A"}</span>
-                        </div>
-                    );
-                },
-            },
+
             {
                 header: "Service",
                 accessorKey: "service",
                 cell: ({ getValue }) => {
                     const value = getValue() as BookingResponse["service"];
+                    const displayImage = Array.isArray(value?.images) ? value.images[0] : value?.images;
+                    const serviceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/items/${value?.slug}?type=services`;
+
                     return (
                         <div className="flex items-center space-x-2">
-                            <Image
-                                src={value?.image || ""}
-                                alt={value?.title || "Service"}
-                                width={40}
-                                height={40}
-                                className="w-10 h-10 object-cover rounded "
-                            />
-                            <span className="truncate">
-                                {value?.title ?? "N/A"}
-                            </span>
+                            <a href={serviceUrl} target="_blank" rel="noopener noreferrer" className="shrink-0">
+                                <Image
+                                    src={displayImage || "/placeholder.png"}
+                                    alt={value?.title || "Service"}
+                                    width={38}
+                                    height={38}
+                                    className="w-9 h-9 object-cover rounded-full border hover:opacity-80 transition-opacity"
+                                />
+                            </a>
+
+                            <div className="flex flex-col">
+                                <a
+                                    href={serviceUrl}
+                                    target="_blank"
+                                    title={value?.title}
+                                    rel="noopener noreferrer"
+                                    className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors truncate max-w-30 mr-2"
+                                >
+                                    <span className="truncate max-w-20">{value?.title ?? "N/A"}</span>
+                                </a>
+                            </div>
+                        </div>
+                    );
+                },
+            },
+            {
+                header: "Provider",
+                accessorKey: "shop",
+                cell: ({ getValue }) => {
+                    const value = getValue() as BookingResponse["shop"];
+                    const shopUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/shops/${value?.slug}`;
+
+                    return (
+                        <div className="flex items-center space-x-2 truncate">
+                            {/* Wrap Avatar in the link */}
+                            <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="shrink-0">
+                                <Avatar
+                                    src={value?.logo || ""}
+                                    alt={value?.name || "Vendor"}
+                                />
+                            </a>
+
+                            {/* Wrap Name in the link */}
+                            <a
+                                href={shopUrl}
+                                target="_blank"
+                                title="View provider"
+                                rel="noopener noreferrer"
+                                className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors truncate"
+                            >
+                                {value?.name ?? "N/A"}
+                            </a>
                         </div>
                     );
                 },
@@ -90,7 +121,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                     const numericValue = parseFloat(value as string);
                     return isNaN(numericValue)
                         ? "Invalid"
-                        : `$${numericValue.toFixed(2)}`;
+                        : `${formatAmount(numericValue)}`;
                 },
             },
             {

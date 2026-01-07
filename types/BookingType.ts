@@ -1,23 +1,17 @@
+import { Product, Shop } from "./OrderType";
+import { User } from "./UserType";
+
 export interface BookingResponse {
-  id: number;
+    id: number;
 
-  customer: {
-    name: string | null;
-    photo: string | null;
-  } | null;
+    customer: User;
 
-  vendor: {
-    name: string | null;
-    photo: string | null;
-  } | null;
+    shop: Shop;
 
-  service: {
-    title: string | null;
-    image: string | null;
-  } | null;
+    service: Product;
 
-  total: string | number;
-  delivery_status: string;
-  payment_status: string;
-  created_at: string;
+    total: string | number;
+    delivery_status: string;
+    payment_status: string;
+    created_at: string;
 }
