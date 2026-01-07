@@ -39,17 +39,12 @@ export default function SubscriptionTable({
                 accessorFn: (row) => formatAmount(row.monthly_price),
             },
             {
-                header: "Yearly Price",
-                accessorFn: (row) => formatAmount(row.yearly_price),
-            },
-            {
                 header: "Features",
-                // ✅ Use `cell` instead of `accessorFn`
                 cell: ({ row }) => {
                     const html = row.original.features || "";
                     const truncated =
-                        html.length > 100
-                            ? html.substring(0, 100) + "..."
+                        html.length > 50
+                            ? html.substring(0, 50) + "..."
                             : html;
 
                     return (
@@ -63,7 +58,7 @@ export default function SubscriptionTable({
             {
                 header: "Payment Link",
                 cell: ({ row }) => {
-                    const link = row.original.payment_link;
+                    const link = row.original.payment_link_url;
                     if (!link) return "—";
                     return (
                         <a
@@ -72,8 +67,8 @@ export default function SubscriptionTable({
                             rel="noopener noreferrer"
                             className="text-hub-secondary underline hover:text-hub-secondary break-words"
                         >
-                            {link.length > 50
-                                ? link.substring(0, 50) + "..."
+                            {link.length > 25
+                                ? link.substring(0, 25) + "..."
                                 : link}
                         </a>
                     );
@@ -85,15 +80,19 @@ export default function SubscriptionTable({
                     <div className="flex items-center gap-2">
                         {onEdit && (
                             <button
+                                aria-label="update"
+                                title="update subscription"
                                 onClick={() => onEdit(row.original)}
-                                className="bg-blue-500 text-white p-1.5 rounded hover:bg-blue-600"
+                                className="bg-blue-500 text-white p-1.5 rounded hover:bg-hub-secondary cursor-pointer"
                             >
                                 <PencilSquareIcon className="w-4 h-4" />
                             </button>
                         )}
                         <button
+                            aria-label="delete"
+                            title="delete subscription"
                             onClick={() => onDelete(row.original)}
-                            className="bg-red-500 text-white p-1.5 rounded hover:bg-red-600"
+                            className="bg-red-500 text-white p-1.5 rounded hover:bg-red-600 cursor-pointer"
                         >
                             <TrashIcon className="w-4 h-4" />
                         </button>

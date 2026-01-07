@@ -57,7 +57,7 @@ export default function SubscriptionPage() {
                     </p>
                 </div>
 
-                <div className="flex gap-3 items-center">
+                <div hidden className="flex gap-3 items-center">
                     <button
                         onClick={() => {
                             setEditingSubscription(null);
