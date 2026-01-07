@@ -70,8 +70,10 @@ const BannersTable: React.FC<BannerProps> = ({ limit, onDelete }) => {
                 cell: ({ row }) => (
                     <div className="flex items-center gap-2">
                         <button
+                            aria-label="delete"
+                            title="delete banner"
                             onClick={() => onDelete(row.original)}
-                            className="bg-red-500 text-white p-1.5 rounded hover:bg-red-600"
+                            className="bg-red-500 text-white p-1.5 rounded hover:bg-red-600 cursor-pointer"
                         >
                             <TrashIcon className="w-4 h-4" />
                         </button>

@@ -12,8 +12,8 @@ import {
     DialogPanel,
     DialogTitle,
 } from "@headlessui/react";
-import BannersForm from "../categories/components/BannersForm";
-import BannersTable from "../categories/components/BannersTable";
+import BannersForm from "./components/BannersForm";
+import BannersTable from "./components/BannersTable";
 import { deleteBanner } from "../../lib/api_/banners";
 
 export default function Banners() {
