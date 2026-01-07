@@ -63,7 +63,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                                     alt={value?.title || "Service"}
                                     width={38}
                                     height={38}
-                                    className="w-9 h-9 object-cover rounded-full border hover:opacity-80 transition-opacity"
+                                    className="w-9 h-9 object-cover rounded-md border hover:opacity-80 transition-opacity"
                                 />
                             </a>
 
@@ -93,9 +93,13 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                         <div className="flex items-center space-x-2 truncate">
                             {/* Wrap Avatar in the link */}
                             <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="shrink-0">
-                                <Avatar
+                                
+                                <Image
                                     src={value?.logo || ""}
                                     alt={value?.name || "Vendor"}
+                                    width={38}
+                                    height={38}
+                                    className="w-9 h-9 object-cover rounded-md border hover:opacity-80 transition-opacity"
                                 />
                             </a>
 
