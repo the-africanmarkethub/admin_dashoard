@@ -56,7 +56,7 @@ export default function NotificationForm({ onClose, notification }: Props) {
     useEffect(() => {
         if (notification) {
             const matched = receiverOptions.find(
-                (opt) => opt.value === notification.receiver
+                (opt) => opt.value === notification.receiver,
             );
             if (matched) setReceiver(matched);
 
@@ -159,15 +159,15 @@ export default function NotificationForm({ onClose, notification }: Props) {
                             </span>
                             {type.value === "sms"
                                 ? selectedUser.phone || (
-                                    <span className="italic text-red-500">
-                                        No phone available
-                                    </span>
-                                )
+                                      <span className="italic text-red-500">
+                                          No phone available
+                                      </span>
+                                  )
                                 : selectedUser.email || (
-                                    <span className="italic text-red-500">
-                                        No email available
-                                    </span>
-                                )}
+                                      <span className="italic text-red-500">
+                                          No email available
+                                      </span>
+                                  )}
                         </div>
                     )}
                 </div>
@@ -187,8 +187,8 @@ export default function NotificationForm({ onClose, notification }: Props) {
                         isSMS
                             ? "Max 160 characters for SMS"
                             : isEmail
-                                ? "Max 1000 characters for Email"
-                                : "Type your notification message here"
+                              ? "Max 1000 characters for Email"
+                              : "Type your notification message here"
                     }
                 />
                 {(isSMS || isEmail) && (
@@ -219,7 +219,7 @@ export default function NotificationForm({ onClose, notification }: Props) {
                         </label>
                         <label
                             htmlFor="notificationImage"
-                            className="relative w-full h-50 aspect-square border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-hub-primary hover:bg-amber-50 transition-colors overflow-hidden flex items-center justify-center"
+                            className="relative w-full h-50 aspect-square border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-hub-primary hover:bg-hub-primary/20 transition-colors overflow-hidden flex items-center justify-center"
                         >
                             {imagePreview ? (
                                 <Image
@@ -304,5 +304,5 @@ const loadUserOptions = debounce(
             callback([]);
         }
     },
-    500
+    500,
 );

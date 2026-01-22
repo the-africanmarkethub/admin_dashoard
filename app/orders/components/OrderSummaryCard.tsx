@@ -22,7 +22,7 @@ export default function OrderSummaryCard({
                     <span className="font-semibold">
                         {formatAmount(
                             Number(orderMeta.total) -
-                            Number(orderMeta.shipping_fee)
+                                Number(orderMeta.shipping_fee),
                         )}
                     </span>
                 </div>
@@ -53,12 +53,13 @@ export default function OrderSummaryCard({
                             </p>
                         </div>
                         <span
-                            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${orderMeta.payment_status === "completed"
+                            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${
+                                orderMeta.payment_status === "completed"
                                     ? "bg-green-100 text-green-800"
                                     : orderMeta.payment_status === "pending"
-                                        ? "bg-hub-primary text-yellow-800"
-                                        : "bg-red-100 text-red-800"
-                                }`}
+                                      ? "bg-hub-primary text-hub-secondary"
+                                      : "bg-red-100 text-red-800"
+                            }`}
                         >
                             {orderMeta.payment_status}
                         </span>
@@ -75,28 +76,35 @@ export default function OrderSummaryCard({
                                 {product.shop?.name ?? "—"}
                             </p>
                             <p className="text-xs text-gray-500">
-                                Pickup: {product.shop?.address?.street_address ?? "—"}{" "}
-                                {product.shop?.address?.city ?? "—"} {" "}
-                                {product.shop?.address?.state ?? "—"} {" "}
-                                {product.shop?.address?.country ?? "—"} {" "}
+                                Pickup:{" "}
+                                {product.shop?.address?.street_address ?? "—"}{" "}
+                                {product.shop?.address?.city ?? "—"}{" "}
+                                {product.shop?.address?.state ?? "—"}{" "}
+                                {product.shop?.address?.country ?? "—"}{" "}
                                 {product.shop?.address?.zip_code ?? "—"}
                             </p>
                             <p className="text-xs text-gray-500">
-                                Phone: <Link title="Call vendor" href={`tel:${product.shop?.address?.phone ?? ""}`}>
+                                Phone:{" "}
+                                <Link
+                                    title="Call vendor"
+                                    href={`tel:${product.shop?.address?.phone ?? ""}`}
+                                >
                                     {product.shop?.address?.phone ?? "—"}
                                 </Link>
                             </p>
                         </div>
                         <div className="flex flex-col items-end gap-2">
                             <span
-                                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${orderMeta.vendor_payment_settlement_status ===
-                                        "paid"
-                                    ? "bg-green-100 text-hub-primary"
+                                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold ${
+                                    orderMeta.vendor_payment_settlement_status ===
+                                    "paid"
+                                        ? "bg-green-100 text-hub-primary"
                                         : "bg-hub-primary text-white"
-                                    }`}
+                                }`}
                             >
                                 {orderMeta.vendor_payment_settlement_status ??
-                                    "unpaid"} to vendor
+                                    "unpaid"}{" "}
+                                to vendor
                             </span>
                         </div>
                     </div>
@@ -124,9 +132,9 @@ export default function OrderSummaryCard({
                                     {formatAmount(
                                         Number(
                                             shippingService?.total ??
-                                            orderMeta.shipping_fee ??
-                                            0
-                                        )
+                                                orderMeta.shipping_fee ??
+                                                0,
+                                        ),
                                     )}{" "}
                                     {shippingService?.currency ?? ""}
                                 </p>

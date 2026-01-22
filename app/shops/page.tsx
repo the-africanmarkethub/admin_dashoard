@@ -15,6 +15,7 @@ import { MetricCard } from "./components/MetricCard";
 import AnalysisAreaChart from "./components/AnalysisAreaChart";
 import toast from "react-hot-toast";
 import ConfirmationModal from "../components/commons/ConfirmationModal";
+import Link from "next/link";
 
 const typeOptions = [
     { label: "All Types", value: "" },
@@ -30,7 +31,7 @@ export default function Shops() {
     const [search, setSearch] = useState("");
     const [pagination, setPagination] = useState({
         pageIndex: 0,
-        pageSize: 20,
+        pageSize: 10,
     });
 
     const [selectedType, setSelectedType] = useState(typeOptions[0]);
@@ -118,23 +119,56 @@ export default function Shops() {
                 header: "Shop",
                 accessorKey: "name",
                 cell: ({ row }) => {
-                    const { name, logo, type, category } = row.original;
+                    const { name, logo, type, category, slug } = row.original;
+                    // The full external path
+                    const publicUrl = `https://africanmarkethub.ca/shops/${slug}`;
+
                     return (
                         <div className="flex items-center gap-3">
-                            {logo && (
-                                <div className="w-10 h-10 relative rounded-full overflow-hidden border">
-                                    <Image
-                                        src={logo}
-                                        alt={name}
-                                        fill
-                                        className="object-cover"
-                                    />
-                                </div>
-                            )}
+                            {/* Logo Link */}
+                            <a
+                                href={publicUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:opacity-80 transition-opacity"
+                            >
+                                {logo && (
+                                    <div className="w-10 h-10 relative rounded-full overflow-hidden border">
+                                        <Image
+                                            src={logo}
+                                            alt={name}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                )}
+                            </a>
+
                             <div className="flex flex-col">
-                                <span className="text-gray-900 font-medium leading-tight">
+                                {/* External Shop Link */}
+                                <a
+                                    href={publicUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-900 font-medium leading-tight hover:text-blue-600 flex items-center gap-1"
+                                >
                                     {name}
-                                </span>
+                                    {/* Adding a small external link icon is helpful for Admins */}
+                                    <svg
+                                        className="w-3 h-3 text-gray-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        />
+                                    </svg>
+                                </a>
+
                                 <span className="text-xs text-gray-500 capitalize">
                                     {category?.name} |{" "}
                                     <b>{row.original.products_count}</b> {type}
@@ -149,26 +183,95 @@ export default function Shops() {
                 accessorKey: "vendor.name",
                 cell: ({ row }) => {
                     const vendor = row.original.vendor;
+                    // Assuming the vendor ID is available as vendor.id
+                    const vendorPath = `/vendors/${vendor?.id}`;
+
                     return (
-                        <div className="text-sm">
-                            <div className="font-medium text-gray-900">
-                                {vendor?.name} {vendor?.last_name}
+                        <Link href={vendorPath} className="group block">
+                            <div className="text-sm">
+                                <div className="flex item-center gap-1 font-medium text-gray-900 group-hover:text-hub-secondary transition-colors">
+                                    {vendor?.name} {vendor?.last_name}
+                                    {/* Adding a small external link icon is helpful for Admins */}
+                                    <svg
+                                        className="w-3 h-3 text-gray-400"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        />
+                                    </svg>
+                                </div>
                             </div>
-                            <div className="text-xs text-gray-500">
-                                {vendor?.city}, {vendor?.state}
-                            </div>
+                        </Link>
+                    );
+                },
+            },
+            {
+                header: "Identity Doc",
+                accessorKey: "identification_document",
+                cell: ({ row }) => {
+                    const docLink = row.original.identification_document;
+                    const docType = row.original.identification_type;
+
+                    return (
+                        <div className="flex flex-col text-sm">
+                            <span className="text-gray-500 text-xs uppercase font-semibold">
+                                {docType || "N/A"}
+                            </span>
+                            {docLink ? (
+                                <a
+                                    href={docLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-blue-600 hover:underline flex items-center gap-1 mt-0.5"
+                                >
+                                    View Document
+                                    <svg
+                                        className="w-3 h-3"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            strokeWidth={2}
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                                        />
+                                    </svg>
+                                </a>
+                            ) : (
+                                <span className="text-gray-400 italic text-xs">
+                                    No file
+                                </span>
+                            )}
                         </div>
                     );
                 },
             },
             {
                 header: "Pickup Address",
-                accessorKey: "address",
-                cell: ({ row }) => (
-                    <span className="text-gray-600 text-sm">
-                        {row.original.address}
-                    </span>
-                ),
+                id: "pickup_address",
+                cell: ({ row }) => {
+                    const address = row.original?.address;
+                    if (!address)
+                        return (
+                            <span className="text-gray-400 italic text-xs">
+                                No Address
+                            </span>
+                        );
+
+                    return (
+                        <span className="text-gray-600 text-sm">
+                            {address.city}, {address.state}
+                        </span>
+                    );
+                },
             },
             {
                 header: "Status",
@@ -195,13 +298,13 @@ export default function Shops() {
                         }}
                         className="inline-flex items-center gap-1 text-sm px-3 py-1.5 border border-red-500 text-red-600 rounded hover:bg-red-50 transition cursor-pointer"
                     >
-                        Delete
+                        Remove Shop
                         <TrashIcon className="w-4 h-4" />
                     </button>
                 ),
             },
         ],
-        []
+        [],
     );
 
     const pageSizeOptions = [10, 20, 30, 50].map((size) => ({

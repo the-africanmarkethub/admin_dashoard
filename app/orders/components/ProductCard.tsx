@@ -5,11 +5,11 @@ import Link from "next/link";
 export default function ProductCard({
     product,
     activeImage,
-    setActiveImage, 
+    setActiveImage,
 }: any) {
     return (
         <div className="col-span-1 flex flex-col gap-4">
-            <div className="border border-orange-100 rounded-md overflow-hidden">
+            <div className="border border-hub-primary/50 rounded-md overflow-hidden">
                 {activeImage ? (
                     <div className="relative w-full h-56">
                         <Image
@@ -29,7 +29,7 @@ export default function ProductCard({
                         <button
                             key={img}
                             onClick={() => setActiveImage(img)}
-                            className="w-20 h-20 rounded-md overflow-hidden border border-orange-100"
+                            className="w-20 h-20 rounded-md overflow-hidden border border-hub-primary/50"
                         >
                             <div className="relative w-full h-full">
                                 <Image
@@ -58,7 +58,7 @@ export default function ProductCard({
                 <p className="text-sm text-gray-500 line-clamp-1">
                     {product.description ? parse(product.description) : ""}
                 </p>
-            </div>              
+            </div>
         </div>
     );
 }

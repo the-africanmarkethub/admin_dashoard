@@ -49,13 +49,13 @@ function CategoryActionCell({
 }) {
     const [status, setStatus] = useState<Option>(
         statusOptions.find((opt) => opt.value === category.status) ||
-        statusOptions[0]
+            statusOptions[0],
     );
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [editingCategory, setEditingCategory] = useState<CategoryType | null>(
-        null
+        null,
     );
     const [loading, setLoading] = useState(false);
 
@@ -178,15 +178,15 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ limit, type }) => {
     const { setCategories: saveToStore } = useCategoryStore();
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [editingCategory, setEditingCategory] = useState<CategoryType | null>(
-        null
+        null,
     );
 
     const updateCategoryStatusInState = (
         id: number,
-        newStatus: "active" | "inactive"
+        newStatus: "active" | "inactive",
     ) => {
         setCategories((prev) =>
-            prev.map((c) => (c.id === id ? { ...c, status: newStatus } : c))
+            prev.map((c) => (c.id === id ? { ...c, status: newStatus } : c)),
         );
     };
 
@@ -226,7 +226,7 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ limit, type }) => {
                                     target="_blank"
                                     title="View Category"
                                     rel="noopener noreferrer"
-                                    className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors"
+                                    className="font-medium text-sm text-gray-800 hover:text-hub-secondary/20 hover:underline transition-colors"
                                 >
                                     {name}
                                 </a>
@@ -284,7 +284,7 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ limit, type }) => {
                             onStatusUpdate={(newStatus) =>
                                 updateCategoryStatusInState(
                                     category.id,
-                                    newStatus
+                                    newStatus,
                                 )
                             }
                             onEdit={(cat) => {
@@ -296,7 +296,7 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ limit, type }) => {
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchCategories = useCallback(
@@ -308,7 +308,7 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ limit, type }) => {
                     pagination.pageSize,
                     offset,
                     search,
-                    type
+                    type,
                 );
                 saveToStore(response.data);
                 setCategories(response.data);
@@ -321,7 +321,7 @@ const CategoriesTable: React.FC<CategoryTableProps> = ({ limit, type }) => {
                 setLoading(false);
             }
         },
-        [pagination.pageSize, type, saveToStore]
+        [pagination.pageSize, type, saveToStore],
     );
 
     const debouncedFetch = useMemo(() => {

@@ -8,8 +8,10 @@ import 'react-loading-skeleton/dist/skeleton.css'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: process.env.NEXT_PUBLIC_APP_NAME || "My App",
-    description: process.env.NEXT_PUBLIC_APP_DESCRIPTION || "Welcome to my app",
+    title: process.env.NEXT_PUBLIC_APP_NAME || "African Market Hub Admin",
+    description:
+        process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
+        "Welcome to African Market Hub Admin",
 };
 
 export default function RootLayout({

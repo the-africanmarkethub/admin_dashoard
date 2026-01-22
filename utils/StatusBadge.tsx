@@ -47,7 +47,7 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status, type }) => {
         // Shipping / delivery / general
         switch (normalizedStatus) {
             case "processing":
-                return "bg-orange-100 text-green-600";
+                return "bg-hub-primary/50 text-green-600";
             case "ongoing":
                 return "bg-hub-primary text-hub-secondary";
             case "active":

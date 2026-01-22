@@ -47,7 +47,7 @@ export default function ProfileCard({
             await changeUserStatus(user.id.toString(), isActiveBoolean);
 
             setUser((prev) =>
-                prev ? { ...prev, is_active: isActiveBoolean } : prev
+                prev ? { ...prev, is_active: isActiveBoolean } : prev,
             );
 
             toast.success("Status updated successfully");
@@ -74,7 +74,7 @@ export default function ProfileCard({
 
     return (
         <div className="rounded-xl overflow-hidden border border-gray-200 shadow-sm bg-white">
-            <div className="relative h-24 bg-gradient-to-r from-orange-400 to-yellow-400" />
+            <div className="relative h-24 bg-gradient-to-r from-hub-primary to-hub-secondary" />
 
             <div className="relative -mt-10 px-6 pb-24">
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
@@ -112,7 +112,7 @@ export default function ProfileCard({
                                         "px-2 py-0.5 text-xs rounded-full font-semibold",
                                         user?.is_active
                                             ? "bg-green-100 text-green-700"
-                                            : "bg-red-100 text-red-700"
+                                            : "bg-red-100 text-red-700",
                                     )}
                                 >
                                     {user?.is_active ? "Active" : "Inactive"}
@@ -126,7 +126,7 @@ export default function ProfileCard({
                                         "px-2 py-0.5 text-xs rounded-full font-semibold",
                                         user?.email_verified_at
                                             ? "bg-green-100 text-green-700"
-                                            : "bg-gray-200 text-gray-600"
+                                            : "bg-gray-200 text-gray-600",
                                     )}
                                 >
                                     {user?.email_verified_at
@@ -148,7 +148,7 @@ export default function ProfileCard({
                             {loading ? (
                                 <Skeleton width={100} />
                             ) : (
-                                user?.phone ?? "N/A"
+                                (user?.phone ?? "N/A")
                             )}
                         </p>
                         <p>
@@ -162,7 +162,7 @@ export default function ProfileCard({
                                         day: "numeric",
                                         month: "long",
                                         year: "numeric",
-                                    }
+                                    },
                                 )
                             ) : (
                                 "N/A"
@@ -255,27 +255,28 @@ export default function ProfileCard({
                                         onClick={async () => {
                                             try {
                                                 await deleteUser(
-                                                    user?.id?.toString() ?? ""
+                                                    user?.id?.toString() ?? "",
                                                 );
                                                 toast.success(
-                                                    "User deleted successfully"
+                                                    "User deleted successfully",
                                                 );
                                                 setIsDeleteModalOpen(false);
                                                 window.location.href = "/users";
                                             } catch (error) {
                                                 console.error(
                                                     "Failed to delete user",
-                                                    error
+                                                    error,
                                                 );
                                                 toast.error(
-                                                    "Failed to delete user"
+                                                    "Failed to delete user",
                                                 );
                                             }
                                         }}
-                                        className={`px-4 py-2 rounded-md text-white transition ${confirmText === "DELETE"
-                                            ? "bg-red-600 hover:bg-red-700 cursor-pointer"
-                                            : "bg-red-300 cursor-not-allowed"
-                                            }`}
+                                        className={`px-4 py-2 rounded-md text-white transition ${
+                                            confirmText === "DELETE"
+                                                ? "bg-red-600 hover:bg-red-700 cursor-pointer"
+                                                : "bg-red-300 cursor-not-allowed"
+                                        }`}
                                     >
                                         {loading ? "Deleting..." : "Delete"}
                                     </button>

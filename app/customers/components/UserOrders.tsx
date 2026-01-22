@@ -38,7 +38,7 @@ export default function UserOrders({ userId, type }: UserOrdersProps) {
                 setSearch(value);
                 setPagination((prev) => ({ ...prev, pageIndex: 0 }));
             }, 500),
-        [setSearch]
+        [setSearch],
     );
 
     const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +57,7 @@ export default function UserOrders({ userId, type }: UserOrdersProps) {
                     offset,
                     search,
                     type,
-                    userId
+                    userId,
                 );
                 setCartItems(response.data ?? []);
                 setTotalOrders(response.total ?? 0);
@@ -224,7 +224,7 @@ export default function UserOrders({ userId, type }: UserOrdersProps) {
                             />
                         </>
                     ) : (
-                        <p className="flex items-center justify-center w-full text-hub-secondary p-4 border border-hub-primary bg-amber-50 rounded-xl text-sm text-center">
+                        <p className="flex items-center justify-center w-full text-hub-secondary p-4 border border-hub-primary bg-hub-primary/20 rounded-xl text-sm text-center">
                             {searchInput
                                 ? `No orders found for “${searchInput}”.`
                                 : `This ${type} does not have any orders yet.`}

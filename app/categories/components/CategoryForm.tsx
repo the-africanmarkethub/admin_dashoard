@@ -20,6 +20,7 @@ interface Props {
 const typeOptions = [
     { label: "Product", value: "products" },
     { label: "Service", value: "services" },
+    { label: "Delivery", value: "deliveries" },
 ];
 
 type DropdownOption = { label: string; value: string };
@@ -29,20 +30,20 @@ export default function CategoryForm({ onClose, category }: Props) {
     const [selectedParent, setSelectedParent] = useState<DropdownOption | null>(
         category?.parent_id
             ? {
-                label: category.parent_name || "",
-                value: String(category.parent_id),
-            }
-            : null
+                  label: category.parent_name || "",
+                  value: String(category.parent_id),
+              }
+            : null,
     );
     const [description, setDescription] = useState(category?.description || "");
     const [imagePreview, setImagePreview] = useState<string | null>(
-        category?.image || null
+        category?.image || null,
     );
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [type, setType] = useState<DropdownOption | null>(
         category?.type
             ? typeOptions.find((opt) => opt.value === category.type) || null
-            : null
+            : null,
     );
     const [localCategories, setLocalCategories] = useState<CategoryType[]>([]);
     const [isFetching, setIsFetching] = useState(false);
@@ -62,7 +63,7 @@ export default function CategoryForm({ onClose, category }: Props) {
                     100, // limit
                     0, // offset
                     undefined, // search
-                    typeValue // type
+                    typeValue, // type
                 );
 
                 setLocalCategories(response.data);
@@ -70,7 +71,7 @@ export default function CategoryForm({ onClose, category }: Props) {
                 if (
                     selectedParent &&
                     !response.data.some(
-                        (cat) => String(cat.id) === selectedParent.value
+                        (cat) => String(cat.id) === selectedParent.value,
                     )
                 ) {
                     setSelectedParent(null);
@@ -78,7 +79,7 @@ export default function CategoryForm({ onClose, category }: Props) {
             } catch (error) {
                 console.error("Failed to fetch categories by type", error);
                 toast.error(
-                    `Failed to load parent categories for ${typeValue}.`
+                    `Failed to load parent categories for ${typeValue}.`,
                 );
             } finally {
                 setIsFetching(false);
@@ -95,18 +96,15 @@ export default function CategoryForm({ onClose, category }: Props) {
             ];
         }
 
-        return (
-            localCategories
-                .filter((cat) => String(cat.id) !== String(category?.id))
-                .map((cat) => ({
-                    label: cat.name,
-                    value: String(cat.id),
-                }))
-        );
+        return localCategories
+            .filter((cat) => String(cat.id) !== String(category?.id))
+            .map((cat) => ({
+                label: cat.name,
+                value: String(cat.id),
+            }));
     }, [localCategories, isFetching, category?.id]);
 
     const [loading, setLoading] = useState(false);
-
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -156,7 +154,7 @@ export default function CategoryForm({ onClose, category }: Props) {
         } catch (error) {
             console.error(error);
             toast.error(
-                `Failed to ${category?.id ? "update" : "add"} category`
+                `Failed to ${category?.id ? "update" : "add"} category`,
             );
         } finally {
             setLoading(false);
@@ -205,8 +203,8 @@ export default function CategoryForm({ onClose, category }: Props) {
                             label: isFetching
                                 ? "Loading..."
                                 : type
-                                    ? "Select category"
-                                    : "Select Type first", // Guidance added
+                                  ? "Select category"
+                                  : "Select Type first", // Guidance added
                             value: "",
                         }
                     }
@@ -260,7 +258,7 @@ export default function CategoryForm({ onClose, category }: Props) {
 
                 <label
                     htmlFor="categoryImage"
-                    className="relative w-full h-50 aspect-square border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-hub-primary hover:bg-amber-50 transition-colors overflow-hidden flex items-center justify-center"
+                    className="relative w-full h-50 aspect-square border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-hub-primary hover:bg-hub-primary/20 transition-colors overflow-hidden flex items-center justify-center"
                 >
                     {/* Image Preview fills label */}
                     {imagePreview ? (

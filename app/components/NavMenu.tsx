@@ -10,7 +10,9 @@ import { User } from "@/types/UserType";
 
 const NavMenu = ({ user }: { user: User | null }) => {
     const pathname = usePathname();
-    const [openSections, setOpenSections] = useState<Record<string, boolean>>({});
+    const [openSections, setOpenSections] = useState<Record<string, boolean>>(
+        {},
+    );
 
     const filteredNavigation = useMemo(() => {
         if (!user) return [];
@@ -27,7 +29,7 @@ const NavMenu = ({ user }: { user: User | null }) => {
                 "Variation Management",
                 "Banner Management",
                 "Shop Management",
-                "FAQs Management"
+                "FAQs Management",
             ];
             return NAVIGATION.filter((nav) => allowed.includes(nav.name));
         }
@@ -55,7 +57,7 @@ const NavMenu = ({ user }: { user: User | null }) => {
                                 "w-full flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-semibold overflow-y-auto scrollbar-thin scrollbar-thumb-gray-50 hover:scrollbar-thumb-gray-100 scrollbar-track-transparent",
                                 isActiveParent
                                     ? "text-green-500"
-                                    : "text-gray-700 hover:text-green-500"
+                                    : "text-gray-700 hover:text-green-500",
                             )}
                         >
                             <span className="flex items-center gap-x-3">
@@ -73,7 +75,8 @@ const NavMenu = ({ user }: { user: User | null }) => {
                         {item.children && isOpen && (
                             <ul className="ml-8 mt-1 space-y-2">
                                 {item.children.map((subItem) => {
-                                    const isActiveSub = pathname === subItem.href;
+                                    const isActiveSub =
+                                        pathname === subItem.href;
                                     return (
                                         <li key={subItem.name}>
                                             <Link
@@ -81,8 +84,8 @@ const NavMenu = ({ user }: { user: User | null }) => {
                                                 className={clsx(
                                                     "block px-3 py-1.5 text-xs rounded-md",
                                                     isActiveSub
-                                                        ? "bg-orange-50 text-green-600"
-                                                        : "text-gray-500 hover:text-green-500 hover:bg-orange-50"
+                                                        ? "bg-hub-primary/10 text-green-600"
+                                                        : "text-gray-500 hover:text-green-500 hover:bg-hub-primary/10",
                                                 )}
                                             >
                                                 {subItem.name}

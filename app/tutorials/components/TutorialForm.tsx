@@ -21,7 +21,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
     const [vimeoThumbnail, setVimeoThumbnail] = useState<string | null>(null);
 
     const [imagePreview, setImagePreview] = useState<string | null>(
-        tutorial?.image_url || null
+        tutorial?.image_url || null,
     );
     const [imageFile, setImageFile] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);
@@ -48,7 +48,6 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
         if (tutorial?.image_url) setImagePreview(tutorial.image_url);
     }, [tutorial]);
 
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!title.trim()) return toast.error("Title is required");
@@ -62,7 +61,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
         const formData = new FormData();
         formData.append("title", title);
         formData.append("description", description);
-        formData.append("type", 'system');
+        formData.append("type", "system");
         formData.append("video_url", videoPreview);
         formData.append("image", imageFile || "");
 
@@ -79,7 +78,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
         } catch (error) {
             console.error(error);
             toast.error(
-                `Failed to ${tutorial?.id ? "update" : "add"} tutorial`
+                `Failed to ${tutorial?.id ? "update" : "add"} tutorial`,
             );
         } finally {
             setLoading(false);
@@ -285,7 +284,7 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
                 </label>
                 <label
                     htmlFor="imageFile"
-                    className="relative w-full aspect-[3/2] border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-hub-primary hover:bg-amber-50 transition overflow-hidden flex items-center justify-center"
+                    className="relative w-full aspect-[3/2] border-2 border-dashed border-gray-300 rounded-xl cursor-pointer hover:border-hub-primary hover:bg-hub-primary/20 transition overflow-hidden flex items-center justify-center"
                 >
                     {imagePreview ? (
                         <Image
@@ -325,8 +324,6 @@ export default function TutorialForm({ onClose, tutorial }: Props) {
                     />
                 </label>
             </div>
-
-
 
             <SubmitButton loading={loading} label="Save changes" />
         </form>

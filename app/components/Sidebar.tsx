@@ -69,7 +69,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             >
                 <DialogBackdrop className="fixed inset-0 bg-black/50 transition-opacity duration-300" />
                 <div className="fixed inset-0 flex">
-                    <DialogPanel className="relative mr-16 rounded-r-4xl border-orange-200 flex w-full max-w-xs flex-1 transform transition duration-700 ease-in data-closed:translate-x-full sm:duration-700 bg-white">
+                    <DialogPanel className="relative mr-16 rounded-r-4xl border-hub-primary/80 flex w-full max-w-xs flex-1 transform transition duration-700 ease-in data-closed:translate-x-full sm:duration-700 bg-white">
                         <TransitionChild>
                             <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
                                 <button
@@ -108,7 +108,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                 </button>
             </div>
 
-            <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col bg-white px-6 pb-4 border-r rounded-r-4xl border-orange-200">
+            <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-72 lg:flex-col bg-white px-6 pb-4 border-r rounded-r-4xl border-hub-primary/80">
                 <SidebarContent
                     collapsed={collapsed}
                     setCollapsed={setCollapsed}
@@ -189,8 +189,9 @@ function BottomMenu({
                 >
                     {({ open }) => (
                         <ChevronUpIcon
-                            className={`h-4 w-4 transition-transform duration-200 ${open ? "rotate-180" : ""
-                                }`}
+                            className={`h-4 w-4 transition-transform duration-200 ${
+                                open ? "rotate-180" : ""
+                            }`}
                         />
                     )}
                 </PopoverButton>
@@ -203,16 +204,18 @@ function BottomMenu({
                         <button
                             key={item.name}
                             onClick={item.isLogout ? onLogout : undefined}
-                            className={`w-full text-left flex items-center cursor-pointer gap-x-3 rounded-md px-4 py-2 text-xs font-medium  ${item.isLogout
+                            className={`w-full text-left flex items-center cursor-pointer gap-x-3 rounded-md px-4 py-2 text-xs font-medium  ${
+                                item.isLogout
                                     ? "text-green-500 font-bold bg-white border "
                                     : ""
-                                } ${collapsed ? "justify-center" : ""}`}
+                            } ${collapsed ? "justify-center" : ""}`}
                         >
                             <item.icon
-                                className={`size-4 ${item.isLogout
+                                className={`size-4 ${
+                                    item.isLogout
                                         ? "text-red-500  font-bold"
                                         : "text-white"
-                                    }`}
+                                }`}
                             />
                             {!collapsed && <span>{item.name}</span>}
                         </button>

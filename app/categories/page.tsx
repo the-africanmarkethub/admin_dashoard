@@ -10,7 +10,8 @@ import CategoryForm from "./components/CategoryForm";
 
 const typeOptions = [
     { label: "Product Items", value: "products" },
-    { label: "Service Items", value: "services" },
+    { label: "Service Providers", value: "services" },
+    { label: "Delivery Partners", value: "deliveries" },
 ];
 
 export default function Categories() {

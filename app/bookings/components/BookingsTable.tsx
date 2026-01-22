@@ -41,7 +41,12 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                                 src={value?.profile_photo || ""}
                                 alt={value?.name || "Customer"}
                             />
-                            <span className="truncate max-w-40" title={value?.name}>{value?.name ?? "N/A"}</span>
+                            <span
+                                className="truncate max-w-40"
+                                title={value?.name}
+                            >
+                                {value?.name ?? "N/A"}
+                            </span>
                         </div>
                     );
                 },
@@ -52,12 +57,19 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                 accessorKey: "service",
                 cell: ({ getValue }) => {
                     const value = getValue() as BookingResponse["service"];
-                    const displayImage = Array.isArray(value?.images) ? value.images[0] : value?.images;
+                    const displayImage = Array.isArray(value?.images)
+                        ? value.images[0]
+                        : value?.images;
                     const serviceUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/items/${value?.slug}?type=services`;
 
                     return (
                         <div className="flex items-center space-x-2">
-                            <a href={serviceUrl} target="_blank" rel="noopener noreferrer" className="shrink-0">
+                            <a
+                                href={serviceUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="shrink-0"
+                            >
                                 <Image
                                     src={displayImage || "/placeholder.png"}
                                     alt={value?.title || "Service"}
@@ -73,9 +85,11 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                                     target="_blank"
                                     title={value?.title}
                                     rel="noopener noreferrer"
-                                    className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors truncate max-w-30 mr-2"
+                                    className="font-medium text-sm text-gray-800 hover:text-hub-secondary/20 hover:underline transition-colors truncate max-w-30 mr-2"
                                 >
-                                    <span className="truncate max-w-20">{value?.title ?? "N/A"}</span>
+                                    <span className="truncate max-w-20">
+                                        {value?.title ?? "N/A"}
+                                    </span>
                                 </a>
                             </div>
                         </div>
@@ -92,8 +106,12 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                     return (
                         <div className="flex items-center space-x-2 truncate">
                             {/* Wrap Avatar in the link */}
-                            <a href={shopUrl} target="_blank" rel="noopener noreferrer" className="shrink-0">
-                                
+                            <a
+                                href={shopUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="shrink-0"
+                            >
                                 <Image
                                     src={value?.logo || ""}
                                     alt={value?.name || "Vendor"}
@@ -109,7 +127,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                                 target="_blank"
                                 title="View provider"
                                 rel="noopener noreferrer"
-                                className="font-medium text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors truncate"
+                                className="font-medium text-sm text-gray-800 hover:text-hub-secondary/20 hover:underline transition-colors truncate"
                             >
                                 {value?.name ?? "N/A"}
                             </a>
@@ -170,7 +188,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchBookings = useCallback(
@@ -182,7 +200,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                     pagination.pageSize,
                     offset,
                     search,
-                    status
+                    status,
                 );
                 setBookings(response.bookings);
                 setTotalBookings(response.total || 0);
@@ -193,7 +211,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
                 setLoading(false);
             }
         },
-        [pagination.pageSize, status]
+        [pagination.pageSize, status],
     );
 
     const debouncedFetchBookings = useMemo(
@@ -201,7 +219,7 @@ const BookingTable: React.FC<BookingTableProps> = ({ limit, status }) => {
             debounce((pageIndex: number, search: string) => {
                 fetchBookings(pageIndex, search);
             }, 300),
-        [fetchBookings]
+        [fetchBookings],
     );
 
     useEffect(() => {

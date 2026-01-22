@@ -45,7 +45,7 @@ function ProductActionCell({
 }) {
     const [status, setStatus] = useState<Option>(
         statusOptions.find((opt) => opt.value === initialStatus) ||
-        statusOptions[0]
+            statusOptions[0],
     );
 
     const handleStatusChange = async (selected: Option) => {
@@ -68,7 +68,6 @@ function ProductActionCell({
                 options={statusOptions}
                 onChange={handleStatusChange}
             />
-
         </div>
     );
 }
@@ -93,10 +92,10 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
 
     const updateProductStatusInState = (
         id: number,
-        newStatus: "active" | "inactive"
+        newStatus: "active" | "inactive",
     ) => {
         setProducts((prev) =>
-            prev.map((p) => (p.id === id ? { ...p, status: newStatus } : p))
+            prev.map((p) => (p.id === id ? { ...p, status: newStatus } : p)),
         );
     };
 
@@ -117,7 +116,12 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                     return (
                         <div className="flex items-center space-x-2">
                             {/* Wrap image in link */}
-                            <Link href={productUrl} target="_blank" rel="noopener noreferrer" className="shrink-0">
+                            <Link
+                                href={productUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="shrink-0"
+                            >
                                 <Image
                                     src={image || "/placeholder.png"}
                                     alt={title}
@@ -159,10 +163,11 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                             {[...Array(5)].map((_, index) => (
                                 <StarIcon
                                     key={index}
-                                    className={`w-4 h-4 ${index < stars
-                                        ? "text-hub-primary"
-                                        : "text-gray-300"
-                                        }`}
+                                    className={`w-4 h-4 ${
+                                        index < stars
+                                            ? "text-hub-primary"
+                                            : "text-gray-300"
+                                    }`}
                                 />
                             ))}
                             <span className="ml-2 text-sm text-gray-600">
@@ -235,7 +240,7 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                                     target="_blank"
                                     title="View Shop"
                                     rel="noopener noreferrer"
-                                    className="font-medium truncate max-w-40 text-sm text-gray-800 hover:text-orange-600 hover:underline transition-colors"
+                                    className="font-medium truncate max-w-40 text-sm text-gray-800 hover:text-hub-secondary/20 hover:underline transition-colors"
                                 >
                                     {shop.name}
                                 </a>
@@ -292,14 +297,14 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                         onStatusUpdate={(newStatus) =>
                             updateProductStatusInState(
                                 row.original.id,
-                                newStatus as "active" | "inactive"
+                                newStatus as "active" | "inactive",
                             )
                         }
                     />
                 ),
             },
         ],
-        []
+        [],
     );
 
     const fetchProducts = useCallback(
@@ -312,7 +317,7 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                     offset,
                     search,
                     type,
-                    status
+                    status,
                 );
                 setProducts(response.data);
                 setTotalProducts(response.total || 0);
@@ -324,7 +329,7 @@ const ItemsTable: React.FC<ProductTableProps> = ({ limit, type, status }) => {
                 setLoading(false);
             }
         },
-        [pagination.pageSize, type, status]
+        [pagination.pageSize, type, status],
     );
 
     const debouncedFetchProducts = useMemo(() => {
