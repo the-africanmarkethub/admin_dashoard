@@ -139,6 +139,7 @@ export default function Shops() {
                                             alt={name}
                                             fill
                                             className="object-cover"
+                                            sizes="w-5 h-5"
                                         />
                                     </div>
                                 )}
@@ -256,7 +257,7 @@ export default function Shops() {
             },
             {
                 header: "Pickup Address",
-                id: "pickup_address",
+                accessorKey: "address.user_id",
                 cell: ({ row }) => {
                     const address = row.original?.address;
                     if (!address)
@@ -268,7 +269,7 @@ export default function Shops() {
 
                     return (
                         <span className="text-gray-600 text-sm">
-                            {address.city}, {address.state}
+                            {address?.city}, {address?.state}
                         </span>
                     );
                 },
