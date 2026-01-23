@@ -36,24 +36,24 @@ export default function Shops() {
     });
 
     const [selectedType, setSelectedType] = useState(typeOptions[0]);
-
-    // Confirmation modal states
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [shopToTakeAction, setShopToTakeAction] = useState<number | null>(
-        null,
-    );
+    const [shopToTakeAction, setShopToTakeAction] = useState<Shop | null>(null);
     const [actioning, setAction] = useState(false);
+    const [rejectionReason, setRejectionReason] = useState("");
+    const [isRejecting, setIsRejecting] = useState(false); // New state to toggle UI
 
-    const hanleShopAction = async () => {
+    const hanleShopAction = async (status: "approved" | "rejected") => {
         if (!shopToTakeAction) return;
 
         try {
             setAction(true);
-            // send action (either accept or reject)
-            await shopAction(shopToTakeAction);
-            toast.success("Shop Action Taken successfully");
+            // Pass both the ID and the specific action to your API
+            await shopAction(shopToTakeAction.id, status, rejectionReason);
+
+            toast.success(`Shop ${status} successfully`);
             setIsModalOpen(false);
             setShopToTakeAction(null);
+
             // Refresh data
             fetchShops({
                 limit: pagination.pageSize,
@@ -61,14 +61,12 @@ export default function Shops() {
                 search,
                 type: selectedType.value || undefined,
             });
-        } catch (error) {
-            console.error("Action failed:", error);
-            toast.error("Failed to take action on shop");
+        } catch {
+            toast.error("Failed to update shop status");
         } finally {
             setAction(false);
         }
     };
-
     const fetchShops = async ({
         limit,
         offset,
@@ -311,14 +309,13 @@ export default function Shops() {
             },
             {
                 header: "Action",
-                accessorKey: "id",
                 cell: ({ row }) => (
                     <button
                         onClick={() => {
-                            setShopToTakeAction(row.original.id);
+                            setShopToTakeAction(row.original); // Pass full object
                             setIsModalOpen(true);
                         }}
-                        className="inline-flex items-center gap-1 text-sm px-3 py-1.5 border border-hub-primary text-hub-secondary rounded hover:bg-red-50 transition cursor-pointer"
+                        className="inline-flex items-center gap-1 text-sm px-3 py-1.5 border border-hub-primary text-hub-secondary rounded hover:bg-gray-50 transition cursor-pointer"
                     >
                         Take Action
                         <ClipboardDocumentCheckIcon className="w-4 h-4" />
@@ -409,29 +406,143 @@ export default function Shops() {
                 onClose={() => {
                     setIsModalOpen(false);
                     setShopToTakeAction(null);
+                    setIsRejecting(false);
+                    setRejectionReason("");
                 }}
-                title="Confirm Action on Shop"
+                title={
+                    isRejecting
+                        ? `Rejecting: ${shopToTakeAction?.name}`
+                        : "Review Shop Verification"
+                }
             >
-                <p className="mt-2 text-sm text-gray-500">
-                   {/* show the document image and it type here.. and a buttton of action = accept and reject  */}
-                </p>
-                <div className="mt-4 flex justify-end gap-3">
-                    <button
-                        className="rounded-md border px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                        onClick={() => {
-                            setIsModalOpen(false);
-                            setShopToTakeAction(null);
-                        }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700 cursor-pointer"
-                        onClick={hanleShopAction}
-                        disabled={actioning}
-                    >
-                        {actioning ? "actioning..." : "Send Action"}
-                    </button>
+                <div className="space-y-4">
+                    {shopToTakeAction && !isRejecting && (
+                        <div className="mt-2">
+                            {/* 1. Clear Guidance Text */}
+                            <div className="mb-4 p-3 bg-blue-50 rounded-md border border-blue-100">
+                                <p className="text-sm text-blue-800">
+                                    {shopToTakeAction.identification_document
+                                        ? `Please verify that the ${shopToTakeAction.identification_type || "document"} matches the shop details for "${shopToTakeAction.name}".`
+                                        : `Warning: This shop has not uploaded any identification documents.`}
+                                </p>
+                            </div>
+
+                            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">
+                                {shopToTakeAction.identification_type ||
+                                    "Verification Document"}
+                            </p>
+
+                            {/* 2. Visual Document State */}
+                            <div className="relative w-full h-64 bg-gray-50 rounded-lg overflow-hidden border border-gray-200 shadow-inner flex items-center justify-center">
+                                {shopToTakeAction.identification_document ? (
+                                    <Image
+                                        src={
+                                            shopToTakeAction.identification_document
+                                        }
+                                        alt="Identity Document"
+                                        fill
+                                        className="object-contain"
+                                    />
+                                ) : (
+                                    <div className="text-center px-6">
+                                        <svg
+                                            className="mx-auto h-12 w-12 text-gray-300"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={1}
+                                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                                            />
+                                        </svg>
+                                        <p className="mt-2 text-sm text-gray-400 font-medium">
+                                            No document provided by vendor
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* 3. Improved Rejection Flow */}
+                    {isRejecting && (
+                        <div className="mt-2 animate-in fade-in slide-in-from-top-2">
+                            <p className="text-sm text-gray-600 mb-3">
+                                Explain why this shop is being rejected. This
+                                message will be sent to{" "}
+                                <strong>
+                                    {shopToTakeAction?.vendor?.email ||
+                                        "the vendor"}
+                                </strong>{" "}
+                                to help them correct the issue.
+                            </p>
+                            <label className="block text-xs font-bold text-gray-700 uppercase mb-1">
+                                Rejection Reason
+                            </label>
+                            <textarea
+                                rows={4}
+                                autoFocus
+                                className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm shadow-sm"
+                                placeholder="e.g., The ID provided is expired. Please upload a valid Government Issued ID."
+                                value={rejectionReason}
+                                onChange={(e) =>
+                                    setRejectionReason(e.target.value)
+                                }
+                            />
+                        </div>
+                    )}
+
+                    <div className="mt-6 flex flex-col sm:flex-row justify-end gap-3">
+                        {!isRejecting ? (
+                            <>
+                                <button
+                                    className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                    onClick={() => setIsModalOpen(false)}
+                                >
+                                    Close
+                                </button>
+                                <button
+                                    className="rounded-md bg-white border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 transition-colors"
+                                    onClick={() => setIsRejecting(true)}
+                                >
+                                    Reject Shop
+                                </button>
+                                <button
+                                    className="rounded-md bg-green-600 px-4 py-2 text-sm font-semibold text-white hover:bg-green-700 shadow-sm transition-colors disabled:opacity-50"
+                                    onClick={() => hanleShopAction("approved")}
+                                    disabled={actioning}
+                                >
+                                    {actioning
+                                        ? "Processing..."
+                                        : "Approve & Activate"}
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button
+                                    className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                    onClick={() => setIsRejecting(false)}
+                                    disabled={actioning}
+                                >
+                                    Go Back
+                                </button>
+                                <button
+                                    className="rounded-md bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    onClick={() => hanleShopAction("rejected")}
+                                    disabled={
+                                        actioning || !rejectionReason.trim()
+                                    }
+                                >
+                                    {actioning
+                                        ? "Sending Notice..."
+                                        : "Send Rejection Notice"}
+                                </button>
+                            </>
+                        )}
+                    </div>
                 </div>
             </ConfirmationModal>
         </div>
