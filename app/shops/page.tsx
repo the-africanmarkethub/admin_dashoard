@@ -99,9 +99,9 @@ export default function Shops() {
                 }) => {
                     fetchShops(params);
                 },
-                300
+                300,
             ),
-        []
+        [],
     );
 
     useEffect(() => {
@@ -257,19 +257,37 @@ export default function Shops() {
             },
             {
                 header: "Pickup Address",
-                accessorKey: "address.user_id",
+                // Use an id since we are manually rendering the cell from row.original
+                id: "pickup_address",
                 cell: ({ row }) => {
                     const address = row.original?.address;
-                    if (!address)
+
+                    // 1. Handle null or undefined address
+                    if (!address) {
                         return (
                             <span className="text-gray-400 italic text-xs">
                                 No Address
                             </span>
                         );
+                    }
+
+                    // 2. Extract and filter out null/empty values
+                    const addressParts = [address.city, address.state].filter(
+                        Boolean,
+                    );
+
+                    // 3. Handle case where address object exists but is empty
+                    if (addressParts.length === 0) {
+                        return (
+                            <span className="text-gray-400 italic text-xs">
+                                Address Incomplete
+                            </span>
+                        );
+                    }
 
                     return (
                         <span className="text-gray-600 text-sm">
-                            {address?.city}, {address?.state}
+                            {addressParts.join(", ")}
                         </span>
                     );
                 },
@@ -315,7 +333,7 @@ export default function Shops() {
 
     const currentPageSize =
         pageSizeOptions.find(
-            (opt) => Number(opt.value) === pagination.pageSize
+            (opt) => Number(opt.value) === pagination.pageSize,
         ) || pageSizeOptions[0];
 
     return (
