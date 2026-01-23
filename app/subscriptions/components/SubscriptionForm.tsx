@@ -19,9 +19,8 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
     const [form, setForm] = useState({
         name: subscription?.name || "",
         monthly_price: subscription?.monthly_price || 0,
-        yearly_price: subscription?.yearly_price || 0,
         features: subscription?.features || "",
-        payment_link: subscription?.payment_link || "",
+        payment_link: subscription?.payment_link_url || "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -39,8 +38,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
 
         if (
             !form.name ||
-            !form.monthly_price ||
-            !form.yearly_price ||
+            !form.monthly_price || 
             !form.features ||
             !form.payment_link
         ) {
@@ -50,10 +48,9 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
 
         const payload = {
             name: form.name,
-            monthly_price: Number(form.monthly_price),
-            yearly_price: Number(form.yearly_price),
+            monthly_price: Number(form.monthly_price), 
             features: form.features,
-            payment_link: form.payment_link,
+            payment_link_url: form.payment_link,
         };
 
         try {
@@ -111,20 +108,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
                 />
             </div>
 
-            {/* Yearly Price */}
-            <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Yearly Price <span className="text-red-500">*</span>
-                </label>
-                <input
-                    type="number"
-                    name="yearly_price"
-                    value={form.yearly_price}
-                    onChange={handleChange}
-                    placeholder="Enter yearly price"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-hub-primary/200"
-                />
-            </div>
+           
 
             {/* Features */}
             <div>

@@ -4,11 +4,9 @@ import Link from "next/link";
 export default function OrderSummaryCard({
     orderMeta,
     product,
-    onSettleVendor,
 }: {
     orderMeta: any;
     product: any;
-    onSettleVendor: () => void;
 }) {
     const shippingService = orderMeta.shipping_service_code?.[0] ?? null;
     return (

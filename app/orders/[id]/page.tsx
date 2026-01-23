@@ -233,25 +233,26 @@ export default function OrderDetailPage() {
         );
         toast.success("Order marked cancelled (UI)");
     };
-    const handleSettleVendor = () => {
-        if (!orderMeta) return;
-        if (orderMeta.vendor_payment_settlement_status === "paid") {
-            toast.error("Vendor already settled");
-            return;
-        }
-        setOrder((prev) =>
-            prev
-                ? {
-                    ...prev,
-                    order: {
-                        ...prev.order,
-                        vendor_payment_settlement_status: "paid",
-                    },
-                }
-                : prev
-        );
-        toast.success("Vendor marked settled (UI)");
-    };
+    
+    // const handleSettleVendor = () => {
+    //     if (!orderMeta) return;
+    //     if (orderMeta.vendor_payment_settlement_status === "paid") {
+    //         toast.error("Vendor already settled");
+    //         return;
+    //     }
+    //     setOrder((prev) =>
+    //         prev
+    //             ? {
+    //                 ...prev,
+    //                 order: {
+    //                     ...prev.order,
+    //                     vendor_payment_settlement_status: "paid",
+    //                 },
+    //             }
+    //             : prev
+    //     );
+    //     toast.success("Vendor marked settled (UI)");
+    // };
 
     if (loading || !order || !product || !orderMeta)
         return <Skeleton height={160} count={4} />;
@@ -260,7 +261,6 @@ export default function OrderDetailPage() {
         <div className="p-0 text-gray-700 space-y-6">
             <OrderHeader
                 orderMeta={orderMeta}
-                onPrint={() => window.print()}
                 onDownloadLabel={handleDownloadLabel}
             />
             <div className="flex w-full">
@@ -274,7 +274,6 @@ export default function OrderDetailPage() {
                 <OrderSummaryCard
                     orderMeta={orderMeta}
                     product={product}
-                    onSettleVendor={handleSettleVendor}
                 />
             </div>
 

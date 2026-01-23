@@ -1,5 +1,4 @@
 import Image from "next/image";
-import dayjs from "dayjs";
 import { formatAmount } from "@/utils/formatCurrency";
 export default function CustomerSummary({
     customer,
