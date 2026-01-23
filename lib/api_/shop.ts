@@ -36,7 +36,7 @@ export async function mostSellingShops(params: { limit: number; offset: number }
 }
 
 
-export async function deleteShop(id: number) {
+export async function shopAction(id: number) {
   const response = await axios.delete(`/shop/delete/${id}`);
   return response.data;
 }

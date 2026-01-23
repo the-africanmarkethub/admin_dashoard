@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Shop } from "@/types/ShopType";
 import { ColumnDef } from "@tanstack/react-table";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { deleteShop, getShops } from "../../lib/api_/shop";
+import { shopAction, getShops } from "../../lib/api_/shop";
 import Image from "next/image";
 import StatusBadge from "@/utils/StatusBadge";
 import { formatHumanReadableDate } from "@/utils/formatHumanReadableDate";
@@ -16,11 +16,13 @@ import AnalysisAreaChart from "./components/AnalysisAreaChart";
 import toast from "react-hot-toast";
 import ConfirmationModal from "../components/commons/ConfirmationModal";
 import Link from "next/link";
+import { ClipboardDocumentCheckIcon } from "@heroicons/react/20/solid";
 
 const typeOptions = [
     { label: "All Types", value: "" },
-    { label: "Products", value: "products" },
-    { label: "Services", value: "services" },
+    { label: "Item Seller", value: "products" },
+    { label: "Service Providers", value: "services" },
+    { label: "Delivery Partners", value: "deliveries" },
 ];
 
 export default function Shops() {
@@ -38,18 +40,18 @@ export default function Shops() {
 
     // Confirmation modal states
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [shopToDelete, setShopToDelete] = useState<number | null>(null);
-    const [deleting, setDeleting] = useState(false);
+    const [shopToTakeAction, setShopToTakeAction] = useState<number | null>(null);
+    const [actioning, setAction] = useState(false);
 
-    const handleDelete = async () => {
-        if (!shopToDelete) return;
+    const hanleShopAction = async () => {
+        if (!shopToTakeAction) return;
 
         try {
-            setDeleting(true);
-            await deleteShop(shopToDelete);
-            toast.success("Shop deleted successfully");
+            setAction(true);
+            await shopAction(shopToTakeAction);
+            toast.success("Shop Action Taken successfully");
             setIsModalOpen(false);
-            setShopToDelete(null);
+            setShopToTakeAction(null);
             // Refresh data
             fetchShops({
                 limit: pagination.pageSize,
@@ -58,10 +60,10 @@ export default function Shops() {
                 type: selectedType.value || undefined,
             });
         } catch (error) {
-            console.error("Delete failed:", error);
-            toast.error("Failed to delete shop");
+            console.error("Action failed:", error);
+            toast.error("Failed to take action on shop");
         } finally {
-            setDeleting(false);
+            setAction(false);
         }
     };
 
@@ -120,8 +122,10 @@ export default function Shops() {
                 accessorKey: "name",
                 cell: ({ row }) => {
                     const { name, logo, type, category, slug } = row.original;
-                    // The full external path
                     const publicUrl = `https://africanmarkethub.ca/shops/${slug}`;
+
+                    // Fallback to a local placeholder or a default remote icon
+                    const displayLogo = logo || "/icon.svg";
 
                     return (
                         <div className="flex items-center gap-3">
@@ -132,17 +136,15 @@ export default function Shops() {
                                 rel="noopener noreferrer"
                                 className="hover:opacity-80 transition-opacity"
                             >
-                                {logo && (
-                                    <div className="w-10 h-10 relative rounded-full overflow-hidden border">
-                                        <Image
-                                            src={logo}
-                                            alt={name}
-                                            fill
-                                            className="object-cover"
-                                            sizes="w-5 h-5"
-                                        />
-                                    </div>
-                                )}
+                                <div className="w-10 h-10 relative rounded-full overflow-hidden border border-hub-primary/10 bg-gray-50">
+                                    <Image
+                                        src={displayLogo}
+                                        alt={name}
+                                        fill
+                                        className="object-cover"
+                                        sizes="40px"
+                                    />
+                                </div>
                             </a>
 
                             <div className="flex flex-col">
@@ -154,7 +156,6 @@ export default function Shops() {
                                     className="text-gray-900 font-medium leading-tight hover:text-blue-600 flex items-center gap-1"
                                 >
                                     {name}
-                                    {/* Adding a small external link icon is helpful for Admins */}
                                     <svg
                                         className="w-3 h-3 text-gray-400"
                                         fill="none"
@@ -171,7 +172,7 @@ export default function Shops() {
                                 </a>
 
                                 <span className="text-xs text-gray-500 capitalize">
-                                    {category?.name} |{" "}
+                                    {category?.name || "Uncategorized"} |{" "}
                                     <b>{row.original.products_count}</b> {type}
                                 </span>
                             </div>
@@ -312,13 +313,13 @@ export default function Shops() {
                 cell: ({ row }) => (
                     <button
                         onClick={() => {
-                            setShopToDelete(row.original.id);
+                            setShopToTakeAction(row.original.id);
                             setIsModalOpen(true);
                         }}
-                        className="inline-flex items-center gap-1 text-sm px-3 py-1.5 border border-red-500 text-red-600 rounded hover:bg-red-50 transition cursor-pointer"
+                        className="inline-flex items-center gap-1 text-sm px-3 py-1.5 border border-hub-primary text-hub-secondary rounded hover:bg-red-50 transition cursor-pointer"
                     >
-                        Remove Shop
-                        <TrashIcon className="w-4 h-4" />
+                        Take Action
+                        <ClipboardDocumentCheckIcon className="w-4 h-4" />
                     </button>
                 ),
             },
@@ -349,7 +350,7 @@ export default function Shops() {
                     <input
                         type="text"
                         placeholder="Search shops..."
-                        className="w-full px-10 py-2 border border-hub-secondary rounded-md text-gray-900 focus:outline-none focus:border-hub-secondary focus:ring-0"
+                        className="w-full px-10 py-2 border border-hub-primary/10 rounded-md text-gray-900 focus:outline-none focus:border-hub-primary/50 focus:ring-0"
                         value={search}
                         onChange={(e) => {
                             setPagination((prev) => ({
@@ -405,9 +406,9 @@ export default function Shops() {
                 isOpen={isModalOpen}
                 onClose={() => {
                     setIsModalOpen(false);
-                    setShopToDelete(null);
+                    setShopToTakeAction(null);
                 }}
-                title="Confirm Deletion"
+                title="Confirm Action on Shop"
             >
                 <p className="mt-2 text-sm text-gray-500">
                     Are you sure you want to delete this shop? This action
@@ -418,17 +419,17 @@ export default function Shops() {
                         className="rounded-md border px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                         onClick={() => {
                             setIsModalOpen(false);
-                            setShopToDelete(null);
+                            setShopToTakeAction(null);
                         }}
                     >
                         Cancel
                     </button>
                     <button
                         className="rounded-md bg-red-600 px-4 py-2 text-sm text-white hover:bg-red-700 cursor-pointer"
-                        onClick={handleDelete}
-                        disabled={deleting}
+                        onClick={hanleShopAction}
+                        disabled={actioning}
                     >
-                        {deleting ? "Deleting..." : "Delete"}
+                        {actioning ? "actioning..." : "Send Action"}
                     </button>
                 </div>
             </ConfirmationModal>
