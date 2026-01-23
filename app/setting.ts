@@ -137,7 +137,6 @@ export const NAVIGATION = [
         icon: BuildingStorefrontIcon,
         children: [
             { name: "Shop List", href: "/shops" },
-            { name: "Shop ID Document", href: "/shops/identities" },
             { name: "Shop Performance", href: "/shops/performance" },
         ],
     },

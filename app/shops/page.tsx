@@ -8,7 +8,6 @@ import { shopAction, getShops } from "../../lib/api_/shop";
 import Image from "next/image";
 import StatusBadge from "@/utils/StatusBadge";
 import { formatHumanReadableDate } from "@/utils/formatHumanReadableDate";
-import { TrashIcon } from "@heroicons/react/24/outline";
 import { debounce } from "lodash";
 import SelectDropdown from "../components/commons/Fields/SelectDropdown";
 import { MetricCard } from "./components/MetricCard";
@@ -40,7 +39,9 @@ export default function Shops() {
 
     // Confirmation modal states
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [shopToTakeAction, setShopToTakeAction] = useState<number | null>(null);
+    const [shopToTakeAction, setShopToTakeAction] = useState<number | null>(
+        null,
+    );
     const [actioning, setAction] = useState(false);
 
     const hanleShopAction = async () => {
@@ -48,6 +49,7 @@ export default function Shops() {
 
         try {
             setAction(true);
+            // send action (either accept or reject)
             await shopAction(shopToTakeAction);
             toast.success("Shop Action Taken successfully");
             setIsModalOpen(false);
@@ -411,8 +413,7 @@ export default function Shops() {
                 title="Confirm Action on Shop"
             >
                 <p className="mt-2 text-sm text-gray-500">
-                    Are you sure you want to delete this shop? This action
-                    cannot be undone.
+                   {/* show the document image and it type here.. and a buttton of action = accept and reject  */}
                 </p>
                 <div className="mt-4 flex justify-end gap-3">
                     <button
