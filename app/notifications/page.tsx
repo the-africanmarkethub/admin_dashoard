@@ -77,7 +77,9 @@ export default function Notifications() {
             {
                 header: "Receiver",
                 accessorFn: (row) => `${row.receiver}`,
-                cell: ({ getValue }) => <span>{getValue() as string}</span>,
+                cell: ({ getValue }) => (
+                    <span>{(getValue() as string).toUpperCase()}</span>
+                ),
             },
 
             {
@@ -204,7 +206,7 @@ export default function Notifications() {
                     const url = getValue() as string;
                     return (
                         <Link
-                            href={url || ''}
+                            href={url || ""}
                             popoverTarget="_blank"
                             className="text-hub-cinnabar-300 underline"
                             target="_blank"
@@ -217,7 +219,7 @@ export default function Notifications() {
             },
 
             {
-                header: "Sent",
+                header: "Sent At",
                 accessorKey: "created_at",
                 cell: ({ getValue }) =>
                     formatHumanReadableDate(getValue() as string),

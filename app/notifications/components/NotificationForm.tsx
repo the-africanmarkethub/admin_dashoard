@@ -205,7 +205,7 @@ export default function NotificationForm({ onClose, notification }: Props) {
                             Call to Action (CTA) Link
                         </label>
                         <input
-                            type="text"
+                            type="url"
                             placeholder="https://example.com"
                             value={cta}
                             onChange={(e) => setCta(e.target.value)}

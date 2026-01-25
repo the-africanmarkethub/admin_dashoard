@@ -219,7 +219,7 @@ export const receiverOptions = [
 ];
 
 export const typeOptions = [
-    { label: "SMS", value: "sms" },
+    // { label: "SMS", value: "sms" },
     { label: "Email", value: "email" },
 ];
 
