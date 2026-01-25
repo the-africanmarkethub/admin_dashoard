@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { resetPassword } from "../../../lib/api_/login";
+import { resetPassword } from "../../../lib/api/login";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { SubmitButton } from "../../components/commons/SubmitButton";

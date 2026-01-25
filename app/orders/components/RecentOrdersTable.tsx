@@ -7,7 +7,7 @@ import Avatar from "@/utils/Avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import { OrderResponse } from "@/types/OrderType";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { getRecentOrders } from "@/lib/api_/orders";
+import { getRecentOrders } from "@/lib/api/orders";
 import StatusBadge from "@/utils/StatusBadge";
 import Link from "next/link";
 import { formatAmount } from "@/utils/formatCurrency";
@@ -71,7 +71,7 @@ const RecentOrdersTable: React.FC<RecentOrdersTableProps> = ({ limit }) => {
                 cell: ({ getValue }) => {
                     const value = getValue() as string;
                     const numericValue = parseFloat(value);
-                    return (formatAmount(numericValue));
+                    return formatAmount(numericValue);
                 },
             },
             {
@@ -120,7 +120,7 @@ const RecentOrdersTable: React.FC<RecentOrdersTableProps> = ({ limit }) => {
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchOrders = useCallback(async () => {

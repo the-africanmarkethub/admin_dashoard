@@ -4,7 +4,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import { BannerType } from "@/types/CategoryType";
-import { addBannerType } from "@/lib/api_/banners";
+import { addBannerType } from "@/lib/api/banners";
 
 export default function BannerTypesForm({
     onClose,
@@ -14,7 +14,7 @@ export default function BannerTypesForm({
     category?: BannerType;
 }) {
     const [type, setType] = useState<{ label: string; value: string } | null>(
-        category?.type ? { label: category.type, value: category.type } : null
+        category?.type ? { label: category.type, value: category.type } : null,
     );
     const [loading, setLoading] = useState(false);
 

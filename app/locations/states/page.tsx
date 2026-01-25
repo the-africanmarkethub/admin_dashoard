@@ -5,7 +5,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import Drawer from "@/app/components/commons/Drawer";
 import toast from "react-hot-toast";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";
-import { deleteState } from "@/lib/api_/locations";
+import { deleteState } from "@/lib/api/locations";
 import { StateType } from "@/types/LocationType";
 import StateTable from "./components/StateTable";
 import StateForm from "./components/StateForm";

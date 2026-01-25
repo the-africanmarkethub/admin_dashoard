@@ -6,7 +6,7 @@ import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";
 import { formatAmount } from "@/utils/formatCurrency";
 import toast from "react-hot-toast";
-import { updatePayoutStatus } from "@/lib/api_/finance";
+import { updatePayoutStatus } from "@/lib/api/finance";
 
 interface ViewPayoutModalProps {
     isOpen: boolean;

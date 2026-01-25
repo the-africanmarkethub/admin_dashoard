@@ -5,7 +5,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import Drawer from "@/app/components/commons/Drawer";
 import toast from "react-hot-toast";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";
-import { deleteSubscription } from "@/lib/api_/subscriptions";
+import { deleteSubscription } from "@/lib/api/subscriptions";
 import { SubscriptionType } from "@/types/SubscriptionType";
 import SubscriptionTable from "./components/SubscriptionTable";
 import SubscriptionForm from "./components/SubscriptionForm";

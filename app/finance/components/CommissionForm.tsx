@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CommissionFormType } from "@/types/CommissionFormType";
-import { createCommission, updateCommission } from "@/lib/api_/commissions";
+import { createCommission, updateCommission } from "@/lib/api/commissions";
 import toast from "react-hot-toast";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 import { AxiosError } from "axios";
@@ -44,13 +44,13 @@ export default function CommissionForm({
     });
 
     const [selectedType, setSelectedType] = useState<TypeOption>(
-        typeOptions[0]
+        typeOptions[0],
     );
 
     useEffect(() => {
         if (initialData) {
             const match = typeOptions.find(
-                (opt) => opt.value === initialData.type
+                (opt) => opt.value === initialData.type,
             );
             if (match) setSelectedType(match);
             reset(initialData);

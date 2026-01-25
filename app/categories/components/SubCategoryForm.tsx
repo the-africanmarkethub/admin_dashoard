@@ -6,7 +6,7 @@ import {
     addCategory,
     getCategories,
     updateCategory,
-} from "@/lib/api_/categories";
+} from "@/lib/api/categories";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import {
@@ -32,17 +32,17 @@ export default function SubCategoryForm({
     const [selectedParent, setSelectedParent] = useState<DropdownOption | null>(
         category?.parent_id
             ? {
-                label: category.parent_name ?? "",
-                value: String(category.parent_id),
-            }
-            : null
+                  label: category.parent_name ?? "",
+                  value: String(category.parent_id),
+              }
+            : null,
     );
 
     const [type, setType] = useState<DropdownOption | null>(
         category?.parent_name && category.parent_type
             ? typeOptions.find((opt) => opt.value === category.parent_type) ||
-            null
-            : null
+                  null
+            : null,
     );
     // Local state for categories, initialized as empty
     const [localCategories, setLocalCategories] = useState<CategoryType[]>([]);
@@ -71,14 +71,14 @@ export default function SubCategoryForm({
                     100,
                     0,
                     undefined,
-                    typeValue
+                    typeValue,
                 );
 
                 setLocalCategories(response.data);
             } catch (error) {
                 console.error("Failed to fetch categories by type", error);
                 toast.error(
-                    "Failed to load parent categories for the selected type."
+                    "Failed to load parent categories for the selected type.",
                 );
             } finally {
                 setIsFetching(false);
@@ -128,7 +128,7 @@ export default function SubCategoryForm({
         } catch (error) {
             console.error(error);
             toast.error(
-                `Failed to ${category?.id ? "update" : "add"} category`
+                `Failed to ${category?.id ? "update" : "add"} category`,
             );
         } finally {
             setLoading(false);
@@ -174,8 +174,8 @@ export default function SubCategoryForm({
                             label: isFetching
                                 ? "Loading..."
                                 : type
-                                    ? "Select category"
-                                    : "Select Type first", // Guidance added
+                                  ? "Select category"
+                                  : "Select Type first", // Guidance added
                             value: "",
                         }
                     }

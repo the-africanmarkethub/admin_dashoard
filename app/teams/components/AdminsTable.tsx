@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { deleteAdmin, listInvites } from "@/lib/api_/team";
+import { deleteAdmin, listInvites } from "@/lib/api/team";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import { Stats, Team } from "@/types/TeamType";
 import { formatHumanReadableDate } from "@/utils/formatHumanReadableDate";
@@ -101,7 +101,7 @@ export default function AdminsTable() {
                 ),
             },
         ],
-        []
+        [],
     );
 
     const fetchTeamMembers = useCallback(
@@ -123,12 +123,12 @@ export default function AdminsTable() {
                 setLoading(false);
             }
         },
-        [pagination.pageSize, pagination.pageIndex, search]
+        [pagination.pageSize, pagination.pageIndex, search],
     );
 
     const debouncedFetch = useMemo(
         () => debounce(fetchTeamMembers, 300),
-        [fetchTeamMembers]
+        [fetchTeamMembers],
     );
 
     useEffect(() => {

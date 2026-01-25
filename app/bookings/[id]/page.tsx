@@ -2,14 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { changeOrderPaymentStatus, changeOrderStatus } from "@/lib/api_/orders";
+import { changeOrderPaymentStatus, changeOrderStatus } from "@/lib/api/orders";
 import Image from "next/image";
 import Skeleton from "react-loading-skeleton";
 import dayjs from "dayjs";
 import { formatAmount } from "@/utils/formatCurrency";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 import toast from "react-hot-toast";
-import { getBookingDetail } from "@/lib/api_/bookings";
+import { getBookingDetail } from "@/lib/api/bookings";
 // Reverted to React Icons
 import {
     FiCalendar,

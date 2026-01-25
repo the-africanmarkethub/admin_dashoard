@@ -6,7 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { mostSellingShops } from "@/lib/api_/shop";
+import { mostSellingShops } from "@/lib/api/shop";
 import { ShopPerformanceItem, ShopPerformanceType } from "@/types/ShopType";
 import Image from "next/image";
 import { formatAmount } from "@/utils/formatCurrency";
@@ -142,7 +142,7 @@ export default function ShopPerformance() {
                 ),
             },
         ],
-        []
+        [],
     );
 
     return (

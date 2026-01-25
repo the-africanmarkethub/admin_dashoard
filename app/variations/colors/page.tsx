@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";
 import ProductColorsTable from "../components/ProductColorsTable";
 import ProductColorsForm from "../components/ProductColorsForm";
-import { deleteColour } from "@/lib/api_/colours";
+import { deleteColour } from "@/lib/api/colours";
 
 export default function ProductColors() {
     const [isDrawerOpen, setDrawerOpen] = useState(false);

@@ -5,7 +5,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import Drawer from "@/app/components/commons/Drawer";
 import toast from "react-hot-toast";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";
-import { deleteSizes } from "@/lib/api_/sizes";
+import { deleteSizes } from "@/lib/api/sizes";
 import ProductSizesTable from "../components/ProductSizesTable";
 import ProductSizeForm from "../components/ProductSizeForm";
 import { Sizes } from "@/types/SizeType";

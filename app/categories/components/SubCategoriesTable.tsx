@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 import { debounce } from "lodash";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { listSubCategories } from "@/lib/api_/categories";
+import { listSubCategories } from "@/lib/api/categories";
 import { CategoryType, FlattenedSubCategory } from "@/types/CategoryType";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 
@@ -80,7 +80,7 @@ const SubCategoriesTable: React.FC<SubcategoryProps> = ({
                 ),
             },
         ],
-        [onEdit, onDelete]
+        [onEdit, onDelete],
     );
 
     // ✅ Async fetch function
@@ -96,7 +96,7 @@ const SubCategoriesTable: React.FC<SubcategoryProps> = ({
                 pageSize,
                 offset,
                 searchTerm,
-                type
+                type,
             );
 
             const flattened: FlattenedSubCategory[] = response.data.flatMap(
@@ -106,7 +106,7 @@ const SubCategoriesTable: React.FC<SubcategoryProps> = ({
                         parent_name: parent.name,
                         parent_id: parent.id,
                         parent_slug: parent.slug,
-                    }))
+                    })),
             );
 
             setSubCategories(flattened);
@@ -121,7 +121,7 @@ const SubCategoriesTable: React.FC<SubcategoryProps> = ({
 
     const debouncedFetch = useMemo(
         () => debounce((args: FetchArgs) => fetchSubCategories(args), 1000),
-        []
+        [],
     );
 
     const { pageIndex, pageSize } = pagination;

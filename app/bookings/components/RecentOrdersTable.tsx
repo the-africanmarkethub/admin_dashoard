@@ -7,7 +7,7 @@ import Avatar from "@/utils/Avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import { OrderResponse } from "@/types/OrderType";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { getRecentBookings } from "@/lib/api_/bookings";
+import { getRecentBookings } from "@/lib/api/bookings";
 import StatusBadge from "@/utils/StatusBadge";
 import Link from "next/link";
 
@@ -121,7 +121,7 @@ const RecentOrdersTable: React.FC<RecentOrdersTableProps> = ({ limit }) => {
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchOrders = useCallback(async () => {

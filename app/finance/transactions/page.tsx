@@ -1,6 +1,6 @@
 "use client";
 
-import { getTransactions } from "@/lib/api_/transactions";
+import { getTransactions } from "@/lib/api/transactions";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import {
     Summary,
@@ -63,12 +63,12 @@ export default function Transactions() {
                 setLoading(false);
             }
         },
-        [pagination.pageSize]
+        [pagination.pageSize],
     );
 
     const debouncedFetch = useMemo(
         () => debounce(fetchTransactions, 300),
-        [fetchTransactions]
+        [fetchTransactions],
     );
 
     useEffect(() => {
@@ -91,7 +91,8 @@ export default function Transactions() {
             {
                 header: "Receiver Name",
                 accessorFn: (row) =>
-                    `${row.transaction_data?.vendor?.name || "Bought"} ${row.transaction_data?.vendor?.last_name || row.type
+                    `${row.transaction_data?.vendor?.name || "Bought"} ${
+                        row.transaction_data?.vendor?.last_name || row.type
                     }`,
                 cell: ({ getValue }) => <span>{getValue() as string}</span>,
             },
@@ -137,7 +138,7 @@ export default function Transactions() {
                 ),
             },
         ],
-        []
+        [],
     );
 
     return (
@@ -287,7 +288,11 @@ function MetricCard({ title, value, icon, loading, color }: MetricCardProps) {
             <div>
                 <p className="text-sm text-gray-500">{title}</p>
                 <p className="text-3xl font-bold text-gray-950">
-                    {loading ? <Skeleton width={80} height={28} /> : value ?? 0}
+                    {loading ? (
+                        <Skeleton width={80} height={28} />
+                    ) : (
+                        (value ?? 0)
+                    )}
                 </p>
             </div>
         </div>

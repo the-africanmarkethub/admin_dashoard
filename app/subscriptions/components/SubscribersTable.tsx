@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { listSubscribers } from "@/lib/api_/subscriptions";
+import { listSubscribers } from "@/lib/api/subscriptions";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import { formatAmount } from "@/utils/formatCurrency";
 import Image from "next/image";
@@ -91,7 +91,7 @@ export default function SubscribersTable({ limit }: Props) {
                         <p className="text-xs text-gray-500">
                             {row.original.subscription
                                 ? `${formatAmount(
-                                      row.original.subscription.monthly_price
+                                      row.original.subscription.monthly_price,
                                   )}/mo`
                                 : "N/A"}
                         </p>
@@ -130,7 +130,7 @@ export default function SubscribersTable({ limit }: Props) {
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchSubscribers = async () => {

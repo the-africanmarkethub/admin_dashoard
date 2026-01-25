@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import SelectDropdown from "../components/commons/Fields/SelectDropdown";
-import { getNotifications } from "../../lib/api_/notifications";
+import { getNotifications } from "../../lib/api/notifications";
 import {
     NotificationResponse,
     NotificationType,
@@ -30,7 +30,7 @@ import { receiverOptions } from "../setting";
 
 export default function Notifications() {
     const [selectedReceiver, setselectedReceiver] = useState(
-        receiverOptions[0]
+        receiverOptions[0],
     );
     const [notifications, setNotifications] = useState<NotificationType[]>([]);
     const [loading, setLoading] = useState(false);
@@ -179,7 +179,7 @@ export default function Notifications() {
                                                     <button
                                                         onClick={() =>
                                                             setPreviewImage(
-                                                                null
+                                                                null,
                                                             )
                                                         }
                                                         className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
@@ -223,7 +223,7 @@ export default function Notifications() {
                     formatHumanReadableDate(getValue() as string),
             },
         ],
-        [setPreviewImage, previewImage]
+        [setPreviewImage, previewImage],
     );
 
     return (

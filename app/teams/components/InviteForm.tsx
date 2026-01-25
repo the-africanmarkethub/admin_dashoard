@@ -4,7 +4,7 @@ import { useState } from "react";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import { sendInvite } from "@/lib/api_/team";
+import { sendInvite } from "@/lib/api/team";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
 
@@ -62,7 +62,7 @@ export default function InviteForm({ onClose }: Props) {
     };
 
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     ) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -87,7 +87,7 @@ export default function InviteForm({ onClose }: Props) {
             }>;
             if (error.response?.data?.errors) {
                 const messages = Object.values(
-                    error.response.data.errors
+                    error.response.data.errors,
                 ).flat();
                 messages.forEach((msg) => toast.error(msg));
             } else if (error.response?.data?.message) {
@@ -179,7 +179,7 @@ export default function InviteForm({ onClose }: Props) {
                     options={typeOptions}
                     value={
                         typeOptions.find(
-                            (opt) => opt.value === formData.role
+                            (opt) => opt.value === formData.role,
                         ) || typeOptions[0]
                     }
                     onChange={(option) =>

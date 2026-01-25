@@ -5,7 +5,7 @@ import Image from "next/image";
 import ReviewType from "@/types/ReviewType";
 import { formatHumanReadableDate } from "../../utils/formatHumanReadableDate";
 import RecentReviewsSkeleton from "./Skeletons/RecentReviewsSkeleton";
-import { listReviews } from "../../lib/api_/reviews";
+import { listReviews } from "../../lib/api/reviews";
 import Link from "next/link";
 
 function StarRating({ rating }: { rating: number }) {
@@ -14,8 +14,9 @@ function StarRating({ rating }: { rating: number }) {
             {[...Array(5)].map((_, index) => (
                 <svg
                     key={index}
-                    className={`w-4 h-4 ${index < rating ? "text-hub-primary" : "text-gray-400"
-                        }`}
+                    className={`w-4 h-4 ${
+                        index < rating ? "text-hub-primary" : "text-gray-400"
+                    }`}
                     fill="currentColor"
                     viewBox="0 0 20 20"
                 >

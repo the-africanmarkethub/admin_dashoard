@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
-import { create, updateFaq } from "@/lib/api_/faqs";
+import { create, updateFaq } from "@/lib/api/faqs";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import { Faq } from "@/types/FaqType";
@@ -16,7 +16,7 @@ export default function FaqForm({ onClose, faq }: Props) {
     const [question, setQuestion] = useState(faq?.question || "");
     const [answer, setAnswer] = useState(faq?.answer || "");
     const [type, setType] = useState<{ label: string; value: string } | null>(
-        faq?.type ? { label: faq.type, value: faq.type } : null
+        faq?.type ? { label: faq.type, value: faq.type } : null,
     );
     const [loading, setLoading] = useState(false);
 

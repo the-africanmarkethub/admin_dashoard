@@ -17,7 +17,7 @@ import {
     deleteTutorial,
     listTutorials,
     updateTutorialStatus,
-} from "@/lib/api_/tutorial";
+} from "@/lib/api/tutorial";
 import TutorialForm from "./TutorialForm";
 
 interface TutorialTableProps {
@@ -34,7 +34,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
     // 🔹 State for deletion modal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [tutorialToDelete, setTutorialToDelete] = useState<string | null>(
-        null
+        null,
     );
 
     const [pagination, setPagination] = useState({
@@ -45,7 +45,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
 
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [editingTutorial, setEditingTutorial] = useState<Tutorial | null>(
-        null
+        null,
     );
 
     /** 🔹 Status Switch */
@@ -77,8 +77,9 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
           relative inline-flex h-6 w-11 items-center rounded-full`}
             >
                 <span
-                    className={`${enabled ? "translate-x-6" : "translate-x-1"
-                        } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                    className={`${
+                        enabled ? "translate-x-6" : "translate-x-1"
+                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                 />
             </Switch>
         );
@@ -92,7 +93,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
             await deleteTutorial(tutorialToDelete);
             toast.success("Tutorial deleted successfully");
             setTutorials((prev) =>
-                prev.filter((t) => t.id !== tutorialToDelete)
+                prev.filter((t) => t.id !== tutorialToDelete),
             );
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -215,7 +216,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
                 },
             },
         ],
-        []
+        [],
     );
 
     /** 🔹 Fetch Tutorials */
@@ -228,7 +229,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
                     pagination.pageSize,
                     offset,
                     search,
-                    type
+                    type,
                 );
                 setTutorials(response.data || []);
                 setTotalTutorials(response.total || 0);
@@ -240,7 +241,7 @@ const TutorialTable: React.FC<TutorialTableProps> = ({ limit, type }) => {
                 setLoading(false);
             }
         },
-        [pagination.pageSize, type]
+        [pagination.pageSize, type],
     );
 
     const debouncedFetch = useMemo(() => {

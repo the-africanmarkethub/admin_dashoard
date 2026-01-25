@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { TrashIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
-import { listSubscriptions } from "@/lib/api_/subscriptions";
+import { listSubscriptions } from "@/lib/api/subscriptions";
 import { SubscriptionType } from "@/types/SubscriptionType";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import { formatAmount } from "@/utils/formatCurrency";
@@ -43,9 +43,7 @@ export default function SubscriptionTable({
                 cell: ({ row }) => {
                     const html = row.original.features || "";
                     const truncated =
-                        html.length > 50
-                            ? html.substring(0, 50) + "..."
-                            : html;
+                        html.length > 50 ? html.substring(0, 50) + "..." : html;
 
                     return (
                         <div
@@ -100,7 +98,7 @@ export default function SubscriptionTable({
                 ),
             },
         ],
-        [onDelete, onEdit]
+        [onDelete, onEdit],
     );
 
     const fetchSubscriptions = async () => {

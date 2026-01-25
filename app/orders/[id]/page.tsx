@@ -6,7 +6,7 @@ import {
     changeOrderPaymentStatus,
     changeOrderStatus,
     getOrderDetail,
-} from "@/lib/api_/orders";
+} from "@/lib/api/orders";
 import Skeleton from "react-loading-skeleton";
 import { OrderItem, OrderResponse } from "@/types/OrderType";
 import toast from "react-hot-toast";
@@ -40,7 +40,7 @@ export default function OrderDetailPage() {
 
     const [order, setOrder] = useState<OrderItem | null>(null);
     const [stats, setStats] = useState<OrderResponse["data"]["stats"] | null>(
-        null
+        null,
     );
     const [loading, setLoading] = useState(true);
     const [updating, setUpdating] = useState(false);
@@ -110,7 +110,7 @@ export default function OrderDetailPage() {
                     statusOptions[0];
                 const foundPayment =
                     paymentStatusOptions.find(
-                        (p) => p.value === paymentStatus
+                        (p) => p.value === paymentStatus,
                     ) ?? paymentStatusOptions[0];
                 setSelectedStatus(foundShipping);
                 setSelectedPaymentStatus(foundPayment);
@@ -137,13 +137,13 @@ export default function OrderDetailPage() {
                 setOrder((prev) =>
                     prev
                         ? {
-                            ...prev,
-                            order: {
-                                ...prev.order,
-                                shipping_status: status.value,
-                            },
-                        }
-                        : prev
+                              ...prev,
+                              order: {
+                                  ...prev.order,
+                                  shipping_status: status.value,
+                              },
+                          }
+                        : prev,
                 );
                 toast.success("Shipping status updated");
             } else {
@@ -167,19 +167,19 @@ export default function OrderDetailPage() {
         try {
             const res = await changeOrderPaymentStatus(
                 order.order.id,
-                status.value
+                status.value,
             );
             if (res?.success || res?.status === "success") {
                 setOrder((prev) =>
                     prev
                         ? {
-                            ...prev,
-                            order: {
-                                ...prev.order,
-                                payment_status: status.value,
-                            },
-                        }
-                        : prev
+                              ...prev,
+                              order: {
+                                  ...prev.order,
+                                  payment_status: status.value,
+                              },
+                          }
+                        : prev,
                 );
                 toast.success("Payment status updated");
             } else {
@@ -226,14 +226,14 @@ export default function OrderDetailPage() {
         setOrder((prev) =>
             prev
                 ? {
-                    ...prev,
-                    order: { ...prev.order, shipping_status: "cancelled" },
-                }
-                : prev
+                      ...prev,
+                      order: { ...prev.order, shipping_status: "cancelled" },
+                  }
+                : prev,
         );
         toast.success("Order marked cancelled (UI)");
     };
-    
+
     // const handleSettleVendor = () => {
     //     if (!orderMeta) return;
     //     if (orderMeta.vendor_payment_settlement_status === "paid") {
@@ -271,10 +271,7 @@ export default function OrderDetailPage() {
                 />
             </div>
             <div>
-                <OrderSummaryCard
-                    orderMeta={orderMeta}
-                    product={product}
-                />
+                <OrderSummaryCard orderMeta={orderMeta} product={product} />
             </div>
 
             <OrderControls

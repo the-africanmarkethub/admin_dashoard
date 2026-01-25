@@ -6,7 +6,7 @@ import ChatMessages from "./ChatMessage";
 import ChatHeader from "./ChatHeader";
 import ChatSidebar from "./ChatSidebar";
 import { Message, Ticket } from "@/types/Ticket";
-import { getServiceChat } from "@/lib/api_/services";
+import { getServiceChat } from "@/lib/api/services";
 
 interface ChatClientWrapperProps {
     initialChats: Ticket[];

@@ -1,6 +1,6 @@
 "use client";
 
-import { getSettlementAccounts } from "@/lib/api_/finance";
+import { getSettlementAccounts } from "@/lib/api/finance";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import {
     SettlementAccountItem,
@@ -32,7 +32,7 @@ export default function SettlementAccounts() {
                     await getSettlementAccounts(
                         pagination.pageSize,
                         pageIndex * pagination.pageSize,
-                        searchTerm
+                        searchTerm,
                     );
                 setSettlementAccounts(response.data);
                 setTotalRows(response.total);
@@ -42,12 +42,12 @@ export default function SettlementAccounts() {
                 setLoading(false);
             }
         },
-        [pagination.pageSize]
+        [pagination.pageSize],
     );
 
     const debouncedFetch = useMemo(
         () => debounce(fetchSettlementAccounts, 300),
-        [fetchSettlementAccounts]
+        [fetchSettlementAccounts],
     );
 
     useEffect(() => {
@@ -87,7 +87,7 @@ export default function SettlementAccounts() {
                 accessorKey: "user.name",
             },
         ],
-        []
+        [],
     );
 
     return (

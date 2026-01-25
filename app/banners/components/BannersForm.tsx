@@ -5,7 +5,7 @@ import Image from "next/image";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
-import { addBanner, listBannerTypes } from "@/lib/api_/banners";
+import { addBanner, listBannerTypes } from "@/lib/api/banners";
 import { BannerType } from "@/types/CategoryType";
 
 export default function BannerForm({

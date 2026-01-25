@@ -6,7 +6,7 @@ import Avatar from "@/utils/Avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import { debounce } from "lodash";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { listUnReviews } from "@/lib/api_/reviews";
+import { listUnReviews } from "@/lib/api/reviews";
 import { User } from "@/types/UserType";
 import ReviewType from "@/types/ReviewType";
 import UnReviewOrderType from "@/types/UnReviewOrderType";
@@ -96,10 +96,11 @@ const UnReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                     const status = getValue() as string;
                     return (
                         <span
-                            className={`px-2 py-1 text-xs rounded ${status === "delivered"
-                                ? "bg-green-100 text-green-700"
-                                : "bg-hub-primary text-hub-secondary"
-                                }`}
+                            className={`px-2 py-1 text-xs rounded ${
+                                status === "delivered"
+                                    ? "bg-green-100 text-green-700"
+                                    : "bg-hub-primary text-hub-secondary"
+                            }`}
                         >
                             {status}
                         </span>
@@ -115,7 +116,7 @@ const UnReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchReviews = useCallback(
@@ -125,7 +126,7 @@ const UnReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                 const offset = pageIndex * pagination.pageSize;
                 const response = await listUnReviews(
                     pagination.pageSize,
-                    offset
+                    offset,
                 );
                 setReviews(response.data || []);
                 setTotalReviews(response.total || 0);
@@ -136,7 +137,7 @@ const UnReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                 setLoading(false);
             }
         },
-        [pagination.pageSize]
+        [pagination.pageSize],
     );
 
     const debouncedFetchReviews = useMemo(
@@ -144,7 +145,7 @@ const UnReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
             debounce((pageIndex: number) => {
                 fetchReviews(pageIndex);
             }, 300),
-        [fetchReviews]
+        [fetchReviews],
     );
 
     useEffect(() => {

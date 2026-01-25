@@ -6,7 +6,7 @@ import Avatar from "@/utils/Avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import { Activities } from "@/types/UserType";
-import { getUserActivities } from "@/lib/api_/users";
+import { getUserActivities } from "@/lib/api/users";
 
 interface ActivitiesTableProps {
     limit: number;
@@ -83,9 +83,8 @@ const ActivitiesTable: React.FC<ActivitiesTableProps> = ({
                 cell: ({ getValue }) =>
                     formatHumanReadableDate(getValue() as string),
             },
-            
         ],
-        []
+        [],
     );
 
     const fetchUserActivities = useCallback(
@@ -96,7 +95,7 @@ const ActivitiesTable: React.FC<ActivitiesTableProps> = ({
                 const response = await getUserActivities(
                     pagination.pageSize,
                     offset,
-                    role
+                    role,
                 );
                 setActivities(response.data || []);
                 setTotalActivities(response.total || 0);
@@ -107,7 +106,7 @@ const ActivitiesTable: React.FC<ActivitiesTableProps> = ({
                 setLoading(false);
             }
         },
-        [pagination.pageSize]
+        [pagination.pageSize],
     );
 
     useEffect(() => {

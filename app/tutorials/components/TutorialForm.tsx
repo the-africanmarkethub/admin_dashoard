@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import { Tutorial } from "@/types/TutorialType";
-import { createTutorial, updateTutorial } from "@/lib/api_/tutorial";
+import { createTutorial, updateTutorial } from "@/lib/api/tutorial";
 import Image from "next/image";
 import { Editor as TinyMCEEditor } from "@tinymce/tinymce-react";
 

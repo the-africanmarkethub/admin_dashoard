@@ -7,7 +7,7 @@ import Avatar from "@/utils/Avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import { debounce } from "lodash";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { getRecentBookings } from "@/lib/api_/bookings";
+import { getRecentBookings } from "@/lib/api/bookings";
 import StatusBadge from "@/utils/StatusBadge";
 import { BookingResponse } from "@/types/BookingType";
 import { formatAmount } from "@/utils/formatCurrency";

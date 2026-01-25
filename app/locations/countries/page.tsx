@@ -7,17 +7,17 @@ import toast from "react-hot-toast";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";
 import CountryForm from "./components/CountryForm";
 import CountryTable from "./components/CountryTable";
-import { deleteCountry } from "@/lib/api_/locations";
+import { deleteCountry } from "@/lib/api/locations";
 import { CountryType } from "@/types/LocationType";
 
 export default function CountryPage() {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [editingCountry, setEditingCountry] = useState<CountryType | null>(
-        null
+        null,
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [countryToDelete, setCountryToDelete] = useState<CountryType | null>(
-        null
+        null,
     );
     const [loading, setLoading] = useState(false);
 

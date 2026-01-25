@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
-import { addColours } from "@/lib/api_/colours";
+import { addColours } from "@/lib/api/colours";
 import axios from "axios";
 import { colornames } from "color-name-list";
 
@@ -19,7 +19,7 @@ export default function ProductColorsForm({
     useEffect(() => {
         if (name.trim()) {
             const match = colornames.find(
-                (c) => c.name.toLowerCase() === name.trim().toLowerCase()
+                (c) => c.name.toLowerCase() === name.trim().toLowerCase(),
             );
             if (match) {
                 setHexcode(match.hex);
@@ -44,7 +44,7 @@ export default function ProductColorsForm({
         } catch (error: unknown) {
             if (axios.isAxiosError(error)) {
                 toast.error(
-                    error.response?.data?.name || "Failed to add color"
+                    error.response?.data?.name || "Failed to add color",
                 );
             } else {
                 toast.error("An unexpected error occurred");

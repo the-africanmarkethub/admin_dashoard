@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { useEffect, useMemo, useState } from "react";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { listBanners } from "@/lib/api_/categories";
+import { listBanners } from "@/lib/api/categories";
 import { BannerType } from "@/types/CategoryType";
 import {
     CubeIcon,
@@ -81,7 +81,7 @@ const BannersTable: React.FC<BannerProps> = ({ limit, onDelete }) => {
                 ),
             },
         ],
-        [onDelete]
+        [onDelete],
     );
 
     const fetchBanners = async (offset: number, pageSize: number) => {

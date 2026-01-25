@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { login } from "../../../lib/api_/login";
+import { login } from "../../../lib/api/login";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { SubmitButton } from "../../components/commons/SubmitButton";
@@ -30,7 +30,7 @@ export default function LoginScreen() {
             const result = await login(formData);
             document.cookie = `token=${result.token}; path=/; max-age=86400; Secure; SameSite=Strict`;
             document.cookie = `user=${encodeURIComponent(
-                JSON.stringify(result.data)
+                JSON.stringify(result.data),
             )}; path=/; max-age=86400; Secure; SameSite=Strict`;
 
             if (!result.data.password_changed_at) {

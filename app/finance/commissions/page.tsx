@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { CommissionFormType } from "@/types/CommissionFormType";
-import { deleteCommission, getCommissions } from "@/lib/api_/commissions";
+import { deleteCommission, getCommissions } from "@/lib/api/commissions";
 import { ColumnDef } from "@tanstack/react-table";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import Drawer from "@/app/components/commons/Drawer";
@@ -104,7 +104,7 @@ export default function Commission() {
                 ),
             },
         ],
-        []
+        [],
     );
     const [pagination, setPagination] = useState({
         pageIndex: 0,

@@ -8,7 +8,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { debounce } from "lodash";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import { User } from "@/types/UserType";
-import { getRecentUsers } from "@/lib/api_/users";
+import { getRecentUsers } from "@/lib/api/users";
 import StatusBadge from "@/utils/StatusBadge";
 
 interface UsersTableProps {
@@ -89,7 +89,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ limit }) => {
                 },
             },
         ],
-        [router]
+        [router],
     );
 
     const fetchUsers = useCallback(
@@ -101,7 +101,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ limit }) => {
                     pagination.pageSize,
                     offset,
                     search,
-                    type
+                    type,
                 );
                 setUsers(response.data);
                 setTotalUsers(response.total || 0);
@@ -112,7 +112,7 @@ const UsersTable: React.FC<UsersTableProps> = ({ limit }) => {
                 setLoading(false);
             }
         },
-        [pagination.pageSize]
+        [pagination.pageSize],
     );
 
     const debouncedFetchUsers = useMemo(() => {

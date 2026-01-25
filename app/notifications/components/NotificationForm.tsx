@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Image from "next/image";
-import { sendNotification } from "@/lib/api_/notifications";
+import { sendNotification } from "@/lib/api/notifications";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
-import { getRecentUsers } from "@/lib/api_/users";
+import { getRecentUsers } from "@/lib/api/users";
 import { User } from "@/types/UserType";
 import AsyncSelect from "react-select/async";
 import { debounce } from "lodash";

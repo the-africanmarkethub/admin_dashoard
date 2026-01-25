@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { listCountries, listStates, storeCity } from "@/lib/api_/locations";
+import { listCountries, listStates, storeCity } from "@/lib/api/locations";
 import { CountryType, StateType } from "@/types/LocationType";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 

@@ -14,16 +14,16 @@ import {
 } from "@headlessui/react";
 import BannersForm from "./components/BannersForm";
 import BannersTable from "./components/BannersTable";
-import { deleteBanner } from "../../lib/api_/banners";
+import { deleteBanner } from "../../lib/api/banners";
 
 export default function Banners() {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [editingCategory, setEditingCategory] = useState<BannerType | null>(
-        null
+        null,
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [categoryToDelete, setCategoryToDelete] = useState<BannerType | null>(
-        null
+        null,
     );
 
     const confirmDelete = (category: BannerType) => {

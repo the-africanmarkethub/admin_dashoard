@@ -3,7 +3,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
-import { storeCountry } from "@/lib/api_/locations";
+import { storeCountry } from "@/lib/api/locations";
 import { CountryType } from "@/types/LocationType";
 import Image from "next/image";
 
@@ -29,7 +29,7 @@ export default function CountryForm({
     });
 
     const [previewUrl, setPreviewUrl] = useState<string | null>(
-        country?.flag ? country.flag : null
+        country?.flag ? country.flag : null,
     );
 
     const [loading, setLoading] = useState(false);

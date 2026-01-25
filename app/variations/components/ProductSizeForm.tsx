@@ -4,7 +4,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import axios from "axios";
-import { addSizes } from "@/lib/api_/sizes";
+import { addSizes } from "@/lib/api/sizes";
 
 export default function ProductSizeForm({ onClose }: { onClose: () => void }) {
     const [name, setName] = useState("");

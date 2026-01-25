@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { categoryAnalytics } from "@/lib/api_/categories";
+import { categoryAnalytics } from "@/lib/api/categories";
 import {
     CategoryAnalyticsItem,
     CategoryAnalyticsType,
@@ -29,7 +29,7 @@ export default function Analytics() {
                     {
                         limit: pagination.pageSize,
                         offset: pagination.pageIndex * pagination.pageSize,
-                    }
+                    },
                 );
                 setData(response.data);
                 setTotal(response.total);
@@ -82,7 +82,8 @@ export default function Analytics() {
             {
                 header: "Sales Amount",
                 accessorKey: "total_sales_amount",
-                cell: ({ row }) => formatAmount(row.original.total_sales_amount),
+                cell: ({ row }) =>
+                    formatAmount(row.original.total_sales_amount),
             },
             {
                 header: "Total Orders",
@@ -94,7 +95,7 @@ export default function Analytics() {
                 ),
             },
         ],
-        []
+        [],
     );
 
     return (

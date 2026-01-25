@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import Image from "next/image";
 import clsx from "clsx";
 import { UserDetailResponse } from "@/types/UserType";
-import { changeUserStatus, deleteUser } from "@/lib/api_/users";
+import { changeUserStatus, deleteUser } from "@/lib/api/users";
 import SelectDropdown from "@/app/components/commons/Fields/SelectDropdown";
 import toast from "react-hot-toast";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";

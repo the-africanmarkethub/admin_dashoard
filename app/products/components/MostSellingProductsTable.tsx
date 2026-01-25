@@ -6,7 +6,7 @@ import { formatHumanReadableDate } from "@/utils/formatHumanReadableDate";
 import { ColumnDef } from "@tanstack/react-table";
 import { Product } from "@/types/ProductType";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { mostSellingProducts } from "@/lib/api_/products";
+import { mostSellingProducts } from "@/lib/api/products";
 import StatusBadge from "@/utils/StatusBadge";
 import { getStockBadgeClass } from "@/utils/StockBadge";
 import {
@@ -76,10 +76,11 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                             {[...Array(5)].map((_, index) => (
                                 <StarIcon
                                     key={index}
-                                    className={`w-4 h-4 ${index < stars
-                                        ? "text-hub-primary"
-                                        : "text-gray-300"
-                                        }`}
+                                    className={`w-4 h-4 ${
+                                        index < stars
+                                            ? "text-hub-primary"
+                                            : "text-gray-300"
+                                    }`}
                                 />
                             ))}
                             <span className="ml-2 text-sm text-gray-600">
@@ -93,10 +94,10 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                 header: "Price",
                 cell: ({ row }) => {
                     const salesPrice = parseFloat(
-                        row.original.sales_price || "0"
+                        row.original.sales_price || "0",
                     );
                     const regularPrice = parseFloat(
-                        row.original.regular_price || "0"
+                        row.original.regular_price || "0",
                     );
 
                     return (
@@ -108,7 +109,7 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                                 regularPrice > 0 &&
                                 salesPrice < regularPrice && (
                                     <span className="text-gray-500 line-through">{`$${regularPrice.toFixed(
-                                        2
+                                        2,
                                     )}`}</span>
                                 )}
                         </div>
@@ -200,7 +201,7 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchProducts = useCallback(
@@ -210,7 +211,7 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                 const offset = pageIndex * pagination.pageSize;
                 const response = await mostSellingProducts(
                     pagination.pageSize,
-                    offset
+                    offset,
                 );
                 setProducts(response.data);
                 setTotalProducts(response.total || 0);
@@ -221,7 +222,7 @@ const MostSellingProductsTable: React.FC<MostSellingProductsTableProps> = ({
                 setLoading(false);
             }
         },
-        [pagination.pageSize]
+        [pagination.pageSize],
     );
 
     useEffect(() => {

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { forgetPassword } from "../../../lib/api_/login";
+import { forgetPassword } from "../../../lib/api/login";
 import Image from "next/image";
 import toast from "react-hot-toast";
 import { SubmitButton } from "../../components/commons/SubmitButton";
@@ -30,7 +30,7 @@ export default function ForgetPassword() {
             sessionStorage.setItem("resetEmail", email);
 
             toast.success(
-                result.message || "Password reset link sent to your email."
+                result.message || "Password reset link sent to your email.",
             );
             router.replace("/auth/confirm-reset-code");
         } catch (err) {

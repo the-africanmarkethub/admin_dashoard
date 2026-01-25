@@ -5,7 +5,7 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import Drawer from "@/app/components/commons/Drawer";
 import toast from "react-hot-toast";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";
-import { deleteCity } from "@/lib/api_/locations";
+import { deleteCity } from "@/lib/api/locations";
 import { CityType } from "@/types/LocationType";
 import CityTable from "./components/CityTable";
 import CityForm from "./components/CityForm";

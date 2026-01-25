@@ -7,7 +7,7 @@ import {
     addCategory,
     updateCategory,
     getCategories,
-} from "@/lib/api_/categories";
+} from "@/lib/api/categories";
 import toast from "react-hot-toast";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import { CategoryType, CategoryResponse } from "@/types/CategoryType";

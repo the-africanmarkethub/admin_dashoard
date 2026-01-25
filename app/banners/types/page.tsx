@@ -7,13 +7,13 @@ import { BannerType } from "@/types/CategoryType";
 import toast from "react-hot-toast";
 import BannerTypesTable from "../components/BannerTypesTable";
 import BannerTypesForm from "../components/BannerTypesForm";
-import { deleteBannerType } from "@/lib/api_/banners";
+import { deleteBannerType } from "@/lib/api/banners";
 import ConfirmationModal from "@/app/components/commons/ConfirmationModal";
 
 export default function BannerTypes() {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [editingCategory, setEditingCategory] = useState<BannerType | null>(
-        null
+        null,
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [typeToDelete, settypeToDelete] = useState<BannerType | null>(null);

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import {
     createSubscription,
     updateSubscription,
-} from "@/lib/api_/subscriptions";
+} from "@/lib/api/subscriptions";
 import { SubscriptionType } from "@/types/SubscriptionType";
 import { SubmitButton } from "@/app/components/commons/SubmitButton";
 import { Editor as TinyMCEEditor } from "@tinymce/tinymce-react";
@@ -27,7 +27,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
     const isEditing = Boolean(subscription?.id); // ✅ determine edit mode
 
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     ) => {
         const { name, value } = e.target;
         setForm((prev) => ({ ...prev, [name]: value }));
@@ -38,7 +38,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
 
         if (
             !form.name ||
-            !form.monthly_price || 
+            !form.monthly_price ||
             !form.features ||
             !form.payment_link
         ) {
@@ -48,7 +48,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
 
         const payload = {
             name: form.name,
-            monthly_price: Number(form.monthly_price), 
+            monthly_price: Number(form.monthly_price),
             features: form.features,
             payment_link_url: form.payment_link,
         };
@@ -69,7 +69,7 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
         } catch (error) {
             console.error(error);
             toast.error(
-                `Failed to ${isEditing ? "update" : "create"} subscription`
+                `Failed to ${isEditing ? "update" : "create"} subscription`,
             );
         } finally {
             setLoading(false);
@@ -107,8 +107,6 @@ export default function SubscriptionForm({ onClose, subscription }: Props) {
                     className="w-full px-3 py-2 border border-gray-300 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-hub-primary/200"
                 />
             </div>
-
-           
 
             {/* Features */}
             <div>

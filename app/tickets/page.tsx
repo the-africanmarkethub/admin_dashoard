@@ -3,7 +3,7 @@
 import { useState, useEffect, use, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import ChatClientWrapper from "./components/ChatClientWrapper";
-import { getServiceChat, listServiceChats } from "@/lib/api_/services";
+import { getServiceChat, listServiceChats } from "@/lib/api/services";
 // NOTE: Ensure these point to your ADMIN endpoints in your API file
 
 interface ServiceChatPageProps {

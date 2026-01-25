@@ -6,7 +6,7 @@ import Avatar from "@/utils/Avatar";
 import { ColumnDef } from "@tanstack/react-table";
 import { debounce } from "lodash";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { listReviews } from "@/lib/api_/reviews";
+import { listReviews } from "@/lib/api/reviews";
 import ReviewType from "@/types/ReviewType";
 import Image from "next/image";
 import Link from "next/link";
@@ -117,7 +117,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchReviews = useCallback(
@@ -135,7 +135,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
                 setLoading(false);
             }
         },
-        [pagination.pageSize]
+        [pagination.pageSize],
     );
 
     const debouncedFetchReviews = useMemo(
@@ -143,7 +143,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ limit }) => {
             debounce((pageIndex: number) => {
                 fetchReviews(pageIndex);
             }, 300),
-        [fetchReviews]
+        [fetchReviews],
     );
 
     useEffect(() => {

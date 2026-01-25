@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Shop } from "@/types/ShopType";
 import { ColumnDef } from "@tanstack/react-table";
 import TanStackTable from "@/app/components/commons/TanStackTable";
-import { shopAction, getShops } from "../../lib/api_/shop";
+import { shopAction, getShops } from "../../lib/api/shop";
 import Image from "next/image";
 import StatusBadge from "@/utils/StatusBadge";
 import { formatHumanReadableDate } from "@/utils/formatHumanReadableDate";

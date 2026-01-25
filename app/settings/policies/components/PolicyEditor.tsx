@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Editor as TinyMCEEditor } from "@tinymce/tinymce-react";
 import toast from "react-hot-toast";
-import { getPolicy, savePolicy } from "@/lib/api_/settings";
+import { getPolicy, savePolicy } from "@/lib/api/settings";
 
 interface PolicyEditorProps {
     type: string;

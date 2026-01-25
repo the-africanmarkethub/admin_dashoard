@@ -4,7 +4,7 @@ import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { debounce } from "lodash";
 import toast from "react-hot-toast";
-import { deleteFaq, listFaqs, updateStatus } from "@/lib/api_/faqs";
+import { deleteFaq, listFaqs, updateStatus } from "@/lib/api/faqs";
 import { Faq } from "@/types/FaqType";
 import TanStackTable from "@/app/components/commons/TanStackTable";
 import { formatHumanReadableDate } from "@/utils/formatHumanReadableDate";
@@ -68,8 +68,9 @@ const FaqsTable: React.FC<FaqsTableProps> = ({ limit, type }) => {
           relative inline-flex h-6 w-11 items-center rounded-full`}
             >
                 <span
-                    className={`${enabled ? "translate-x-6" : "translate-x-1"
-                        } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                    className={`${
+                        enabled ? "translate-x-6" : "translate-x-1"
+                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                 />
             </Switch>
         );
@@ -185,7 +186,7 @@ const FaqsTable: React.FC<FaqsTableProps> = ({ limit, type }) => {
                 },
             },
         ],
-        []
+        [],
     );
 
     const fetchFaqs = useCallback(
@@ -197,7 +198,7 @@ const FaqsTable: React.FC<FaqsTableProps> = ({ limit, type }) => {
                     pagination.pageSize,
                     offset,
                     type,
-                    search
+                    search,
                 );
                 setFaqs(response.data || []);
                 setTotalFaqs(response.total || 0);
@@ -209,7 +210,7 @@ const FaqsTable: React.FC<FaqsTableProps> = ({ limit, type }) => {
                 setLoading(false);
             }
         },
-        [pagination.pageSize, type]
+        [pagination.pageSize, type],
     );
 
     const debouncedFetch = useMemo(() => {
