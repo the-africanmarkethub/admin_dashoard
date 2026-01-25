@@ -111,7 +111,7 @@ export default function ChatMessages({
                                                 className={cn(
                                                     "w-3.5 h-3.5",
                                                     isCustomer
-                                                        ? "text-blue-500"
+                                                        ? "text-hub-secondary"
                                                         : "text-white",
                                                 )}
                                             />
