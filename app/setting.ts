@@ -33,6 +33,8 @@ import {
     BanknotesIcon,
 } from "@heroicons/react/24/outline";
 
+export const CANADA_TIMEZONE = "America/Toronto";
+
 export const NAVIGATION = [
     {
         name: "Dashboard",
@@ -169,10 +171,10 @@ export const NAVIGATION = [
             { name: "Transactions", href: "/finance/transactions" },
             { name: "Commission Revenues", href: "/finance/revenues" },
             { name: "Commission Rates", href: "/finance/commissions" },
-            {
-                name: "Settlment Accounts",
-                href: "/finance/settlement-accounts",
-            },
+            // {
+            //     name: "Settlment Accounts",
+            //     href: "/finance/settlement-accounts",
+            // },
         ],
     },
     {
