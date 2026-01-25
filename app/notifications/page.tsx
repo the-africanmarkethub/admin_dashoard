@@ -204,7 +204,7 @@ export default function Notifications() {
                     const url = getValue() as string;
                     return (
                         <Link
-                            href={url}
+                            href={url || ''}
                             popoverTarget="_blank"
                             className="text-hub-cinnabar-300 underline"
                             target="_blank"

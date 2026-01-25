@@ -98,7 +98,7 @@ export default function ChatMessages({
                                         "flex items-center justify-end gap-1 mt-1 text-[9px] font-medium leading-none",
                                         isCustomer
                                             ? "text-gray-400"
-                                            : "text-blue-100/80",
+                                            : "text-hub-primary/80",
                                     )}
                                 >
                                     <span>
