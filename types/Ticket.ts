@@ -23,27 +23,28 @@ export interface ServiceContext {
 }
 
 export interface Ticket {
-  id: number; // Database ID
-  ticket_id: string; // TCK-XXXX format
-  title: string | null;
-  subject: string;
-  description?: string | Message[]; // description is the JSON conversation
-  file: string | null;
-  file_public_id: string | null;
-  priority_level: "low" | "medium" | "high";
-  response_status: "open" | "close" | "ongoing";
-  service_id: number;
-  customer_id: number;
-  service_provider_id: number;
-  customer_last_read_at: string | null;
-  provider_last_read_at: string | null;
+    id: number; // Database ID
+    ticket_id: string; // TCK-XXXX format
+    title: string | null;
+    subject: string;
+    description?: string | Message[]; // description is the JSON conversation
+    file: string | null;
+    file_public_id: string | null;
+    priority_level: "low" | "medium" | "high";
+    response_status: "open" | "close" | "ongoing";
+    service_id: number;
+    customer_id: number;
+    service_provider_id: number;
+    customer_last_read_at: string | null;
+    provider_last_read_at: string | null;
+    service_slug: string;
 
-  // Flattened fields from your listTickets transformer
-  full_name?: string;
-  profile_photo?: string | null;
-  last_message?: string | null;
-  last_message_time?: string | null;
-  online_status?: "online" | "offline";
+    // Flattened fields from your listTickets transformer
+    full_name?: string;
+    profile_photo?: string | null;
+    last_message?: string | null;
+    last_message_time?: string | null;
+    online_status?: "online" | "offline";
 }
 
 export interface ChatDetailResponse {

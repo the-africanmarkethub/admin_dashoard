@@ -1,6 +1,6 @@
 "use client";
 
-import { LuChevronLeft, LuShield } from "react-icons/lu";
+import { LuChevronLeft, LuShield, LuExternalLink } from "react-icons/lu";
 import Image from "next/image";
 
 interface ChatHeaderProps {
@@ -11,6 +11,7 @@ interface ChatHeaderProps {
     onBack?: () => void;
     ticketId: string;
     bookingStatus: string;
+    serviceSlug?: string; // Added serviceSlug
 }
 
 export default function ChatHeader({
@@ -18,8 +19,8 @@ export default function ChatHeader({
     onBack,
     ticketId,
     bookingStatus,
+    serviceSlug,
 }: ChatHeaderProps) {
-    // Fallback to prevent crash if selection is mid-update
     if (!participants)
         return <div className="h-17.5 bg-white border-b border-gray-100" />;
 
@@ -33,7 +34,7 @@ export default function ChatHeader({
                     <LuChevronLeft size={24} />
                 </button>
 
-                {/* Dual Avatars - Stacked Style */}
+                {/* Dual Avatars */}
                 <div className="flex items-center -space-x-3 shrink-0">
                     <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-white bg-gray-100 z-10 shadow-sm">
                         <Image
@@ -63,22 +64,33 @@ export default function ChatHeader({
                     </div>
                 </div>
 
-                {/* Dynamic Participant Names */}
                 <div className="min-w-0">
                     <h2 className="text-sm font-bold leading-tight truncate text-gray-900 flex items-center gap-1">
                         <span className="truncate">
-                            {participants.customer?.full_name || "Customer"}
+                            {participants.customer?.full_name}
                         </span>
                         <span className="text-gray-300 font-normal">&</span>
                         <span className="truncate">
-                            {participants.provider?.full_name || "Provider"}
+                            {participants.provider?.full_name}
                         </span>
                     </h2>
 
-                    <div className="flex items-center gap-2 mt-0.5">
-                        <span className="text-[9px] font-bold text-blue-600 bg-blue-50 px-1 rounded uppercase tracking-tighter">
-                            Ticket: {ticketId?.split("-").pop()}
-                        </span>
+                    <div className="flex items-center gap-2 mt-1.5">
+                        {serviceSlug ? (
+                            <a
+                                href={`https://africanmarkethub.ca/items/${serviceSlug}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[9px] font-bold text-hub-secondary bg-blue-50 px-1.5 py-0.5 rounded uppercase tracking-tighter flex items-center gap-1 hover:bg-hub-primary/10 transition-colors"
+                            >
+                                View Service <LuExternalLink size={10} />
+                            </a>
+                        ) : (
+                            <span className="text-[9px] font-bold text-gray-400 bg-gray-50 px-1 rounded uppercase">
+                                Ticket: {ticketId?.split("-").pop()}
+                            </span>
+                        )}
+
                         <span className="text-[9px] text-gray-400 font-medium uppercase">
                             • {bookingStatus || "Under Review"}
                         </span>
@@ -86,11 +98,10 @@ export default function ChatHeader({
                 </div>
             </div>
 
-            {/* Mode Indicator */}
-            <div className="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-gray-50 text-gray-500 rounded-full border border-gray-200 shrink-0">
-                <LuShield size={14} className="text-blue-500" />
+            <div className="hidden animate-pulse sm:flex items-center gap-1.5 px-3 py-1 bg-gray-50 text-hub-primary rounded-full border border-hub-primary/10 shrink-0">
+                <LuShield size={14} className="text-hub-secondary" />
                 <span className="text-[10px] font-bold uppercase tracking-widest">
-                    Dispute View
+                    READ-ONLY View
                 </span>
             </div>
         </header>

@@ -68,14 +68,6 @@ export default function ChatClientWrapper({
             <div
                 className={`${showMobileChat ? "hidden" : "block"} w-full md:block md:w-80 border-r border-gray-200 bg-white`}
             >
-                {/* <ChatSidebar
-                    chats={chats}
-                    activeChatId={activeChat?.ticket_id}
-                    onSelectChat={(chat) => {
-                        setActiveChat(chat);
-                        setShowMobileChat(true);
-                    }}
-                /> */}
                 <ChatSidebar
                     chats={chats}
                     activeChatId={activeChat?.ticket_id}
@@ -110,12 +102,8 @@ export default function ChatClientWrapper({
                             onBack={() => setShowMobileChat(false)}
                             ticketId={activeChat?.ticket_id}
                             bookingStatus={bookingStatus}
-                        />
-                        {/* Admin Info Banner */}
-                        <div className="bg-blue-50/50 border-b border-blue-100 px-4 py-2 flex items-center gap-2 text-blue-700 text-[11px] font-semibold uppercase tracking-wider">
-                            <LuShield size={14} className="animate-pulse" />
-                            Read-Only Dispute Mediation View
-                        </div>
+                            serviceSlug={activeChat?.service_slug} // Pass the slug here
+                        /> 
                         <ChatMessages
                             messages={messages}
                             isloadingChatMessage={isloadingChatMessage}
