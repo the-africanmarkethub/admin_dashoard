@@ -1,5 +1,3 @@
-// types/chat.ts
-
 export interface Message {
   id: string;
   is_me: boolean;
