@@ -7,6 +7,7 @@ import ChatMessagesSkeleton from "./ChatMessagesSkeleton";
 import { Message } from "@/types/Ticket";
 import Image from "next/image";
 import { formatHumanReadableDate } from "@/utils/formatDate";
+import { LuCheck, LuCheckCheck } from "react-icons/lu";
 
 function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
@@ -23,7 +24,6 @@ export default function ChatMessages({
 }: ChatMessagesProps) {
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    // Scroll to bottom whenever messages change OR loading finishes
     useEffect(() => {
         if (!isloadingChatMessage && messages.length > 0) {
             scrollRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -33,11 +33,11 @@ export default function ChatMessages({
     return (
         <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 bg-hub-primary/10 custom-scrollbar">
             {isloadingChatMessage ? (
-                /* The Skeleton should now look like the admin chat layout */
                 <ChatMessagesSkeleton />
             ) : messages.length > 0 ? (
                 messages.map((msg: any, i: number) => {
                     const isCustomer = msg.sender_type === "customer";
+                    const isRead = msg.is_read_by_recipient === true;
 
                     return (
                         <div
@@ -47,17 +47,24 @@ export default function ChatMessages({
                                 isCustomer ? "items-start" : "items-end",
                             )}
                         >
-                            {/* Identity Label */}
                             <span className="text-[10px] font-bold uppercase text-gray-400 mb-1 px-1 tracking-tight">
                                 {isCustomer ? "Customer" : "Service Provider"}
                             </span>
 
                             <div
                                 className={cn(
-                                    "max-w-[85%] md:max-w-[70%] rounded-2xl px-4 py-3 text-sm shadow-sm transition-all",
+                                    "relative max-w-[85%] md:max-w-[70%] px-4 py-2.5 text-sm shadow-sm transition-all",
+                                    // Shared bubble styles
+                                    "after:content-[''] after:absolute after:top-0 after:w-0 after:h-0 after:border-[10px] after:border-transparent",
                                     isCustomer
-                                        ? "bg-white border border-gray-100 rounded-tl-none text-gray-800"
-                                        : "bg-hub-secondary rounded-tr-none text-white shadow-blue-100",
+                                        ? [
+                                              "bg-white border border-gray-100 text-gray-800 rounded-2xl rounded-tl-none",
+                                              "after:-left-2.5 after:border-t-white after:border-r-white", // The white tail
+                                          ]
+                                        : [
+                                              "bg-hub-secondary text-white rounded-2xl rounded-tr-none",
+                                              "after:-right-2.5 after:border-t-hub-secondary after:border-l-hub-secondary", // The primary color tail
+                                          ],
                                 )}
                             >
                                 {/* Image Attachment */}
@@ -81,21 +88,36 @@ export default function ChatMessages({
                                     </div>
                                 )}
 
-                                <p className="whitespace-pre-wrap break-words leading-relaxed">
+                                <p className="whitespace-pre-wrap break-words leading-relaxed relative z-10">
                                     {msg.text}
                                 </p>
 
-                                {/* Metadata */}
+                                {/* Metadata & Read Status - Pushed to bottom right like WhatsApp */}
                                 <div
                                     className={cn(
-                                        "flex items-center gap-1 mt-2 text-[9px] font-medium opacity-70",
+                                        "flex items-center justify-end gap-1 mt-1 text-[9px] font-medium leading-none",
                                         isCustomer
-                                            ? "text-gray-500"
-                                            : "text-blue-50",
+                                            ? "text-gray-400"
+                                            : "text-blue-100/80",
                                     )}
                                 >
                                     <span>
                                         {formatHumanReadableDate(msg.timestamp)}
+                                    </span>
+
+                                    <span className="flex items-center">
+                                        {isRead ? (
+                                            <LuCheckCheck
+                                                className={cn(
+                                                    "w-3.5 h-3.5",
+                                                    isCustomer
+                                                        ? "text-blue-500"
+                                                        : "text-white",
+                                                )}
+                                            />
+                                        ) : (
+                                            <LuCheck className="w-3.5 h-3.5 opacity-60" />
+                                        )}
                                     </span>
                                 </div>
                             </div>
