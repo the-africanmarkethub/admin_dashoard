@@ -3,7 +3,6 @@ import "./globals.css";
 import { Metadata } from "next";
 import AuthLayout from "./AuthLayout";
 import { Toaster } from "react-hot-toast";
-import 'react-loading-skeleton/dist/skeleton.css' 
 
 const inter = Inter({ subsets: ["latin"] });
 

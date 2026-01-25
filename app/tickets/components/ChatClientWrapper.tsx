@@ -1,180 +1,137 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import { getServiceChat, replyServiceChat } from "@/lib/api_/services";
-import { LuSend } from "react-icons/lu";
+import { LuShield } from "react-icons/lu";
 import ChatMessages from "./ChatMessage";
 import ChatHeader from "./ChatHeader";
-import ChatInput from "./ChatInput";
 import ChatSidebar from "./ChatSidebar";
-import { Message, Participant, Ticket } from "@/types/Ticket";
+import { Message, Ticket } from "@/types/Ticket";
+import { getServiceChat } from "@/lib/api_/services";
 
 interface ChatClientWrapperProps {
-  initialChats: Ticket[];
-  bookingStatus: string;
-  initialActiveChat: Ticket | null;
-  initialMessages: Message[];
-  initialParticipant: Participant | null;
+    initialChats: Ticket[];
+    bookingStatus: string;
+    initialActiveChat: Ticket | null;
+    initialMessages: Message[];
+    initialParticipant: any; // Now contains { customer, provider }
 }
 
 export default function ChatClientWrapper({
-  initialChats,
-  bookingStatus,
-  initialActiveChat,
-  initialMessages,
-  initialParticipant,
+    initialChats,
+    bookingStatus,
+    initialActiveChat,
+    initialMessages,
+    initialParticipant,
 }: ChatClientWrapperProps) {
-  const [chats, setChats] = useState<Ticket[]>(initialChats);
-  const [activeChat, setActiveChat] = useState<Ticket | null>(
-    initialActiveChat
-  );
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
-  const [participant, setParticipant] = useState<Participant | null>(
-    initialParticipant
-  );
-  const [loading, setLoading] = useState(false);
-  const [isloadingChatMessage, setIsLoadingChatMessage] = useState(false);
-  const [showMobileChat, setShowMobileChat] = useState(!!initialActiveChat);
+    const [chats, setChats] = useState<Ticket[]>(initialChats);
+    const [activeChat, setActiveChat] = useState<Ticket | null>(
+        initialActiveChat,
+    );
+    const [messages, setMessages] = useState<Message[]>(initialMessages);
+    const [participants, setParticipants] = useState<any>(initialParticipant);
+    const [showMobileChat, setShowMobileChat] = useState(!!initialActiveChat);
+    const [isloadingChatMessage, setIsLoadingChatMessage] = useState(false);
+    // Sync state with props when switching tickets
+    useEffect(() => {
+        setChats(initialChats);
+        setActiveChat(initialActiveChat);
+        setMessages(initialMessages);
+        setParticipants(initialParticipant);
+    }, [initialChats, initialActiveChat, initialMessages, initialParticipant]);
 
-  // Sync state with props
-  useEffect(() => {
-    setChats(initialChats);
-    setActiveChat(initialActiveChat);
-    setMessages(initialMessages);
-    setParticipant(initialParticipant);
-  }, [initialChats, initialActiveChat, initialMessages, initialParticipant]);
+    // Observer Polling Logic
+    useEffect(() => {
+        if (!activeChat) return;
+        setIsLoadingChatMessage(true); // Start loading
+        const interval = setInterval(async () => {
+            try {
+                const res = await getServiceChat(activeChat.ticket_id);
+                const serverData = res.data?.data || res.data;
+                const newMessages = serverData.messages || [];
 
-  // Polling Logic
-  useEffect(() => {
-    if (!activeChat) return;
-    const interval = setInterval(async () => {
-      try {
-        const res = await getServiceChat(activeChat.ticket_id);
-        const serverData = res.data?.data || res.data;
-        const newMessages = serverData.messages || [];
-
-        if (newMessages.length !== messages.length) {
-          setMessages(newMessages);
-        }
-      } catch (err) {
-        console.error("Polling failed", err);
-      }
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [activeChat, messages.length]);
-
-  const handleUpsertMessage = async (text: string, file?: File) => {
-    if (!activeChat) return;
-
-    // 1. OPTIMISTIC UPDATE
-    const tempId = Date.now().toString();
-    const optimisticMessage: any = {
-      id: tempId,
-      text: text,
-      is_me: true,
-      timestamp: new Date().toISOString(),
-      is_read: false,
-      file: file ? URL.createObjectURL(file) : null,
-    };
-
-    setMessages((prev) => [...prev, optimisticMessage]);
-    setLoading(true);
-
-    const formData = new FormData();
-    formData.append("service_id", activeChat.service_id.toString());
-    formData.append("description", text.trim());
-    if (file) {
-      formData.append("file", file);
-    }
-    try {
-      setIsLoadingChatMessage(true);
-      const res = await replyServiceChat(formData);
-      if (res.status === "success") {
-        const serverData = res.data?.data || res.data;
-        const serverMessages = serverData.messages;
-
-        if (serverMessages && Array.isArray(serverMessages)) {
-          setMessages(serverMessages);
-        }
-
-        // Update sidebar sorting and preview
-        setChats((prev) =>
-          prev
-            .map((c) =>
-              c.ticket_id === activeChat.ticket_id
-                ? {
-                  ...c,
-                  last_message: text || "📎 Attachment",
-                  last_message_time: new Date().toISOString(),
+                if (newMessages.length !== messages.length) {
+                    setMessages(newMessages);
                 }
-                : c
-            )
-            .sort(
-              (a, b) =>
-                new Date(b.last_message_time || 0).getTime() -
-                new Date(a.last_message_time || 0).getTime()
-            )
-        );
-      }
-    } catch (err: any) {
-      toast.error("Failed to send");
-      setMessages((prev) => prev.filter((m) => m.id !== tempId));
-    } finally {
-      setLoading(false);
-      setIsLoadingChatMessage(false);
-    }
-  };
+            } catch (err) {
+                console.error("Admin polling failed", err);
+            } finally {
+                setIsLoadingChatMessage(false); // Stop loading
+            }
+        }, 5000); // Slower polling for admin to save resources
 
-  return (
-    <div className="flex h-[calc(100vh-80px)] md:h-[calc(100vh-100px)] bg-white overflow-hidden md:rounded-2xl md:m-4 shadow-sm border border-gray-100">
-      <div
-        className={`${showMobileChat ? "hidden" : "block"
-          } w-full md:block md:w-80 border-r border-gray-100`}
-      >
-        <ChatSidebar
-          chats={chats}
-          activeChatId={activeChat?.ticket_id}
-          onSelectChat={(chat) => {
-            setActiveChat(chat);
-            setShowMobileChat(true);
-          }}
-        />
-      </div>
+        return () => clearInterval(interval);
+    }, [activeChat, messages.length]);
 
-      <main
-        className={`${showMobileChat ? "flex" : "hidden"
-          } flex-1 flex-col bg-white w-full`}
-      >
-        {activeChat ? (
-          <>
-            <ChatHeader
-              participant={participant}
-              onBack={() => setShowMobileChat(false)}
-              ticketId={activeChat?.ticket_id}
-              bookingStatus={bookingStatus}
-              isLoading={isloadingChatMessage}
-            />
-            <ChatMessages
-              messages={messages}
-              isloadingChatMessage={isloadingChatMessage}
-            />
-            <ChatInput
-              onSendMessage={handleUpsertMessage}
-              loading={loading || isloadingChatMessage}
-            />
-          </>
-        ) : (
-          <div className="flex-1 hidden md:flex flex-col items-center justify-center text-gray-400 gap-4 bg-gray-50/30">
-            <div className="p-6 bg-white rounded-full shadow-sm">
-              <LuSend size={48} className="text-green-200" />
+    return (
+        <div className="flex h-[calc(100vh-80px)] md:h-[calc(100vh-100px)] bg-gray-50 overflow-hidden md:rounded-2xl md:m-4 shadow-sm border border-gray-200">
+            {/* Sidebar - Viewing all global tickets */}
+            <div
+                className={`${showMobileChat ? "hidden" : "block"} w-full md:block md:w-80 border-r border-gray-200 bg-white`}
+            >
+                {/* <ChatSidebar
+                    chats={chats}
+                    activeChatId={activeChat?.ticket_id}
+                    onSelectChat={(chat) => {
+                        setActiveChat(chat);
+                        setShowMobileChat(true);
+                    }}
+                /> */}
+                <ChatSidebar
+                    chats={chats}
+                    activeChatId={activeChat?.ticket_id}
+                    onSelectChat={(selectedTicket) => {
+                        setActiveChat(selectedTicket);
+
+                        // Update participants state immediately when selection changes
+                        setParticipants({
+                            customer: {
+                                full_name: selectedTicket.customer_name,
+                                profile_photo: selectedTicket.customer_photo,
+                            },
+                            provider: {
+                                full_name: selectedTicket.provider_name,
+                                profile_photo: selectedTicket.provider_photo,
+                            },
+                        });
+
+                        setShowMobileChat(true);
+                    }}
+                />
             </div>
-            <p className="font-medium text-gray-500">
-              Select a conversation to start messaging
-            </p>
-          </div>
-        )}
-      </main>
-    </div>
-  );
+
+            {/* Main Chat Area */}
+            <main
+                className={`${showMobileChat ? "flex" : "hidden"} flex-1 flex-col bg-white w-full`}
+            >
+                {activeChat ? (
+                    <>
+                        <ChatHeader
+                            participants={participants} // Updated for dual info
+                            onBack={() => setShowMobileChat(false)}
+                            ticketId={activeChat?.ticket_id}
+                            bookingStatus={bookingStatus}
+                        />
+                        {/* Admin Info Banner */}
+                        <div className="bg-blue-50/50 border-b border-blue-100 px-4 py-2 flex items-center gap-2 text-blue-700 text-[11px] font-semibold uppercase tracking-wider">
+                            <LuShield size={14} className="animate-pulse" />
+                            Read-Only Dispute Mediation View
+                        </div>
+                        <ChatMessages
+                            messages={messages}
+                            isloadingChatMessage={isloadingChatMessage}
+                        />
+                    </>
+                ) : (
+                    <div className="flex-1 hidden md:flex flex-col items-center justify-center text-gray-400 gap-4">
+                        <div className="p-6 bg-gray-100 rounded-full">
+                            <LuShield size={48} className="text-gray-300" />
+                        </div>
+                        <p className="font-medium text-gray-500">
+                            Select a support ticket to audit the conversation
+                        </p>
+                    </div>
+                )}
+            </main>
+        </div>
+    );
 }

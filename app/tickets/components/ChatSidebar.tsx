@@ -4,12 +4,11 @@ import { useState } from "react";
 import { LuSearch } from "react-icons/lu";
 import Image from "next/image";
 import { formatHumanReadableDate } from "@/utils/formatDate";
-import { Ticket } from "@/types/Ticket";
 
 interface ChatSidebarProps {
-  chats: Ticket[];
+  chats: any[]; // Using any because Admin Ticket has customer_name/provider_name
   activeChatId: string | undefined;
-  onSelectChat: (chat: Ticket) => void;
+  onSelectChat: (chat: any) => void;
 }
 
 export default function ChatSidebar({
@@ -19,8 +18,6 @@ export default function ChatSidebar({
 }: ChatSidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filter chats based on vendor name or last message
-  // Inside ChatSidebar.tsx
   const filteredChats = chats
     .filter(
       (chat, index, self) =>
@@ -28,20 +25,24 @@ export default function ChatSidebar({
     )
     .filter(
       (chat) =>
-        chat.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        chat.customer_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        chat.provider_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        chat.service_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         chat.last_message?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
   return (
     <aside className="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col h-full overflow-hidden">
-      {/* Search Header */}
+      {/* Header */}
       <div className="p-6 pb-4">
-        <h1 className="text-2xl font-bold mb-4 text-gray-900">Chats</h1>
+        <h1 className="text-xl font-bold mb-4 text-gray-900 flex items-center gap-2">
+          Dispute Logs
+        </h1>
         <div className="relative">
-          <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 size={18}" />
+          <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"
-            placeholder="Search conversations..."
+            placeholder="Search tickets or users..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-gray-100 border-none rounded-xl py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-hub-primary placeholder:text-gray-400 transition-all"
@@ -49,76 +50,76 @@ export default function ChatSidebar({
         </div>
       </div>
 
-      {/* Conversations List */}
-      <nav className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200">
+      {/* List */}
+      <nav className="flex-1 overflow-y-auto">
         {filteredChats.length > 0 ? (
-          filteredChats.map((chat: Ticket) => {
+          filteredChats.map((chat) => {
             const isActive = activeChatId === chat.ticket_id;
 
             return (
               <div
                 key={chat.ticket_id}
                 onClick={() => onSelectChat(chat)}
-                className={`flex items-center gap-3 p-4 cursor-pointer border-l-4 transition-all ${isActive
-                  ? "bg-green-50 border-hub-primary shadow-sm"
-                  : "hover:bg-gray-50 border-transparent"
-                  }`}
+                className={`flex items-center gap-3 p-4 cursor-pointer border-l-4 transition-all ${
+                  isActive
+                    ? "bg-blue-50 border-blue-600 shadow-sm"
+                    : "hover:bg-gray-50 border-transparent"
+                }`}
               >
-                {/* Avatar Section */}
-                <div className="relative shrink-0">
-                  <div className="h-12 w-12 rounded-full overflow-hidden border bg-gray-50 flex items-center justify-center">
+                {/* Dual Avatar for Admin */}
+                <div className="relative shrink-0 flex -space-x-4">
+                  <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-white bg-gray-200 z-10">
                     <Image
-                      src={chat.profile_photo || "/placeholder.png"}
-                      alt={chat.full_name || "User"}
-                      width={48}
-                      height={48}
-                      unoptimized // Important: since your SVGs are Base64 strings
+                      src={chat.customer_photo || "/placeholder.png"}
+                      alt="Customer"
+                      width={40}
+                      height={40}
+                      unoptimized
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  {chat.online_status === "online" && (
-                    <span className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-hub-primary border-2 border-white rounded-full shadow-sm" />
-                  )}
+                  <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-white bg-gray-300">
+                    <Image
+                      src={chat.provider_photo || "/placeholder.png"}
+                      alt="Provider"
+                      width={40}
+                      height={40}
+                      unoptimized
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
                 </div>
 
                 {/* Content Section */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex justify-between items-baseline mb-0.5">
-                    <span
-                      className={`text-sm truncate pr-2 ${isActive
-                        ? "font-bold text-hub-secondary"
-                        : "font-semibold text-gray-900"
-                        }`}
-                    >
-                      {chat.full_name}
+                  <div className="flex justify-between items-baseline">
+                    <span className="text-[10px] font-bold text-blue-600 uppercase tracking-tighter">
+                      {chat.ticket_id.split('-').pop()}
                     </span>
-                    <span className="text-[10px] text-gray-400 shrink-0 font-medium">
-                      {chat.last_message_time
-                        ? formatHumanReadableDate(chat.last_message_time)
-                        : ""}
+                    <span className="text-[9px] text-gray-400">
+                      {chat.last_message_time ? formatHumanReadableDate(chat.last_message_time) : ""}
                     </span>
                   </div>
-                  <p
-                    className={`text-xs truncate ${isActive ? "text-hub-secondary/80" : "text-gray-500"
-                      }`}
-                  >
-                    {chat.last_message || "No messages yet"}
+                  
+                  <h3 className={`text-xs truncate font-bold mt-0.5 ${isActive ? "text-blue-900" : "text-gray-900"}`}>
+                    {chat.customer_name} vs {chat.provider_name}
+                  </h3>
+                  
+                  <p className="text-[10px] text-gray-500 truncate italic">
+                    {chat.service_name}
+                  </p>
+                  
+                  <p className={`text-[11px] truncate mt-1 ${isActive ? "text-blue-700" : "text-gray-500"}`}>
+                    {chat.last_message || "No messages"}
                   </p>
                 </div>
               </div>
             );
           })
         ) : (
-          <div className="flex flex-col items-center justify-center p-10 text-center">
-            <div className="bg-gray-100 p-3 rounded-full mb-3">
-              <LuSearch size={24} className="text-gray-400" />
-            </div>
-            <p className="text-sm font-medium text-gray-500">
-              No conversations
-            </p>
-            <p className="text-xs text-gray-400 mt-1">
-              Try a different search term
-            </p>
+          <div className="flex flex-col items-center justify-center p-10 text-center opacity-50">
+             <LuSearch size={30} className="mb-2" />
+             <p className="text-xs font-bold">No disputes found</p>
           </div>
         )}
       </nav>
