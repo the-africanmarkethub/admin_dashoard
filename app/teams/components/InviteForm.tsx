@@ -79,7 +79,8 @@ export default function InviteForm({ onClose }: Props) {
         try {
             const response = await sendInvite(formData);
             toast.success(response.message);
-            window.location.reload();
+            setLoading(false);
+            onClose();
         } catch (err) {
             const error = err as AxiosError<{
                 errors?: Record<string, string[]>;
