@@ -51,6 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
             }
         }
     }, []);
+    
 
     const handleLogout = () => {
         document.cookie =

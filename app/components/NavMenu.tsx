@@ -21,15 +21,18 @@ const NavMenu = ({ user }: { user: User | null }) => {
             // Only allow these sections for staff
             const allowed = [
                 "Customer Management",
-                "Items Management",
-                "Vendor Management",
-                "Support Tickets",
+                "Order Management",
+                "Booking Management",
                 "Reviews Management",
+                "Vendor Management",
+                "Items Management",
                 "Category Management",
                 "Variation Management",
-                "Banner Management",
                 "Shop Management",
+                "Banner Management",
+                "Subscriptions",
                 "FAQs Management",
+                "Support Tickets",
             ];
             return NAVIGATION.filter((nav) => allowed.includes(nav.name));
         }
