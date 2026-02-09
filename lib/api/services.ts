@@ -20,7 +20,7 @@ export async function getServiceChat(ticketId: string) {
  * Expects FormData for file upload support
  */
 export const replyServiceChat = async (payload: FormData) => {
-  const { data } = await axios.post("/tickets/upsert", payload, {
+  const { data } = await axios.post("/tickets/save", payload, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
